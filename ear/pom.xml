@@ -4,62 +4,52 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>projet_dac</groupId>
-    <artifactId>ear</artifactId>
-    <packaging>ear</packaging>
-    <version>1.0-SNAPSHOT</version>
-
     <parent>
-        <groupId>projet_dac</groupId>
+        <groupId>com.projet_dac</groupId>
         <artifactId>projet_dac</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <dependencies>
-        <!-- web and ejb modules -->
-        <dependency>
-            <groupId>projet_dac</groupId>
-            <artifactId>web</artifactId>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>projet_dac</groupId>
-            <artifactId>ejb</artifactId>
-            <type>ejb</type>
-        </dependency>
-        <!-- external lucene libraries -->
-
-    </dependencies>
+    <groupId>com.projet_dac</groupId>
+    <artifactId>ear</artifactId>
+    <packaging>ear</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>projet DAC ear</name>
+    <url>http://maven.apache.org</url>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
                 <version>2.8</version>
                 <!-- configuring the ear plugin -->
-                <configuration>
-                    <modules>
-                        <webModule>
-                            <groupId>projet_dac</groupId>
-                            <artifactId>web</artifactId>
-                            <contextRoot>webWeb</contextRoot>
-                            <unpack>true</unpack>
-                        </webModule>
-                        <ejbModule>
-                            <groupId>projet_dac</groupId>
-                            <artifactId>ejb</artifactId>
-                            <unpack>true</unpack>
-                        </ejbModule>
-                        <!--extra libs directory -->
-                    </modules>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
         </plugins>
+        <finalName>projet-DAC-ear</finalName>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.projet_dac</groupId>
+            <artifactId>ejb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.projet_dac</groupId>
+            <artifactId>web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
 </project>

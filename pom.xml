@@ -3,33 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>projet_dac</groupId>
+    <groupId>com.projet_dac</groupId>
     <artifactId>projet_dac</artifactId>
     <packaging>pom</packaging>
-    <name>projet_dac</name>
+    <name>projet DAC</name>
     <version>1.0-SNAPSHOT</version>
+    <url>http://maven.apache.org</url>
 
     <modules>
+        <module>ear</module>
         <module>web</module>
         <module>ejb</module>
-        <module>ear</module>
     </modules>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>projet_dac</groupId>
-                <artifactId>web</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>war</type>
-            </dependency>
-            <dependency>
-                <groupId>projet_dac</groupId>
-                <artifactId>ejb</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <type>ejb</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 </project>
