@@ -14,25 +14,43 @@ Install a MySQL server
 ---
 You can install any mysql server you want.
 Here we're using docker, which is available on any Linux distribution.
+First, install docker `sudo apt-get install lxc-docker` or `sudo apt-get install docker`
 
-```
-sudo docker run --name mysql-dac -e MYSQL_ROOT_PASSWORD=coucou -e MYSQL_USER=dac
--e MYSQL_PASSWORD=coucou -e MYSQL_DATABASE=dac --net=host -d mysql
-```
+If needed, run the docker deamon.
 
-Create a mysql server with user "dac" and password "coucou" named "mysql-dac".
-Run the docker deamon.
-
+On arch:
 ```
 sudo systemctl start docker
 ```
 
-Run the mysql docker server
-
+On debian:
 ```
-sudo docker run mysql-dac
+sudo service start docker
 ```
 
+Create and run the container named *mysql-dac* containing a mysql server with
+user *dac* and password *coucou* and database *dac*:
+```
+sudo docker run --name mysql-dac -e MYSQL_ROOT_PASSWORD=coucou -e MYSQL_USER=dac
+-e MYSQL_PASSWORD=coucou -e MYSQL_DATABASE=dac --net=host -d mysql
+```
+Here, you might want to create a table and populate the database, using dac.sql
+```
+mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/dac.sql
+```
+
+To stop the mysql server container:
+```
+sudo docker stop mysql-dac
+```
+
+To resume the mysql server container:
+```
+sudo docker start mysql-dac
+```
+
+The database keep its state when the container is stoped (No need to recreate
+the table)
 
 Install JDBC driver
 ---
