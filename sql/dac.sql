@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(100) DEFAULT NULL,
   `remark` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB CHARSET SET=utf8;
 
 --
 -- Dumping data for table `user`
