@@ -60,6 +60,7 @@
                     <autoDelete>true</autoDelete>
                     <port>8080</port> 
                     <contextRoot>web</contextRoot>
+                    <configFile>${basedir}/domain.xml</configFile>
                 </configuration> 
 
                 <executions> 
@@ -76,6 +77,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.34</version>
+        </dependency>
         <dependency>
             <groupId>com.projet_dac</groupId>
             <artifactId>ejb</artifactId>
