@@ -1,0 +1,5 @@
+/target/ear/target
+ejb/target
+web/target
+target
+gfembed[0-9]*tmp
