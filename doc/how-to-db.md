@@ -59,7 +59,9 @@ Download the JDBC driver for MySQL from
 `http://dev.mysql.com/downloads/connector/j/3.1.html`
 
 Extract it and put `mysql-connector-java-3.1.14-bin.jar` in
-`~/GlassFish_Server/glassfish/lib` 
+`~/GlassFish_Server/glassfish/lib` *(this path can change, check, in admin
+console, Server (Admin Server) > General > Installation Directory to know where
+Glassfish is installed)*
 
 
 Setup GlassFish for MySQL
