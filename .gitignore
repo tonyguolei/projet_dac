@@ -4,3 +4,4 @@ web/target
 target
 gfembed[0-9]*tmp
 .DS_Store
+/ear/target/
