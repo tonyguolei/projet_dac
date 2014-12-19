@@ -1,18 +1,15 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: guolei
-  Date: 12/7/14
-  Time: 1:41 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<form method="get" action="helloworld">
-    <input type="submit" value="Say Hello"/>
-</form>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <%@include file="fragments/header.jsp" %>
+  <body>
+    <div class="container">
+      <h1>Hello, world!</h1>
+      <form method="get" action="helloworld" role="form">
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Say Hello"/>
+      </form>
+    </div>
+    <%@include file="fragments/footer.jsp" %>
+    <%@include file="fragments/jsfiles.jsp" %>
+  </body>
 </html>
