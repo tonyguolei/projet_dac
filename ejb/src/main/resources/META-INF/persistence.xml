@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="USERS" transaction-type="JTA">
+  <persistence-unit name="unitDac" transaction-type="JTA">
     <jta-data-source>jdbc/dac</jta-data-source>
+    <class>mybeans.Notification</class>
+    <class>mybeans.Comment</class>
+    <class>mybeans.PrivateMessage</class>
+    <class>mybeans.MemoriseProject</class>
+    <class>mybeans.User</class>
+    <class>mybeans.Fund</class>
+    <class>mybeans.Project</class>
+    <class>mybeans.Bonus</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- <property name="javax.persistence.schema-generation.database.action" value="create"/> -->

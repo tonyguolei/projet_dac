@@ -12,7 +12,7 @@ import javax.persistence.Query;
 import java.util.List;
 @Stateless
 public class UserDao {
-    @PersistenceContext(unitName = "USERS")
+    @PersistenceContext(unitName = "unitDac")
     private EntityManager em;
     public void save(User entity)
     {
