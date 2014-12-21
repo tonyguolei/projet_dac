@@ -8,6 +8,7 @@ package mybeans;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -21,5 +22,17 @@ public class ProjectDao extends Dao<Project> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    /**
+     * Get the Project entity bean having the given primary key.
+     *
+     * @param id Primary key of the project.
+     * @return The project having id as a primary key.
+     */
+    public Project getByIdProject(int id) {
+        TypedQuery<Project> query = em.createNamedQuery("Project.findByIdProject", Project.class);
+        query = query.setParameter("idProject", id);
+        return query.getSingleResult();
     }
 }

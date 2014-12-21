@@ -8,6 +8,7 @@ package mybeans;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -21,5 +22,17 @@ public class NotificationDao extends Dao<Notification> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    /**
+     * Get the Notification entity bean having the given primary key.
+     *
+     * @param id Primary key of the notification.
+     * @return The notification having id as a primary key.
+     */
+    public Notification getByIdNotification(int id) {
+        TypedQuery<Notification> query = em.createNamedQuery("Notification.findByIdNotification", Notification.class);
+        query = query.setParameter("idNotification", id);
+        return query.getSingleResult();
     }
 }

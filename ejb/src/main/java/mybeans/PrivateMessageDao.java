@@ -8,6 +8,7 @@ package mybeans;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -21,5 +22,17 @@ public class PrivateMessageDao extends Dao<PrivateMessage> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    /**
+     * Get the PrivateMessage entity bean having the given primary key.
+     *
+     * @param id Primary key of the private message.
+     * @return The private message having id as a primary key.
+     */
+    public PrivateMessage getByIdPrivateMessage(int id) {
+        TypedQuery<PrivateMessage> query = em.createNamedQuery("PrivateMessage.findByIdPrivateMessage", PrivateMessage.class);
+        query = query.setParameter("idPrivateMessage", id);
+        return query.getSingleResult();
     }
 }
