@@ -54,6 +54,9 @@ public class Notification implements Serializable {
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User idUser;
+    @JoinColumn(name = "idProject", referencedColumnName = "idProject")
+    @ManyToOne(optional = false)
+    private Project idProject;
 
     public Notification() {
     }
@@ -107,6 +110,14 @@ public class Notification implements Serializable {
 
     public void setIdUser(User idUser) {
         this.idUser = idUser;
+    }
+
+    public Project getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(Project idProject) {
+        this.idProject = idProject;
     }
 
     @Override

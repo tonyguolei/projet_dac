@@ -6,6 +6,7 @@
 package mybeans;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
     @NamedQuery(name = "Project.findByIdProject", query = "SELECT p FROM Project p WHERE p.idProject = :idProject"),
     @NamedQuery(name = "Project.findByGoal", query = "SELECT p FROM Project p WHERE p.goal = :goal"),
+    @NamedQuery(name = "Project.findByTitle", query = "SELECT p FROM Project p WHERE p.title = :title"),
     @NamedQuery(name = "Project.findByDescription", query = "SELECT p FROM Project p WHERE p.description = :description"),
     @NamedQuery(name = "Project.findByCreationDate", query = "SELECT p FROM Project p WHERE p.creationDate = :creationDate"),
     @NamedQuery(name = "Project.findByEndDate", query = "SELECT p FROM Project p WHERE p.endDate = :endDate"),
@@ -47,9 +49,14 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idProject;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
-    private int goal;
+    private BigDecimal goal;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    private String title;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20000)
@@ -79,6 +86,8 @@ public class Project implements Serializable {
     @ManyToOne(optional = false)
     private User idOwner;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProject")
+    private Collection<Notification> notificationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProject")
     private Collection<Bonus> bonusCollection;
 
     public Project() {
@@ -88,9 +97,10 @@ public class Project implements Serializable {
         this.idProject = idProject;
     }
 
-    public Project(Integer idProject, int goal, String description, Date creationDate, Date endDate, String tags, boolean flagged) {
+    public Project(Integer idProject, BigDecimal goal, String title, String description, Date creationDate, Date endDate, String tags, boolean flagged) {
         this.idProject = idProject;
         this.goal = goal;
+        this.title = title;
         this.description = description;
         this.creationDate = creationDate;
         this.endDate = endDate;
@@ -106,12 +116,20 @@ public class Project implements Serializable {
         this.idProject = idProject;
     }
 
-    public int getGoal() {
+    public BigDecimal getGoal() {
         return goal;
     }
 
-    public void setGoal(int goal) {
+    public void setGoal(BigDecimal goal) {
         this.goal = goal;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -187,6 +205,15 @@ public class Project implements Serializable {
 
     public void setIdOwner(User idOwner) {
         this.idOwner = idOwner;
+    }
+
+    @XmlTransient
+    public Collection<Notification> getNotificationCollection() {
+        return notificationCollection;
+    }
+
+    public void setNotificationCollection(Collection<Notification> notificationCollection) {
+        this.notificationCollection = notificationCollection;
     }
 
     @XmlTransient

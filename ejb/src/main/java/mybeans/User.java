@@ -6,6 +6,7 @@
 package mybeans;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByMail", query = "SELECT u FROM User u WHERE u.mail = :mail"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByBalance", query = "SELECT u FROM User u WHERE u.balance = :balance"),
+    @NamedQuery(name = "User.findByDeleted", query = "SELECT u FROM User u WHERE u.deleted = :deleted"),
     @NamedQuery(name = "User.findByBanned", query = "SELECT u FROM User u WHERE u.banned = :banned"),
     @NamedQuery(name = "User.findByIsAdmin", query = "SELECT u FROM User u WHERE u.isAdmin = :isAdmin")})
 public class User implements Serializable {
@@ -49,9 +51,13 @@ public class User implements Serializable {
     @NotNull
     @Size(min = 1, max = 45)
     private String password;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
-    private int balance;
+    private BigDecimal balance;
+    @Basic(optional = false)
+    @NotNull
+    private boolean deleted;
     @Basic(optional = false)
     @NotNull
     private boolean banned;
@@ -80,11 +86,12 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String mail, String password, int balance, boolean banned, boolean isAdmin) {
+    public User(Integer idUser, String mail, String password, BigDecimal balance, boolean deleted, boolean banned, boolean isAdmin) {
         this.idUser = idUser;
         this.mail = mail;
         this.password = password;
         this.balance = balance;
+        this.deleted = deleted;
         this.banned = banned;
         this.isAdmin = isAdmin;
     }
@@ -113,12 +120,20 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public int getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public boolean getBanned() {

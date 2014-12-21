@@ -6,6 +6,7 @@
 package mybeans;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,9 +35,10 @@ public class Fund implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer idFund;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
-    private int value;
+    private BigDecimal value;
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User idUser;
@@ -51,7 +53,7 @@ public class Fund implements Serializable {
         this.idFund = idFund;
     }
 
-    public Fund(Integer idFund, int value) {
+    public Fund(Integer idFund, BigDecimal value) {
         this.idFund = idFund;
         this.value = value;
     }
@@ -64,11 +66,11 @@ public class Fund implements Serializable {
         this.idFund = idFund;
     }
 
-    public int getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 
