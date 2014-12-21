@@ -7,7 +7,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-    <%@include file="fragments/header.jsp" %>
+    <head>
+        <%@include file="fragments/header.jsp" %>
+    </head>
   <body>
     <%@include file="fragments/navbar.jsp" %>
     <div class="container">
