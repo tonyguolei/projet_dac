@@ -5,6 +5,7 @@
  */
 package mybeans;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,5 +35,15 @@ public class PrivateMessageDao extends Dao<PrivateMessage> {
         TypedQuery<PrivateMessage> query = em.createNamedQuery("PrivateMessage.findByIdPrivateMessage", PrivateMessage.class);
         query = query.setParameter("idPrivateMessage", id);
         return query.getSingleResult();
+    }
+    
+    /**
+     * Get the list of all private messages.
+     * 
+     * @return The list of all private messages.
+     */
+    public List<PrivateMessage> getAll() {
+        TypedQuery<PrivateMessage> query = em.createNamedQuery("PrivateMessage.findAll", PrivateMessage.class);
+        return query.getResultList();
     }
 }

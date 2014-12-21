@@ -5,6 +5,7 @@
  */
 package mybeans;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,5 +35,15 @@ public class ProjectDao extends Dao<Project> {
         TypedQuery<Project> query = em.createNamedQuery("Project.findByIdProject", Project.class);
         query = query.setParameter("idProject", id);
         return query.getSingleResult();
+    }
+    
+    /**
+     * Get the list of all projects.
+     * 
+     * @return The list of all projects.
+     */
+    public List<Project> getAll() {
+        TypedQuery<Project> query = em.createNamedQuery("Project.findAll", Project.class);
+        return query.getResultList();
     }
 }

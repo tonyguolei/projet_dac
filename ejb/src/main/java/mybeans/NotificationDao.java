@@ -5,6 +5,7 @@
  */
 package mybeans;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,5 +35,15 @@ public class NotificationDao extends Dao<Notification> {
         TypedQuery<Notification> query = em.createNamedQuery("Notification.findByIdNotification", Notification.class);
         query = query.setParameter("idNotification", id);
         return query.getSingleResult();
+    }
+    
+    /**
+     * Get the list of all notifications.
+     * 
+     * @return The list of all notifications.
+     */
+    public List<Notification> getAll() {
+        TypedQuery<Notification> query = em.createNamedQuery("Notification.findAll", Notification.class);
+        return query.getResultList();
     }
 }

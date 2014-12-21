@@ -5,6 +5,7 @@
  */
 package mybeans;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,5 +36,15 @@ public class CommentDao extends Dao<Comment> {
         TypedQuery<Comment> query = em.createNamedQuery("Comment.findByIdComment", Comment.class);
         query = query.setParameter("idComment", id);
         return query.getSingleResult();
+    }
+    
+    /**
+     * Get the list of all comments.
+     * 
+     * @return The list of all comments.
+     */
+    public List<Comment> getAll() {
+        TypedQuery<Comment> query = em.createNamedQuery("Comment.findAll", Comment.class);
+        return query.getResultList();
     }
 }

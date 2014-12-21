@@ -5,6 +5,7 @@
  */
 package mybeans;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,5 +36,15 @@ public class FundDao extends Dao<Fund> {
         TypedQuery<Fund> query = em.createNamedQuery("Fund.findByIdFund", Fund.class);
         query = query.setParameter("idFund", id);
         return query.getSingleResult();
+    }
+    
+    /**
+     * Get the list of all funds.
+     * 
+     * @return The list of all funds.
+     */
+    public List<Fund> getAll() {
+        TypedQuery<Fund> query = em.createNamedQuery("Fund.findAll", Fund.class);
+        return query.getResultList();
     }
 }
