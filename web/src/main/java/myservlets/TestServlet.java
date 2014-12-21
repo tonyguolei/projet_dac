@@ -25,10 +25,38 @@ import javax.persistence.PersistenceException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolationException;
+import mybeans.BonusDao;
+import mybeans.CommentDao;
+import mybeans.FundDao;
+import mybeans.MemoriseProjectDao;
+import mybeans.NotificationDao;
+import mybeans.PrivateMessageDao;
+import mybeans.ProjectDao;
 
 @WebServlet(name = "TestServlet", urlPatterns = {"/TestServlet"})
 public class TestServlet extends HttpServlet {
 
+    @EJB
+    private BonusDao bonusDao;
+    
+    @EJB
+    private CommentDao commentDao;
+    
+    @EJB
+    private FundDao fundDao;
+    
+    @EJB
+    private MemoriseProjectDao memoriseProjectDao;
+    
+    @EJB
+    private NotificationDao notificationDao;
+    
+    @EJB
+    private PrivateMessageDao privateMessageDao;
+    
+    @EJB
+    private ProjectDao projectDao;
+    
     @EJB
     private UserDao userDao;
 
