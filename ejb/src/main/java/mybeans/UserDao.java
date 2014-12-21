@@ -25,7 +25,7 @@ public class UserDao extends Dao<User> {
     }
 
     /**
-     * Get the User with the entity bean having the given primary key.
+     * Get the User entity bean having the given primary key.
      *
      * @param id Primary key of the user.
      * @return The user having id as a primary key.
