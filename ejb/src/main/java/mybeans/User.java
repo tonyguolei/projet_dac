@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idUser;
     @Basic(optional = false)
@@ -86,6 +86,15 @@ public class User implements Serializable {
 
     public User(Integer idUser) {
         this.idUser = idUser;
+    }
+    
+    public User(String mail, String password) {
+        this.mail = mail;
+        this.password = password;
+        this.balance = BigDecimal.ZERO;
+        this.deleted = false;
+        this.banned = false;
+        this.isAdmin = false;
     }
 
     public User(Integer idUser, String mail, String password, BigDecimal balance, boolean deleted, boolean banned, boolean isAdmin) {
