@@ -57,4 +57,18 @@ public class UserDao extends Dao<User> {
         TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
         return query.getResultList();
     }
+    
+    /**
+     * Insert a new user after checking that the mail is unique.
+     * @param user
+     * @return true on success, false when an other user already have this mail.
+     */
+    public boolean insert(User user) {
+        //TODO do a transaction
+        if (!this.getByMail(user.getMail()).isEmpty()) {
+            return false;
+        }
+        this.save(user);
+        return true;
+    }
 }
