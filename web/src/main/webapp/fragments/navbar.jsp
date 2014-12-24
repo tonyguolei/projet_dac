@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -39,7 +40,11 @@
         -->
             <ul class="nav navbar-nav navbar-right">
                 <li class="navbar-brand navbar-brand-centered"><span class="glyphicon glyphicon-user" id="logIcon"></span></li>
-                <li><a href="login.jsp">Login</a></li>   
+                <% if (session.getAttribute("user") == null ) { %>    
+                    <li><a href="login.jsp">Login</a></li>
+                <% } else { %>
+                    <li><c:out value="${sessionScope.user.mail}"/></li>
+                <% } %>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
