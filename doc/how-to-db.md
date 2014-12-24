@@ -14,18 +14,13 @@ Install a MySQL server
 ---
 You can install any mysql server you want.
 Here we're using docker, which is available on any Linux distribution.
-First, install docker `sudo apt-get install lxc-docker` or `sudo apt-get install docker`
+First, install docker: https://docs.docker.com/installation/ubuntulinux/
 
 If needed, run the docker deamon.
 
 On arch:
 ```
 sudo systemctl start docker
-```
-
-On debian:
-```
-sudo service start docker
 ```
 
 Create and run the container named *mysql-dac* containing a mysql server with
