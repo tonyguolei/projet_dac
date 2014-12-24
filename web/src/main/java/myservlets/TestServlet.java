@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -140,8 +141,7 @@ public class TestServlet extends HttpServlet {
             msg = htmlTableUser();
         } else if (para.equals("update")) {
             int pk = Integer.parseInt(request.getParameter("pk"));
-            int balance = Integer.parseInt(request.getParameter("balance"));
-            
+            BigDecimal balance = new BigDecimal(Double.parseDouble(request.getParameter("balance")));
             try {
                 User user = userDao.getByIdUser(pk);
                 user.setBalance(balance);
