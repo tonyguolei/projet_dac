@@ -8,6 +8,7 @@ package myservlets;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.persistence.EntityExistsException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -100,11 +101,12 @@ public class ControllerUser extends HttpServlet {
                 //TODO report error
                 response.sendRedirect("signup.jsp");
             } else {
-                User user = new User(mail, password); 
-                if (this.userDao.insert(user)) {
+                User user = new User(mail, password);
+                try {
+                    this.userDao.save(user);
                     //TODO show message that it worked
                     response.sendRedirect("login.jsp");
-                } else {
+                } catch (Exception e) {
                     //TODO show message that it didn't worked
                     System.out.println("Can't create user");
                     response.sendRedirect("signup.jsp");
@@ -118,13 +120,8 @@ public class ControllerUser extends HttpServlet {
         if (mail.equals("") || password.equals("")) {
             response.sendRedirect("login.jsp");
         } else {
-            List<User> users = userDao.getByMail(mail);
-            if (users.isEmpty()) {
-                //TODO show message that user is invalid
-                System.out.println("Invalid user");
-                response.sendRedirect("login.jsp");
-            } else {
-                User user = users.get(0);
+            try {
+                User user = userDao.getByMail(mail);
                 if (password.equals(user.getPassword())) {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("user", user);
@@ -134,6 +131,10 @@ public class ControllerUser extends HttpServlet {
                     System.out.println("Invalid password");
                     response.sendRedirect("login.jsp");
                 }
+            } catch (Exception e) {
+                //TODO show message that user is invalid
+                System.out.println("Invalid user");
+                response.sendRedirect("login.jsp");
             }
         }
     }
