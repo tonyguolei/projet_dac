@@ -37,15 +37,19 @@ public class UserDao extends Dao<User> {
     }
 
     /**
-     * Get Users with the entity bean having the given mail field.
+     * Get the User with the entity bean having the given mail field.
+     *
+     * Mail field has unique constraint in the DB, so there shouldn't be
+     * {@link NonUniqueResultException NonUniqueResultException} exception
+     * thrown.
      *
      * @param mail Mail of the user.
-     * @return The list of users having mail as email address.
+     * @return The user having mail as email address.
      */
-    public List<User> getByMail(String mail) {
+    public User getByMail(String mail) {
         TypedQuery<User> query = em.createNamedQuery("User.findByMail", User.class);
         query = query.setParameter("mail", mail);
-        return query.getResultList();
+        return query.getSingleResult();
     }
 
     /**
