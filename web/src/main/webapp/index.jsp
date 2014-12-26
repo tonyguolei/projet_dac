@@ -14,6 +14,12 @@
     <%@include file="fragments/navbar.jsp" %>
     <div class="container">
         <!-- Include from GET parameter mechanism goes here -->
+        <% String nav = request.getParameter("nav"); %>
+        <% if (nav == null || nav == "") { %>
+            <%@include file="inc/welcome.jsp" %>
+        <% } else { /*Page not found, go to 404*/ %>
+            <%@include file="err/404.jsp" %>
+        <% } %>
     </div>
     <%@include file="fragments/footer.jsp" %>
     <%@include file="fragments/jsfiles.jsp" %>
