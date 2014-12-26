@@ -8,20 +8,20 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%@include file="fragments/header.jsp" %>
+        <%@include file="WEB-INF/fragments/header.jsp" %>
     </head>
   <body>
-    <%@include file="fragments/navbar.jsp" %>
+    <%@include file="WEB-INF/fragments/navbar.jsp" %>
     <div class="container">
         <!-- Include from GET parameter mechanism goes here -->
         <% String nav = request.getParameter("nav"); %>
         <% if (nav == null || nav == "") { %>
-            <%@include file="inc/welcome.jsp" %>
+            <%@include file="WEB-INF/inc/welcome.jsp" %>
         <% } else { /*Page not found, go to 404*/ %>
-            <%@include file="err/404.jsp" %>
+            <%@include file="WEB-INF/err/404.jsp" %>
         <% } %>
     </div>
-    <%@include file="fragments/footer.jsp" %>
-    <%@include file="fragments/jsfiles.jsp" %>
+    <%@include file="WEB-INF/fragments/footer.jsp" %>
+    <%@include file="WEB-INF/fragments/jsfiles.jsp" %>
   </body>
 </html>

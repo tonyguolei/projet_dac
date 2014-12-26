@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%@include file="fragments/header.jsp" %>
+        <%@include file="WEB-INF/fragments/header.jsp" %>
     </head>
   <body>
-    <%@include file="fragments/navbar.jsp" %>
+    <%@include file="WEB-INF/fragments/navbar.jsp" %>
     <div class="container">
         <!-- Include from GET parameter mechanism goes here -->
         <form class="form-signin" role="form" method="POST" action="ControllerUser?action=login">
@@ -22,7 +22,7 @@
         </form>
         <a href="signup.jsp"> No account yet ?</a>
     </div>
-    <%@include file="fragments/footer.jsp" %>
-    <%@include file="fragments/jsfiles.jsp" %>
+    <%@include file="WEB-INF/fragments/footer.jsp" %>
+    <%@include file="WEB-INF/fragments/jsfiles.jsp" %>
   </body>
 </html>
