@@ -12,4 +12,8 @@
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>
+    <error-page>
+            <error-code>404</error-code>
+            <location>/index.jsp?nav=error</location>
+    </error-page>
 </web-app>
