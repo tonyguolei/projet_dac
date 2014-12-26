@@ -43,7 +43,7 @@
                 <% if (session.getAttribute("user") == null ) { %>    
                     <li><a href="login.jsp">Login</a></li>
                 <% } else { %>
-                    <li><c:out value="${sessionScope.user.mail}"/></li>
+                    <li class="navbar-text"><c:out value="${sessionScope.user.mail}"/></li>
                 <% } %>
             </ul>
         <%// </div><!-- /.navbar-collapse --> %>
