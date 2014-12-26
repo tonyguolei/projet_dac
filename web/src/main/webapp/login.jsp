@@ -13,7 +13,7 @@
   <body>
     <%@include file="WEB-INF/fragments/navbar.jsp" %>
     <div class="container">
-        <!-- Include from GET parameter mechanism goes here -->
+        <%@include file="WEB-INF/fragments/messages.jsp" %>
         <form class="form-signin" role="form" method="POST" action="ControllerUser?action=login">
             <h2 class="form-signin-heading">Log in</h2>
             <input type="email" name="mail" class="form-control" placeholder="Email" required autofocus>

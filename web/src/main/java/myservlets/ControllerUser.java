@@ -5,7 +5,10 @@
  */
 package myservlets;
 
+import alerts.Alert;
+import alerts.AlertType;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.persistence.EntityExistsException;
@@ -25,6 +28,10 @@ import mybeans.UserDao;
 @WebServlet(name = "ControllerUser", urlPatterns = {"/ControllerUser"})
 public class ControllerUser extends HttpServlet {
     
+    private static final String ERROR_LOGIN = "The email you entered does not belong to any account.";
+    private static final String ERROR_PASS = "The password you entered is incorrect. Please try again (make sure your caps lock is off).";
+    private static final String SUCCESS_LOGIN = "Login succesful, welcome back!";
+
     @EJB
     private UserDao userDao;
     
@@ -117,22 +124,24 @@ public class ControllerUser extends HttpServlet {
     private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
+        HttpSession session = request.getSession(true);
         if (mail.equals("") || password.equals("")) {
+            //Not supposed to happen, checked by BootStrap
             response.sendRedirect("login.jsp");
         } else {
             try {
                 User user = userDao.getByMail(mail);
                 if (password.equals(user.getPassword())) {
-                    HttpSession session = request.getSession(true);
                     session.setAttribute("user", user);
+                    Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
                     response.sendRedirect("index.jsp");
                 } else {
-                    //TODO show message invalid password
+                    Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
                     System.out.println("Invalid password");
                     response.sendRedirect("login.jsp");
                 }
             } catch (Exception e) {
-                //TODO show message that user is invalid
+                Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
                 System.out.println("Invalid user");
                 response.sendRedirect("login.jsp");
             }

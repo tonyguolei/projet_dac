@@ -13,6 +13,7 @@
   <body>
     <%@include file="WEB-INF/fragments/navbar.jsp" %>
     <div class="container">
+        <%@include file="WEB-INF/fragments/messages.jsp" %>
         <!-- Include from GET parameter mechanism goes here -->
         <% String nav = request.getParameter("nav"); %>
         <% if (nav == null || nav == "") { %>
