@@ -46,6 +46,6 @@
                     <li><c:out value="${sessionScope.user.mail}"/></li>
                 <% } %>
             </ul>
-        </div><!-- /.navbar-collapse -->
+        <%// </div><!-- /.navbar-collapse --> %>
     </div><!-- /.container-fluid -->
 </nav>
