@@ -109,6 +109,17 @@ public class Project implements Serializable {
         this.tags = tags;
         this.flagged = flagged;
     }
+    
+    public Project(User Owner, BigDecimal goal, String title, String description, Date endDate, String tags) {
+        this.idOwner = Owner;
+        this.goal = goal;
+        this.title = title;
+        this.description = description;
+        this.endDate = endDate;
+        this.tags = tags;
+        this.creationDate = new Date();
+        this.flagged = false;
+    }
 
     public Integer getIdProject() {
         return idProject;

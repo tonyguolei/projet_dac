@@ -18,6 +18,8 @@
         <% String nav = request.getParameter("nav"); %>
         <% if (nav == null || nav.equals("")) { %>
             <%@include file="WEB-INF/inc/welcome.jsp" %>
+        <% } else if (nav.equals("createproject")) { %>
+            <%@include file="WEB-INF/inc/createproject.jsp" %>
         <% } else { /*Page not found, go to 404*/ %>
             <%@include file="WEB-INF/err/404.jsp" %>
         <% } %>
