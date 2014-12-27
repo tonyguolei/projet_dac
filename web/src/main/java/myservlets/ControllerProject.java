@@ -5,6 +5,8 @@
  */
 package myservlets;
 
+import alerts.Alert;
+import alerts.AlertType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -26,6 +28,12 @@ import mybeans.User;
  */
 @WebServlet(name = "ControllerProject", urlPatterns = {"/ControllerProject"})
 public class ControllerProject extends HttpServlet {
+    
+    private static final String ERROR_LOGIN = "Please log in to create a new project.";
+    private static final String ERROR_FORM = "Please fill the form correctly.";
+    private static final String SUCCESS_CREATE = "Project created succefully!";
+    private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
+    
 
     @EJB
     private ProjectDao projectDao;
@@ -94,10 +102,10 @@ public class ControllerProject extends HttpServlet {
     }// </editor-fold>
 
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
         if (user == null) {
-            //TODO show a message
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
             response.sendRedirect("login.jsp");
             return;
         }
@@ -116,7 +124,7 @@ public class ControllerProject extends HttpServlet {
                 description == null || description.equals("") ||
                 tags == null || tags.equals("") ||
                 goalS == null || endDateS == null) {
-            //TODO show message
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         }
@@ -127,11 +135,11 @@ public class ControllerProject extends HttpServlet {
             goal = BigDecimal.valueOf(Integer.parseInt(goalS));
             endDate = java.sql.Date.valueOf(endDateS);
         } catch (NumberFormatException e) {
-            //TODO show a message (goal)
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         } catch (IllegalArgumentException e) {
-            //TODO show a message (date)
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         }
@@ -139,10 +147,10 @@ public class ControllerProject extends HttpServlet {
         Project project = new Project(user, goal, title, description, endDate, tags);
         try {
             projectDao.save(project);
-            //TODO show message success
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
             response.sendRedirect("index.jsp");
         } catch (Exception e) {
-            //TODO show message
+            Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         }
