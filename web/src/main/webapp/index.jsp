@@ -16,7 +16,7 @@
         <%@include file="WEB-INF/fragments/messages.jsp" %>
         <!-- Include from GET parameter mechanism goes here -->
         <% String nav = request.getParameter("nav"); %>
-        <% if (nav == null || nav == "") { %>
+        <% if (nav == null || nav.equals("")) { %>
             <%@include file="WEB-INF/inc/welcome.jsp" %>
         <% } else { /*Page not found, go to 404*/ %>
             <%@include file="WEB-INF/err/404.jsp" %>
