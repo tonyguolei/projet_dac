@@ -8,12 +8,31 @@
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>myservlets.TestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerProject</servlet-name>
+        <servlet-class>myservlets.ControllerProject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControllerUser</servlet-name>
+        <servlet-class>myservlets.ControllerUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerProject</servlet-name>
+        <url-pattern>/ControllerProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerUser</servlet-name>
+        <url-pattern>/ControllerUser</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
     <error-page>
-            <error-code>404</error-code>
-            <location>/index.jsp?nav=error</location>
+        <error-code>404</error-code>
+        <location>/index.jsp?nav=error</location>
     </error-page>
 </web-app>
