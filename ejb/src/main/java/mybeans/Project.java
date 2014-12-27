@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @XmlRootElement
+@Table(name = "Project")
 @NamedQueries({
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
     @NamedQuery(name = "Project.findByIdProject", query = "SELECT p FROM Project p WHERE p.idProject = :idProject"),
@@ -46,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idProject;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
