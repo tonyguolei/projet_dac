@@ -8,10 +8,11 @@ package myservlets;
 import alerts.Alert;
 import alerts.AlertType;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +56,9 @@ public class ControllerProject extends HttpServlet {
         switch (action) {
             case "create":
                 doCreate(request, response);
+                break;
+            case "list":
+                doList(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -156,6 +160,13 @@ public class ControllerProject extends HttpServlet {
             return;
         }
         
+    }
+
+    private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Project> projects = projectDao.getAll();
+        request.setAttribute("projects", projects);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=projects");
+        requestDispatcher.forward(request, response);
     }
 
 }

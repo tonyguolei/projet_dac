@@ -13,4 +13,5 @@
   money so that we can take a huge percentage to feed the cat.</p>
   <p>Feel free to <a href="index.jsp?nav=signup">sign up!</a></p>
   <p><a href="index.jsp?nav=createproject">Create a project</a></p>
+  <p><a href="index.jsp?nav=projects">List projects</a></p>
 </div>
