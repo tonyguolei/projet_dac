@@ -3,14 +3,17 @@
     Author     : Thibaut Coutelou
 --%>
 
+<%@page import="alerts.AlertType"%>
+<%@page import="alerts.Alert"%>
 <%/* NOTE: This is an included page from index.jsp (just as the others in this 
    folder, DO NOT use <html> tags or stuff as they're already in */ %>
 
 <%
 
     if (session.getAttribute("user") == null) {
-        //TODO show message "You must log in to create a new project"
-        response.sendRedirect("login.jsp");
+        String ERROR_LOGIN = "Please log in to create a new project.";
+        Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
+        response.sendRedirect("index.jsp?nav=login");
         return;
     }
 %>
