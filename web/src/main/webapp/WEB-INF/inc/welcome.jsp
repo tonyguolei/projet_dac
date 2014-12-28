@@ -11,6 +11,6 @@
   <h1>Welcome to SelfStarter!</h1>
   <p>Here you can browse projects from other people to help them with your
   money so that we can take a huge percentage to feed the cat.</p>
-  <p>Feel free to <a href="signup.jsp">sign up!</a></p>
+  <p>Feel free to <a href="index.jsp?nav=signup">sign up!</a></p>
   <p><a href="index.jsp?nav=createproject">Create a project</a></p>
 </div>

@@ -106,7 +106,7 @@ public class ControllerProject extends HttpServlet {
         User user = (User)session.getAttribute("user");
         if (user == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("index.jsp?nav=login");
             return;
         }
         

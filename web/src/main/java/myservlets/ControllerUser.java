@@ -106,17 +106,17 @@ public class ControllerUser extends HttpServlet {
             String password = request.getParameter("password");
             if (mail.equals("") || password.equals("")) {
                 //TODO report error
-                response.sendRedirect("signup.jsp");
+                response.sendRedirect("index.jsp?nav=signup");
             } else {
                 User user = new User(mail, password);
                 try {
                     this.userDao.save(user);
                     //TODO show message that it worked
-                    response.sendRedirect("login.jsp");
+                    response.sendRedirect("index.jsp?nav=login");
                 } catch (Exception e) {
                     //TODO show message that it didn't worked
                     System.out.println("Can't create user");
-                    response.sendRedirect("signup.jsp");
+                    response.sendRedirect("index.jsp?nav=signup");
                 }
             }
     }
@@ -127,7 +127,7 @@ public class ControllerUser extends HttpServlet {
         HttpSession session = request.getSession(true);
         if (mail.equals("") || password.equals("")) {
             //Not supposed to happen, checked by BootStrap
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("index.jsp?nav=login");
         } else {
             try {
                 User user = userDao.getByMail(mail);
@@ -138,12 +138,12 @@ public class ControllerUser extends HttpServlet {
                 } else {
                     Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
                     System.out.println("Invalid password");
-                    response.sendRedirect("login.jsp");
+                    response.sendRedirect("index.jsp?nav=login");
                 }
             } catch (Exception e) {
                 Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
                 System.out.println("Invalid user");
-                response.sendRedirect("login.jsp");
+                response.sendRedirect("index.jsp?nav=login");
             }
         }
     }
