@@ -57,6 +57,9 @@ public class ControllerUser extends HttpServlet {
             case "signup":
                 doSignup(request, response);
                 break;
+            case "logout":
+                doLogout(request, response);
+                break;
             default:
                 response.sendRedirect("index.jsp");
                 break;
@@ -155,6 +158,15 @@ public class ControllerUser extends HttpServlet {
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
+    }
+
+    private void doLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        
+        HttpSession newSession = request.getSession();
+        Alert.addAlert(newSession, AlertType.SUCCESS, SUCCESS_LOGOUT);
+        response.sendRedirect("index.jsp");
     }
 
 }
