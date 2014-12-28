@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,8 @@ public class ControllerProject extends HttpServlet {
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String SUCCESS_CREATE = "Project created succefully!";
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
+    private static final String ERROR_ID = "Please specify an ID";
+    private static final String ERROR_INSPECT = "Please specify a valid project ID";
     
 
     @EJB
@@ -59,6 +62,9 @@ public class ControllerProject extends HttpServlet {
                 break;
             case "list":
                 doList(request, response);
+                break;
+            case "inspect":
+                doInspect(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -167,6 +173,29 @@ public class ControllerProject extends HttpServlet {
         request.setAttribute("projects", projects);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=projects");
         requestDispatcher.forward(request, response);
+    }
+
+    private void doInspect(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        try {
+            Project project = projectDao.getByIdProject(id);
+            request.setAttribute("project", project);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id="+id);
+            requestDispatcher.forward(request, response);
+        } catch (EJBException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
     }
 
 }

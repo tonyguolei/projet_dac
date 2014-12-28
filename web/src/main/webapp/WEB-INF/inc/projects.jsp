@@ -1,6 +1,6 @@
 <%
     if (request.getAttribute("projects") == null) {
-        response.sendRedirect("ControllerProject?action=list");
+        request.getRequestDispatcher("ControllerProject?action=list").forward(request, response);
         return;
     }
 %>
@@ -19,8 +19,8 @@
         <tbody>
             <c:forEach items="${projects}" var="project">
                 <tr>
-                    <th scope="row"><a href="login.jsp?nav=project&id=${project.idProject}"><c:out value="${project.title}" /></a></th>
-                    <td><a href="login.jsp?nav=user&id=${project.idOwner.idUser}"><c:out value="${project.idOwner.mail}" /></a></td>
+                    <th scope="row"><a href="index.jsp?nav=project&id=${project.idProject}"><c:out value="${project.title}" /></a></th>
+                    <td><a href="index.jsp?nav=user&id=${project.idOwner.idUser}"><c:out value="${project.idOwner.mail}" /></a></td>
                     <td><c:out value="${project.goal}" /></td>
                     <td><c:out value="${project.endDate}" /></td>
                 </tr>

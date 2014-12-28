@@ -24,6 +24,8 @@
             <%@include file="WEB-INF/inc/signup.jsp" %>
         <% } else if (nav.equals("projects")) { %>
             <%@include file="WEB-INF/inc/projects.jsp" %>
+        <% } else if (nav.equals("project")) { %>
+            <%@include file="WEB-INF/inc/project.jsp" %>
         <% } else if (nav.equals("createproject")) { %>
             <%@include file="WEB-INF/inc/createproject.jsp" %>
         <% } else { /*Page not found, go to 404*/ %>
