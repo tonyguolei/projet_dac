@@ -149,6 +149,7 @@ public class ControllerProject extends HttpServlet {
             projectDao.save(project);
             Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
             response.sendRedirect("index.jsp");
+            return;
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
             response.sendRedirect("index.jsp?nav=createproject");

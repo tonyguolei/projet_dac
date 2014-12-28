@@ -8,10 +8,7 @@ package myservlets;
 import alerts.Alert;
 import alerts.AlertType;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
-import javax.persistence.EntityExistsException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,9 +25,13 @@ import mybeans.UserDao;
 @WebServlet(name = "ControllerUser", urlPatterns = {"/ControllerUser"})
 public class ControllerUser extends HttpServlet {
     
-    private static final String ERROR_LOGIN = "The email you entered does not belong to any account.";
+    private static final String SUCCESS_LOGOUT = "You are disconnected.";
+    private static final String ERROR_LOGIN = "The email you entered is not attached to any account.";
     private static final String ERROR_PASS = "The password you entered is incorrect. Please try again (make sure your caps lock is off).";
     private static final String SUCCESS_LOGIN = "Login succesful, welcome back!";
+    private static final String SUCCESS_CREATE = "New user created! Please log in.";
+    private static final String ERROR_FORM = "Please fill the form correctly.";
+    private static final String ERROR_CREATE = "Can not create the new user. The mail may already be attached to an account.";
 
     @EJB
     private UserDao userDao;
@@ -102,49 +103,57 @@ public class ControllerUser extends HttpServlet {
     }// </editor-fold>
 
     private void doSignup(HttpServletRequest request, HttpServletResponse response) throws IOException {
-            String mail = request.getParameter("mail");
-            String password = request.getParameter("password");
-            if (mail.equals("") || password.equals("")) {
-                //TODO report error
-                response.sendRedirect("index.jsp?nav=signup");
-            } else {
-                User user = new User(mail, password);
-                try {
-                    this.userDao.save(user);
-                    //TODO show message that it worked
-                    response.sendRedirect("index.jsp?nav=login");
-                } catch (Exception e) {
-                    //TODO show message that it didn't worked
-                    System.out.println("Can't create user");
-                    response.sendRedirect("index.jsp?nav=signup");
-                }
-            }
+        HttpSession session = request.getSession();
+        String mail = request.getParameter("mail");
+        String password = request.getParameter("password");
+        if (mail.equals("") || password.equals("")) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+            response.sendRedirect("index.jsp?nav=signup");
+            return;
+        }
+            
+        User user = new User(mail, password);
+        try {
+            this.userDao.save(user);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
+            response.sendRedirect("index.jsp?nav=login");
+            return;
+        } catch (Exception e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_CREATE);
+            System.out.println("Can't create user");
+            response.sendRedirect("index.jsp?nav=signup");
+            return;
+        }
     }
 
     private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(true);
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
-        HttpSession session = request.getSession(true);
         if (mail.equals("") || password.equals("")) {
-            //Not supposed to happen, checked by BootStrap
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
             response.sendRedirect("index.jsp?nav=login");
-        } else {
-            try {
-                User user = userDao.getByMail(mail);
-                if (password.equals(user.getPassword())) {
-                    session.setAttribute("user", user);
-                    Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
-                    response.sendRedirect("index.jsp");
-                } else {
-                    Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
-                    System.out.println("Invalid password");
-                    response.sendRedirect("index.jsp?nav=login");
-                }
-            } catch (Exception e) {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-                System.out.println("Invalid user");
+            return;
+        }
+        
+        try {
+            User user = userDao.getByMail(mail);
+            if (password.equals(user.getPassword())) {
+                session.setAttribute("user", user);
+                Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
+                response.sendRedirect("index.jsp");
+                return;
+            } else {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
+                System.out.println("Invalid password");
                 response.sendRedirect("index.jsp?nav=login");
+                return;
             }
+        } catch (Exception e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
+            System.out.println("Invalid user");
+            response.sendRedirect("index.jsp?nav=login");
+            return;
         }
     }
 
