@@ -31,6 +31,7 @@ public class ControllerFund extends HttpServlet {
     
     private static final String ERROR_LOGIN = "Please log in to fund a project.";
     private static final String ERROR_PARAM = "Please specify correct parameters.";
+    private static final String SUCCESS_CREATE = "Project funded!";
     
     @EJB
     private ProjectDao projectDao;
@@ -126,6 +127,7 @@ public class ControllerFund extends HttpServlet {
             Project project = projectDao.getByIdProject(id);
             Fund fund = new Fund(user, project, value);
             fundDao.save(fund);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
             response.sendRedirect("index.jsp?nav=project&id="+id);
             return;
         } catch (EJBException e) {
