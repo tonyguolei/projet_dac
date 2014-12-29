@@ -80,8 +80,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <!--Please discomment this line to enable test-->
-                   <!-- <skip>true</skip>-->
+                    <!--Please comment this line to enable test-->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
