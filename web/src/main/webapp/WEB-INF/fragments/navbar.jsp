@@ -39,10 +39,11 @@
             </form>
         -->
             <ul class="nav navbar-nav navbar-right">
-                <li class="navbar-brand navbar-brand-centered"><span class="glyphicon glyphicon-user" id="logIcon"></span></li>
                 <% if (session.getAttribute("user") == null ) { %>    
                     <li><a href="index.jsp?nav=login">Login</a></li>
+                    <li><a href="index.jsp?nav=signup">Signup</a></li>
                 <% } else { %>
+                    <li class="navbar-brand navbar-brand-centered"><span class="glyphicon glyphicon-user" id="logIcon"></span></li>
                     <li class="navbar-text"><c:out value="${sessionScope.user.mail}"/></li>
                     <li><a href="ControllerUser?action=logout">Log out</a></li>
                 <% } %>

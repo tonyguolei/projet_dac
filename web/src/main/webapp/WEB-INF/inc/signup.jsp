@@ -5,5 +5,4 @@
         <input type="password" name="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
-    <a href="index.jsp?nav=login"> Already have an account ?</a>
 </div>
