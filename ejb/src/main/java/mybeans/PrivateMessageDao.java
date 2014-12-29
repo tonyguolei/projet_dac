@@ -8,6 +8,7 @@ package mybeans;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -34,7 +35,11 @@ public class PrivateMessageDao extends Dao<PrivateMessage> {
     public PrivateMessage getByIdPrivateMessage(int id) {
         TypedQuery<PrivateMessage> query = em.createNamedQuery("PrivateMessage.findByIdPrivateMessage", PrivateMessage.class);
         query = query.setParameter("idPrivateMessage", id);
-        return query.getSingleResult();
+        try{
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
     
     /**

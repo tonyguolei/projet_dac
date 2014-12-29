@@ -5,11 +5,12 @@
  */
 package mybeans;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  *
@@ -34,7 +35,11 @@ public class NotificationDao extends Dao<Notification> {
     public Notification getByIdNotification(int id) {
         TypedQuery<Notification> query = em.createNamedQuery("Notification.findByIdNotification", Notification.class);
         query = query.setParameter("idNotification", id);
-        return query.getSingleResult();
+        try{
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
     
     /**

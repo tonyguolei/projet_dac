@@ -5,13 +5,9 @@
  */
 package mybeans;
 
-import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import java.util.List;
 
 @Stateless
 public class UserDao extends Dao<User> {
@@ -33,7 +29,11 @@ public class UserDao extends Dao<User> {
     public User getByIdUser(int id) {
         TypedQuery<User> query = em.createNamedQuery("User.findByIdUser", User.class);
         query = query.setParameter("idUser", id);
-        return query.getSingleResult();
+        try{
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
 
     /**
@@ -49,7 +49,11 @@ public class UserDao extends Dao<User> {
     public User getByMail(String mail) {
         TypedQuery<User> query = em.createNamedQuery("User.findByMail", User.class);
         query = query.setParameter("mail", mail);
-        return query.getSingleResult();
+        try{
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;      
+        } 
     }
 
     /**

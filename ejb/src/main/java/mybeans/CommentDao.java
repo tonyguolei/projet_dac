@@ -8,6 +8,7 @@ package mybeans;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -35,7 +36,11 @@ public class CommentDao extends Dao<Comment> {
     public Comment getByIdComment(int id) {
         TypedQuery<Comment> query = em.createNamedQuery("Comment.findByIdComment", Comment.class);
         query = query.setParameter("idComment", id);
-        return query.getSingleResult();
+        try{
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
     }
     
     /**
