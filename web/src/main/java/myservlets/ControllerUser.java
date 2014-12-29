@@ -7,7 +7,9 @@ package myservlets;
 
 import alerts.Alert;
 import alerts.AlertType;
-import java.io.IOException;
+import mybeans.User;
+import mybeans.UserDao;
+
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import mybeans.User;
-import mybeans.UserDao;
+import java.io.IOException;
 
 /**
  *
@@ -24,7 +25,7 @@ import mybeans.UserDao;
  */
 @WebServlet(name = "ControllerUser", urlPatterns = {"/ControllerUser"})
 public class ControllerUser extends HttpServlet {
-    
+
     private static final String SUCCESS_LOGOUT = "You are disconnected.";
     private static final String ERROR_LOGIN = "The email you entered is not attached to any account.";
     private static final String ERROR_PASS = "The password you entered is incorrect. Please try again (make sure your caps lock is off).";
@@ -35,7 +36,7 @@ public class ControllerUser extends HttpServlet {
 
     @EJB
     private UserDao userDao;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,7 +49,7 @@ public class ControllerUser extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String action = request.getParameter("action");
         switch (action) {
             case "login":
@@ -114,7 +115,7 @@ public class ControllerUser extends HttpServlet {
             response.sendRedirect("index.jsp?nav=signup");
             return;
         }
-            
+
         User user = new User(mail, password);
         try {
             this.userDao.save(user);
@@ -138,8 +139,27 @@ public class ControllerUser extends HttpServlet {
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
-        
-        try {
+
+        User user = userDao.getByMail(mail);
+        if(user == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
+            System.out.println("Invalid user");
+            response.sendRedirect("index.jsp?nav=login&mail="+mail);
+            return;
+        }else {
+            if (password.equals(user.getPassword())) {
+                session.setAttribute("user", user);
+                Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
+                response.sendRedirect("index.jsp");
+                return;
+            } else {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
+                System.out.println("Invalid password");
+                response.sendRedirect("index.jsp?nav=login&mail=" + mail);
+                return;
+            }
+        }
+/*        try {
             User user = userDao.getByMail(mail);
             if (password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
@@ -157,13 +177,13 @@ public class ControllerUser extends HttpServlet {
             System.out.println("Invalid user");
             response.sendRedirect("index.jsp?nav=login&mail="+mail);
             return;
-        }
+        }*/
     }
 
     private void doLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        
+
         HttpSession newSession = request.getSession();
         Alert.addAlert(newSession, AlertType.SUCCESS, SUCCESS_LOGOUT);
         response.sendRedirect("index.jsp");

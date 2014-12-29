@@ -7,12 +7,11 @@ package myservlets;
 
 import alerts.Alert;
 import alerts.AlertType;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import mybeans.Project;
+import mybeans.ProjectDao;
+import mybeans.User;
+
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +19,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import mybeans.Project;
-import mybeans.ProjectDao;
-import mybeans.User;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -30,18 +30,18 @@ import mybeans.User;
  */
 @WebServlet(name = "ControllerProject", urlPatterns = {"/ControllerProject"})
 public class ControllerProject extends HttpServlet {
-    
+
     private static final String ERROR_LOGIN = "Please log in to create a new project.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String SUCCESS_CREATE = "Project created succefully!";
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_INSPECT = "Please specify a valid project ID";
-    
+
 
     @EJB
     private ProjectDao projectDao;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,7 +54,7 @@ public class ControllerProject extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String action = request.getParameter("action");
         switch (action) {
             case "create":
@@ -123,7 +123,7 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
-        
+
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String tags = request.getParameter("tags");
@@ -142,7 +142,7 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         }
-        
+
         BigDecimal goal = BigDecimal.ZERO;
         Date endDate = new java.sql.Date(0);
         try {
@@ -157,7 +157,7 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         }
-        
+
         Project project = new Project(user, goal, title, description, endDate, tags);
         try {
             projectDao.save(project);
@@ -169,7 +169,7 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         }
-        
+
     }
 
     private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -178,7 +178,7 @@ public class ControllerProject extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=projects");
         requestDispatcher.forward(request, response);
     }
-    
+
     private void doSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String tag = request.getParameter("tag");
         List<Project> projects = projectDao.getAllMatching(tag);
@@ -197,8 +197,18 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
-        
-        try {
+
+        Project project = projectDao.getByIdProject(id);
+        if(project == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }else {
+            request.setAttribute("project", project);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id=" + id);
+            requestDispatcher.forward(request, response);
+        }
+/*        try {
             Project project = projectDao.getByIdProject(id);
             request.setAttribute("project", project);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id="+id);
@@ -207,7 +217,7 @@ public class ControllerProject extends HttpServlet {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
             return;
-        }
+        }*/
     }
 
 }

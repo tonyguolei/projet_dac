@@ -7,32 +7,27 @@ package myservlets;
 
 import alerts.Alert;
 import alerts.AlertType;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
+import mybeans.*;
+
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import mybeans.Fund;
-import mybeans.FundDao;
-import mybeans.Project;
-import mybeans.ProjectDao;
-import mybeans.User;
+import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  *
  * @author tib
  */
 public class ControllerFund extends HttpServlet {
-    
+
     private static final String ERROR_LOGIN = "Please log in to fund a project.";
     private static final String ERROR_PARAM = "Please specify correct parameters.";
     private static final String SUCCESS_CREATE = "Project funded!";
-    
+
     @EJB
     private ProjectDao projectDao;
     @EJB
@@ -50,7 +45,7 @@ public class ControllerFund extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String action = request.getParameter("action");
         switch (action) {
             case "create":
@@ -109,7 +104,7 @@ public class ControllerFund extends HttpServlet {
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
-        
+
         String idS = request.getParameter("id");
         String valueS = request.getParameter("value");
         int id;
@@ -122,8 +117,21 @@ public class ControllerFund extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
+
+        Project project = projectDao.getByIdProject(id);
+        if(project == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }else {
+            Fund fund = new Fund(user, project, value);
+            fundDao.save(fund);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+            return;
+        }
         
-        try {
+/*        try {
             Project project = projectDao.getByIdProject(id);
             Fund fund = new Fund(user, project, value);
             fundDao.save(fund);
@@ -134,7 +142,7 @@ public class ControllerFund extends HttpServlet {
             Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
             response.sendRedirect("index.jsp?nav=projects");
             return;
-        }
+        }*/
     }
 
 }
