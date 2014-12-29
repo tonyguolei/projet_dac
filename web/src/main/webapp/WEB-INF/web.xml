@@ -8,6 +8,10 @@
         <servlet-name>ControllerUser</servlet-name>
         <servlet-class>myservlets.ControllerUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerFund</servlet-name>
+        <servlet-class>myservlets.ControllerFund</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControllerProject</servlet-name>
         <url-pattern>/ControllerProject</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ControllerUser</servlet-name>
         <url-pattern>/ControllerUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerFund</servlet-name>
+        <url-pattern>/ControllerFund</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

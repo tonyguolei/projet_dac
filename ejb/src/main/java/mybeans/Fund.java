@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @XmlRootElement
+@Table(name = "Fund")
 @NamedQueries({
     @NamedQuery(name = "Fund.findAll", query = "SELECT f FROM Fund f"),
     @NamedQuery(name = "Fund.findByIdFund", query = "SELECT f FROM Fund f WHERE f.idFund = :idFund"),
@@ -32,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Fund implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idFund;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -55,6 +57,12 @@ public class Fund implements Serializable {
 
     public Fund(Integer idFund, BigDecimal value) {
         this.idFund = idFund;
+        this.value = value;
+    }
+
+    public Fund(User user, Project project, BigDecimal value) {
+        this.idProject = project;
+        this.idUser = user;
         this.value = value;
     }
 
