@@ -32,10 +32,11 @@
                 </li>
             </ul>
         -->
-            <form class="navbar-form navbar-left" role="search" action="ControllerProject?action=search">
+            <form class="navbar-form navbar-left" role="search" action="ControllerProject" method="get">
                 <span class="glyphicon glyphicon-search" id="logIcon"></span>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search projects">
+                    <input type="hidden" id="action" name="action" value="search">
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="Search projects">
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">

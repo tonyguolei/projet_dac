@@ -46,4 +46,20 @@ public class ProjectDao extends Dao<Project> {
         TypedQuery<Project> query = em.createNamedQuery("Project.findAll", Project.class);
         return query.getResultList();
     }
+    
+    /**
+     * Get the list of projects according to tags
+     * 
+     * @return The list of all projects.
+     */
+    public List<Project> getAllMatching(String tag) {
+        TypedQuery<Project> query = em.createNamedQuery("Project.findByTagsMatching", Project.class);
+        System.err.println("TAG");
+        System.err.println(tag);
+        query = query.setParameter("tag1", "%,"+tag+",%"); //Between 2 tags
+        query = query.setParameter("tag2", "%"+tag+",%"); //First tag
+        query = query.setParameter("tag3", "%,"+tag+"%"); //Last tag
+        query = query.setParameter("tag4", tag); //Only tag
+        return query.getResultList();
+    }
 }

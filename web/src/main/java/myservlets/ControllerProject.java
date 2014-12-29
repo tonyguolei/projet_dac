@@ -66,6 +66,10 @@ public class ControllerProject extends HttpServlet {
             case "inspect":
                 doInspect(request, response);
                 break;
+            case "search":
+                System.err.println("SEARCH");
+                doSearch(request, response);
+                break;
             default:
                 response.sendRedirect("index.jsp");
                 break;
@@ -170,6 +174,14 @@ public class ControllerProject extends HttpServlet {
 
     private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Project> projects = projectDao.getAll();
+        request.setAttribute("projects", projects);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=projects");
+        requestDispatcher.forward(request, response);
+    }
+    
+    private void doSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String tag = request.getParameter("tag");
+        List<Project> projects = projectDao.getAllMatching(tag);
         request.setAttribute("projects", projects);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=projects");
         requestDispatcher.forward(request, response);
