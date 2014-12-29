@@ -149,13 +149,13 @@ public class ControllerUser extends HttpServlet {
             } else {
                 Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
                 System.out.println("Invalid password");
-                response.sendRedirect("index.jsp?nav=login");
+                response.sendRedirect("index.jsp?nav=login&mail="+mail);
                 return;
             }
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
             System.out.println("Invalid user");
-            response.sendRedirect("index.jsp?nav=login");
+            response.sendRedirect("index.jsp?nav=login&mail="+mail);
             return;
         }
     }
