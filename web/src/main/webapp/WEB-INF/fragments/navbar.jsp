@@ -31,18 +31,20 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
         -->
+            <form class="navbar-form navbar-left" role="search" action="ControllerProject" method="get">
+                <span class="glyphicon glyphicon-search" id="logIcon"></span>
+                <div class="form-group">
+                    <input type="hidden" id="action" name="action" value="search">
+                    <input type="text" class="form-control" id="tag" name="tag" placeholder="Search projects">
+                </div>
+            </form>
             <ul class="nav navbar-nav navbar-right">
-                <li class="navbar-brand navbar-brand-centered"><span class="glyphicon glyphicon-user" id="logIcon"></span></li>
                 <% if (session.getAttribute("user") == null ) { %>    
                     <li><a href="index.jsp?nav=login">Login</a></li>
+                    <li><a href="index.jsp?nav=signup">Signup</a></li>
                 <% } else { %>
+                    <li class="navbar-brand navbar-brand-centered"><span class="glyphicon glyphicon-user" id="logIcon"></span></li>
                     <li class="navbar-text"><c:out value="${sessionScope.user.mail}"/></li>
                     <li><a href="ControllerUser?action=logout">Log out</a></li>
                 <% } %>

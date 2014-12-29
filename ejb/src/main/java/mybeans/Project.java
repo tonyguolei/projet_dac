@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Project.findByCreationDate", query = "SELECT p FROM Project p WHERE p.creationDate = :creationDate"),
     @NamedQuery(name = "Project.findByEndDate", query = "SELECT p FROM Project p WHERE p.endDate = :endDate"),
     @NamedQuery(name = "Project.findByTags", query = "SELECT p FROM Project p WHERE p.tags = :tags"),
+    @NamedQuery(name = "Project.findByTagsMatching", query = "SELECT p FROM Project p WHERE p.tags like :tag1 OR p.tags like :tag2 OR p.tags like :tag3 OR p.tags = :tag4"),
     @NamedQuery(name = "Project.findByFlagged", query = "SELECT p FROM Project p WHERE p.flagged = :flagged")})
 public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
