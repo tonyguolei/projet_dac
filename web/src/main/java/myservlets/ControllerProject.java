@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import mybeans.FundDao;
 
 /**
  *
@@ -41,7 +42,9 @@ public class ControllerProject extends HttpServlet {
 
     @EJB
     private ProjectDao projectDao;
-
+    @EJB
+    private FundDao fundDao;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -203,21 +206,13 @@ public class ControllerProject extends HttpServlet {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
             return;
-        }else {
-            request.setAttribute("project", project);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id=" + id);
-            requestDispatcher.forward(request, response);
         }
-/*        try {
-            Project project = projectDao.getByIdProject(id);
-            request.setAttribute("project", project);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id="+id);
-            requestDispatcher.forward(request, response);
-        } catch (EJBException e) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
-            response.sendRedirect("index.jsp?nav=projects");
-            return;
-        }*/
+        
+        BigDecimal fundLevel = fundDao.getFundLevel(project);
+        request.setAttribute("fundLevel", fundLevel);
+        request.setAttribute("project", project);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id=" + id);
+        requestDispatcher.forward(request, response);
     }
 
 }

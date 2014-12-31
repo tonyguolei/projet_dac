@@ -5,6 +5,7 @@
  */
 package mybeans;
 
+import java.math.BigDecimal;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -51,5 +52,11 @@ public class FundDao extends Dao<Fund> {
     public List<Fund> getAll() {
         TypedQuery<Fund> query = em.createNamedQuery("Fund.findAll", Fund.class);
         return query.getResultList();
+    }
+    
+    public BigDecimal getFundLevel(Project project) {
+        TypedQuery<BigDecimal> query = em.createNamedQuery("Fund.getFundLevel", BigDecimal.class);
+        query = query.setParameter("idProject", project);
+        return query.getSingleResult();
     }
 }

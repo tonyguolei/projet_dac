@@ -1,5 +1,5 @@
 <%
-    if (request.getAttribute("project") == null) {
+    if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null) {
         request.getRequestDispatcher("ControllerProject?action=inspect").forward(request, response);
         return;
     }
@@ -13,7 +13,7 @@
     <h2>Goal</h2>
     <p>$ ${requestScope.project.goal}</p>
     <h2>Fund level</h2>
-    TODO
+    <p>$ ${requestScope.fundLevel} </p>
     <h2>I want to fund this !</h2>
     <form class="form-inline" role="form" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
       <div class="form-group">
