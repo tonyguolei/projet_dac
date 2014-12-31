@@ -146,38 +146,19 @@ public class ControllerUser extends HttpServlet {
             System.out.println("Invalid user");
             response.sendRedirect("index.jsp?nav=login&mail="+mail);
             return;
-        }else {
-            if (password.equals(user.getPassword())) {
-                session.setAttribute("user", user);
-                Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
-                response.sendRedirect("index.jsp");
-                return;
-            } else {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
-                System.out.println("Invalid password");
-                response.sendRedirect("index.jsp?nav=login&mail=" + mail);
-                return;
-            }
         }
-/*        try {
-            User user = userDao.getByMail(mail);
-            if (password.equals(user.getPassword())) {
-                session.setAttribute("user", user);
-                Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
-                response.sendRedirect("index.jsp");
-                return;
-            } else {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
-                System.out.println("Invalid password");
-                response.sendRedirect("index.jsp?nav=login&mail="+mail);
-                return;
-            }
-        } catch (Exception e) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            System.out.println("Invalid user");
-            response.sendRedirect("index.jsp?nav=login&mail="+mail);
+        
+        if (password.equals(user.getPassword())) {
+            session.setAttribute("user", user);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
+            response.sendRedirect("index.jsp");
             return;
-        }*/
+        } else {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
+            System.out.println("Invalid password");
+            response.sendRedirect("index.jsp?nav=login&mail=" + mail);
+            return;
+        }
     }
 
     private void doLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {

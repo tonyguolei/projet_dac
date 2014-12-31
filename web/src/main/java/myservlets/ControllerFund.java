@@ -123,26 +123,12 @@ public class ControllerFund extends HttpServlet {
             Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
             response.sendRedirect("index.jsp?nav=projects");
             return;
-        }else {
-            Fund fund = new Fund(user, project, value);
-            fundDao.save(fund);
-            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
-            response.sendRedirect("index.jsp?nav=project&id=" + id);
-            return;
         }
         
-/*        try {
-            Project project = projectDao.getByIdProject(id);
-            Fund fund = new Fund(user, project, value);
-            fundDao.save(fund);
-            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
-            response.sendRedirect("index.jsp?nav=project&id="+id);
-            return;
-        } catch (EJBException e) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
-            response.sendRedirect("index.jsp?nav=projects");
-            return;
-        }*/
+        Fund fund = new Fund(user, project, value);
+        fundDao.save(fund);
+        Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
+        response.sendRedirect("index.jsp?nav=project&id=" + id);
     }
 
 }
