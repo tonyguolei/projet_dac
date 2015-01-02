@@ -5,28 +5,15 @@
  */
 package mybeans;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -65,7 +52,7 @@ public class Project implements Serializable {
     @Size(min = 1, max = 20000)
     private String description;
     @Basic(optional = false)
-    @NotNull
+    @Column(name = "creationDate", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
     @Basic(optional = false)
@@ -99,26 +86,15 @@ public class Project implements Serializable {
     public Project(Integer idProject) {
         this.idProject = idProject;
     }
-
-    public Project(Integer idProject, BigDecimal goal, String title, String description, Date creationDate, Date endDate, String tags, boolean flagged) {
-        this.idProject = idProject;
-        this.goal = goal;
-        this.title = title;
-        this.description = description;
-        this.creationDate = creationDate;
-        this.endDate = endDate;
-        this.tags = tags;
-        this.flagged = flagged;
-    }
     
     public Project(User Owner, BigDecimal goal, String title, String description, Date endDate, String tags) {
         this.idOwner = Owner;
         this.goal = goal;
         this.title = title;
         this.description = description;
+        this.creationDate = null;
         this.endDate = endDate;
         this.tags = tags;
-        this.creationDate = new Date();
         this.flagged = false;
     }
 
