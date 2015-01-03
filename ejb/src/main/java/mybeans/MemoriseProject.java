@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author guillaumeperrin
  */
 @Entity
+@Table(name="MemoriseProject")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MemoriseProject.findAll", query = "SELECT m FROM MemoriseProject m"),
@@ -29,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MemoriseProject implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idMemoriseProject;
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
@@ -44,6 +46,11 @@ public class MemoriseProject implements Serializable {
 
     public MemoriseProject(Integer idMemoriseProject) {
         this.idMemoriseProject = idMemoriseProject;
+    }
+    
+    public MemoriseProject(User user, Project project) {
+        this.idUser = user;
+        this.idProject = project;
     }
 
     public Integer getIdMemoriseProject() {
