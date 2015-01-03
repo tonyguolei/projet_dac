@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import mybeans.FundDao;
+import mybeans.UserDao;
 
 /**
  *
@@ -70,7 +71,6 @@ public class ControllerProject extends HttpServlet {
                 doInspect(request, response);
                 break;
             case "search":
-                System.err.println("SEARCH");
                 doSearch(request, response);
                 break;
             default:

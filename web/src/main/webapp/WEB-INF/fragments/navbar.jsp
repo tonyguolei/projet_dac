@@ -45,6 +45,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="index.jsp?nav=projects">Browse projects</a></li>
                         <li><a href="index.jsp?nav=createproject">Create a new project</a></li>
+                        <li><a href="ControllerMemorise?action=list&id=${sessionScope.user.idUser}">Saved projects</a></li>
                     </ul>
                 </li>
             </ul>

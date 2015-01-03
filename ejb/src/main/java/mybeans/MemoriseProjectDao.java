@@ -51,4 +51,10 @@ public class MemoriseProjectDao extends Dao<MemoriseProject> {
         TypedQuery<MemoriseProject> query = em.createNamedQuery("MemoriseProject.findAll", MemoriseProject.class);
         return query.getResultList();
     }
+
+    public List<Project> getByUser(User user) {
+        TypedQuery<Project> query = em.createNamedQuery("MemoriseProject.findProjectByUser", Project.class);
+        query.setParameter("idUser", user);
+        return query.getResultList();
+    }
 }
