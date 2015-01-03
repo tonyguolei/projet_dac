@@ -65,4 +65,10 @@ public class UserDao extends Dao<User> {
         TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
         return query.getResultList();
     }
+    
+    public List<Project> getProjects(User user) {
+        TypedQuery<Project> query = em.createNamedQuery("User.getProjects", Project.class);
+        query.setParameter("idOwner", user);
+        return query.getResultList();
+    }
 }

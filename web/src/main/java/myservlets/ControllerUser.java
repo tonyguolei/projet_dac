@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
+import mybeans.Project;
 
 /**
  *
@@ -33,6 +36,8 @@ public class ControllerUser extends HttpServlet {
     private static final String SUCCESS_CREATE = "New user created! Please log in.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String ERROR_CREATE = "Can not create the new user. The mail may already be attached to an account.";
+    private static final String ERROR_INSPECT = "Please specify a valid user ID";
+    private static final String ERROR_ID = "Please specify an ID";
 
     @EJB
     private UserDao userDao;
@@ -60,6 +65,9 @@ public class ControllerUser extends HttpServlet {
                 break;
             case "logout":
                 doLogout(request, response);
+                break;
+            case "inspect":
+                doInspect(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -168,6 +176,32 @@ public class ControllerUser extends HttpServlet {
         HttpSession newSession = request.getSession();
         Alert.addAlert(newSession, AlertType.SUCCESS, SUCCESS_LOGOUT);
         response.sendRedirect("index.jsp");
+    }
+
+    private void doInspect(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+
+        User inspectedUser = userDao.getByIdUser(id);
+        if(inspectedUser == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        request.setAttribute("inspectedUser", inspectedUser);
+        
+        List<Project> userProjects = userDao.getProjects(inspectedUser);
+        request.setAttribute("userProjects", userProjects);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=user&id=" + id);
+        requestDispatcher.forward(request, response);
+        
     }
 
 }

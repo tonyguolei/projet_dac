@@ -22,6 +22,8 @@
             <%@include file="WEB-INF/inc/login.jsp" %>
         <% } else if (nav.equals("signup")) { %>
             <%@include file="WEB-INF/inc/signup.jsp" %>
+        <% } else if (nav.equals("user")) { %>
+            <%@include file="WEB-INF/inc/user.jsp" %>
         <% } else if (nav.equals("projects")) { %>
             <%@include file="WEB-INF/inc/projects.jsp" %>
         <% } else if (nav.equals("project")) { %>

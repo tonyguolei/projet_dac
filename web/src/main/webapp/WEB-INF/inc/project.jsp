@@ -7,7 +7,7 @@
 <div class="jumbotron">
     <h1>${requestScope.project.title}</h1>
     <h2>Owner</h2>
-    <p><a href="index.jsp?nav=user&id=${requestScope.project.idOwner.idUser}">${requestScope.project.idOwner.mail}"</a></p>
+    <p><a href="index.jsp?nav=user&id=${requestScope.project.idOwner.idUser}">${requestScope.project.idOwner.mail}</a></p>
     <h2>Description</h2>
     <p>${requestScope.project.description}</p>
     <h2>Goal</h2>
