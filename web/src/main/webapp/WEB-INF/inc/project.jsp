@@ -34,4 +34,6 @@
     <p>${requestScope.project.endDate}</p>
     <h2>Tags</h2>
     <p>${requestScope.project.tags}</p>
+    <h2>Report</h2>
+    <p><a href="ControllerProject?action=report&id=${requestScope.project.idProject}"> Report this project</a></p>
 </div>

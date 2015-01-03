@@ -36,6 +36,7 @@ public class ControllerProject extends HttpServlet {
     private static final String ERROR_LOGIN = "Please log in to create a new project.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String SUCCESS_CREATE = "Project created succefully!";
+    private static final String SUCCESS_REPORT = "Project reported succefully!";
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_INSPECT = "Please specify a valid project ID";
@@ -72,6 +73,9 @@ public class ControllerProject extends HttpServlet {
                 break;
             case "search":
                 doSearch(request, response);
+                break;
+            case "report":
+                doReport(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -213,6 +217,30 @@ public class ControllerProject extends HttpServlet {
         request.setAttribute("project", project);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id=" + id);
         requestDispatcher.forward(request, response);
+    }
+
+    private void doReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+
+        Project project = projectDao.getByIdProject(id);
+        if(project == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        project.setFlagged(true);
+        projectDao.update(project);
+        Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_REPORT);
+        response.sendRedirect("index.jsp?nav=project&id="+id);
     }
 
 }
