@@ -39,14 +39,23 @@
                     <input type="text" class="form-control" id="tag" name="tag" placeholder="Search projects">
                 </div>
             </form>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="index.jsp?nav=projects">Browse projects</a></li>
+                        <li><a href="index.jsp?nav=createproject">Create a new project</a></li>
+                    </ul>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <% if (session.getAttribute("user") == null ) { %>    
-                    <li><a href="index.jsp?nav=login">Login</a></li>
-                    <li><a href="index.jsp?nav=signup">Signup</a></li>
+                    <li><p class="navbar-btn"><a class="btn btn-default" role="button" href="index.jsp?nav=login">Log in</a></p></li>
+                    <li><p class="navbar-btn"><a class="btn btn-primary" role="button" href="index.jsp?nav=signup">Sign up</a></p></li>
                 <% } else { %>
                     <li class="navbar-brand navbar-brand-centered"><span class="glyphicon glyphicon-user" id="logIcon"></span></li>
-                    <li class="navbar-text"><c:out value="${sessionScope.user.mail}"/></li>
-                    <li><a href="ControllerUser?action=logout">Log out</a></li>
+                    <li><a href="index.jsp?nav=user&id=${sessionScope.user.idUser}"><c:out value="${sessionScope.user.mail}"/></a></li>
+                    <li><p class="navbar-btn"><a class="btn btn-primary" role="button" href="ControllerUser?action=logout">Log out</a></p></li>
                 <% } %>
             </ul>
         <%// </div><!-- /.navbar-collapse --> %>
