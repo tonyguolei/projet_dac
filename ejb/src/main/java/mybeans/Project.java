@@ -19,6 +19,7 @@ import java.util.Date;
  *
  * @author guillaumeperrin
  */
+@Cacheable(false)
 @Entity
 @XmlRootElement
 @Table(name = "Project")
