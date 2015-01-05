@@ -36,5 +36,6 @@
     </div>
     <%@include file="WEB-INF/fragments/footer.jsp" %>
     <%@include file="WEB-INF/fragments/jsfiles.jsp" %>
+    <% Alert.cleanAlerts(session); %>
   </body>
 </html>

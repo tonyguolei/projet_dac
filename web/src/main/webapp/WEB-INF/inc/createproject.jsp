@@ -9,7 +9,6 @@
    folder, DO NOT use <html> tags or stuff as they're already in */ %>
 
 <%
-
     if (session.getAttribute("user") == null) {
         String ERROR_LOGIN = "Please log in to create a new project.";
         Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);

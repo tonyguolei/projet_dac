@@ -50,8 +50,8 @@
       <!-- RIGHT NAVBAR -->
         <% if (session.getAttribute("user") == null ) { %>    
         <div class="navbar-right">
-        <a class="btn btn-default navbar-btn" role="button" href="index.jsp?nav=login">Log in</a>
-        <a class="btn btn-primary navbar-btn" role="button" href="index.jsp?nav=signup">Sign up</a>
+            <a class="btn btn-default navbar-btn" role="button" href="index.jsp?nav=login">Log in</a>
+            <a class="btn btn-primary navbar-btn" role="button" href="index.jsp?nav=signup">Sign up</a>
         </div>
           <% } else { %>
       <ul class="nav navbar-nav navbar-right">

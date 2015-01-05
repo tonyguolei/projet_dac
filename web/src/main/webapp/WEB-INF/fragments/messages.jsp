@@ -21,8 +21,6 @@ for (AlertType type : AlertType.values()) {
             %>
             <div class="alert alert-<%=typeName%>" role="alert"><%=msg%></div>
             <%
-            //Removes it to not display it again
-            iter.remove();
         }
     }
 }

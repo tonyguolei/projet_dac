@@ -31,4 +31,15 @@ public class Alert {
         messages.add(msg);
         session.setAttribute(alertListName, messages);
     }
+    
+    /**
+     * Remove all alerts for this session
+     * @param session 
+     */
+    public static void cleanAlerts(HttpSession session) {
+        for (AlertType type : AlertType.values()) {
+            String typeName = type.toString();
+            session.setAttribute("msg-"+typeName, null); //Garbage collector
+        }
+    }
 }
