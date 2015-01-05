@@ -28,19 +28,20 @@
           <textarea id="editor" placeholder="Content here ...." name="description"></textarea>
         </div>
       </div>
-      <div class="form-group">
+    <div class="row">
+      <div class="form-group col-sm-7">
           <input type="text" class="form-control" name="tags" placeholder="Tags (eg 'soccer,phone,pizza')"/>
       </div>
+      <div class="form-group col-sm-4 col-sm-offset-1">
+          <input type="text" class="form-control datepicker" name="endDate" placeholder="Deadline"/>
+      </div>
+    </div>
       <div class="form-group">
           <label class="sr-only" for="goal">Goal (in dollars)</label>
-          <div class="input-group">
+          <div class="input-group input-group-lg">
               <div class="input-group-addon">$</div>
               <input type="text" class="form-control" name="goal" placeholder="Goal"/>
-              <div class="input-group-addon">.00</div>
           </div>
-      </div>
-      <div class="form-group">
-          <input type="text" class="form-control datepicker" name="endDate" placeholder="Deadline"/>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
   </form>

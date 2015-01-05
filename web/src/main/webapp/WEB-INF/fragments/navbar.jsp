@@ -39,13 +39,15 @@
         </li>-->
       </ul>
       <form class="navbar-form navbar-left" role="search" action="ControllerProject" method="get">
-        <div class="form-group">
+        <div class="form-group input-group">
           <input type="hidden" id="action" name="action" value="search">
           <input type="text" class="form-control" id="tag" name="tag" placeholder="Search for projects">
+          <span class="input-group-addon">
+            <button type="submit" class="btn btn-default">
+              <span class="glyphicon glyphicon-search" id="logIcon"></span>
+            </button>
+          </span>
         </div>
-        <button type="submit" class="btn btn-default">
-          <span class="glyphicon glyphicon-search" id="logIcon"></span>
-        </button>
       </form>
       <!-- RIGHT NAVBAR -->
         <% if (session.getAttribute("user") == null ) { %>    
