@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Cacheable(false)
 @Entity
+@Table(name="Comment")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),

@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Cacheable(false)
 @Entity
+@Table(name="PrivateMessage")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PrivateMessage.findAll", query = "SELECT p FROM PrivateMessage p"),

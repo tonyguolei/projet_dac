@@ -18,6 +18,7 @@ import java.math.BigDecimal;
  */
 @Cacheable(false)
 @Entity
+@Table(name="Bonus")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Bonus.findAll", query = "SELECT b FROM Bonus b"),
