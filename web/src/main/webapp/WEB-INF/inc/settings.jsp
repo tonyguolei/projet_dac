@@ -2,7 +2,7 @@
     <div class="col-md-3">
         <div class="list-group">
             <a class="list-group-item active no-padding">Settings</a>
-            <a class="list-group-item no-padding" href="tamere">Account</a>
+            <a class="list-group-item no-padding" href="#">Account</a>
         </div>
     </div>
     <div class="col-md-9">
