@@ -4,4 +4,4 @@
     Author     : bemug
 --%>
 
-<center><img src="http://doge-one.com/img/Doge404.jpg"/></center>
+<center><img src="http://i.imgur.com/s85Xa.png"/></center>
