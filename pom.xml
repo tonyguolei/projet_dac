@@ -21,29 +21,4 @@
         <dac.skipTests>true</dac.skipTests>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.glassfish</groupId>
-                <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <goalPrefix>embedded-glassfish</goalPrefix>
-                    <app>${basedir}/ear/target/projet-DAC-ear.ear</app>
-                    <autoDelete>true</autoDelete>
-                    <port>${gf.port}</port>
-                    <contextRoot>web</contextRoot>
-                    <configFile>${basedir}/domain.xml</configFile>
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

@@ -50,6 +50,32 @@
                     </modules>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <glassfishDirectory>${env.GLASSFISH_HOME}</glassfishDirectory>
+                    <user>admin</user>
+                    <adminPassword>admin</adminPassword>
+                    <domain>
+                        <name>domain1</name>
+                        <httpPort>${gf.port}</httpPort>
+                        <adminPort>4848</adminPort>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${project.artifactId}</name>
+                            <artifact>${basedir}/target/projet-DAC-ear.ear</artifact>
+                        </component>
+                    </components>
+                    <debug>true</debug>
+                    <terse>false</terse>
+                    <echo>true</echo>
+                </configuration>
+            </plugin>
+
         </plugins>
         <finalName>projet-DAC-ear</finalName>
     </build>
