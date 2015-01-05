@@ -40,6 +40,7 @@ public class ControllerUser extends HttpServlet {
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_CONF_PASS = "Passwords missmatch. Please reenter your new password.";
     private static final String SUCCESS_CHANGE_PASS = "Password succesfully modified.";
+    private static final String ERROR_EMPTY_PASS = "You need to provide a new password.";
 
     @EJB
     private UserDao userDao;
@@ -223,6 +224,9 @@ public class ControllerUser extends HttpServlet {
         if (!pass.equals(confpass)) {
             //Passwords missmatch
             Alert.addAlert(request.getSession(), AlertType.WARNING, ERROR_CONF_PASS);
+        } else if (pass.equals("") || confpass.equals("")) {
+            //Empty pass
+            Alert.addAlert(request.getSession(), AlertType.WARNING, ERROR_EMPTY_PASS);
         } else {
             //Change password
             User user = (User)request.getSession().getAttribute("user");
