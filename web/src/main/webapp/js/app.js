@@ -17,4 +17,9 @@ $(document).ready(function () {
         var me = $(this);
         me.html(marked(me.text()));
     });
+
+    $('img').each(function () {
+        var me = $(this);
+        me.addClass('img-responsive');
+    });
 });

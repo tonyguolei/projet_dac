@@ -38,7 +38,7 @@
           </ul>
         </li>-->
       </ul>
-      <form class="navbar-form navbar-left" role="search" action="ControllerProject" method="get">
+      <form class="navbar-form navbar-left" style="margin-bottom: 0" role="search" action="ControllerProject" method="get">
         <div class="form-group input-group">
           <input type="hidden" id="action" name="action" value="search">
           <input type="text" class="form-control" id="tag" name="tag" placeholder="Search for projects">
