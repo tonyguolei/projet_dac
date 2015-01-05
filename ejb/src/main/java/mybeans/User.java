@@ -16,12 +16,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author guillaumeperrin
+ * @author tib
  */
 @Cacheable(false)
 @Entity
-@XmlRootElement
 @Table(name = "User")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.getProjects", query = "SELECT p FROM Project p WHERE p.idOwner = :idOwner"),
@@ -59,9 +59,9 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     private boolean isAdmin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "to")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dest")
     private Collection<PrivateMessage> privateMessageCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "from1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exp")
     private Collection<PrivateMessage> privateMessageCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
     private Collection<MemoriseProject> memoriseProjectCollection;
@@ -99,6 +99,8 @@ public class User implements Serializable {
         this.banned = banned;
         this.isAdmin = isAdmin;
     }
+    
+    
 
     public Integer getIdUser() {
         return idUser;

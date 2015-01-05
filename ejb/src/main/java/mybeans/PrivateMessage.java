@@ -13,11 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author guillaumeperrin
+ * @author tib
  */
 @Cacheable(false)
 @Entity
-@Table(name="PrivateMessage")
+@Table(name = "PrivateMessage")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PrivateMessage.findAll", query = "SELECT p FROM PrivateMessage p"),
@@ -37,12 +37,12 @@ public class PrivateMessage implements Serializable {
     @Basic(optional = false)
     @NotNull
     private boolean isRead;
-    @JoinColumn(name = "to", referencedColumnName = "idUser")
+    @JoinColumn(name = "dest", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
-    private User to;
-    @JoinColumn(name = "from", referencedColumnName = "idUser")
+    private User dest;
+    @JoinColumn(name = "exp", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
-    private User from1;
+    private User exp;
 
     public PrivateMessage() {
     }
@@ -81,20 +81,20 @@ public class PrivateMessage implements Serializable {
         this.isRead = isRead;
     }
 
-    public User getTo() {
-        return to;
+    public User getDest() {
+        return dest;
     }
 
-    public void setTo(User to) {
-        this.to = to;
+    public void setDest(User dest) {
+        this.dest = dest;
     }
 
-    public User getFrom1() {
-        return from1;
+    public User getExp() {
+        return exp;
     }
 
-    public void setFrom1(User from1) {
-        this.from1 = from1;
+    public void setExp(User exp) {
+        this.exp = exp;
     }
 
     @Override

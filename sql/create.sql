@@ -140,19 +140,19 @@ DROP TABLE IF EXISTS `dac`.`PrivateMessage` ;
 
 CREATE TABLE IF NOT EXISTS `dac`.`PrivateMessage` (
   `idPrivateMessage` INT NOT NULL AUTO_INCREMENT,
-  `from` INT NOT NULL,
-  `to` INT NOT NULL,
+  `exp` INT NOT NULL,
+  `dest` INT NOT NULL,
   `message` VARCHAR(2000) NOT NULL,
   `isRead` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`idPrivateMessage`),
-  INDEX `idUser_to_pm_fk_idx` (`to` ASC),
+  INDEX `idUser_to_pm_fk_idx` (`dest` ASC),
   CONSTRAINT `idUser_from_pm_fk`
-    FOREIGN KEY (`from`)
+    FOREIGN KEY (`exp`)
     REFERENCES `dac`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `idUser_to_pm_fk`
-    FOREIGN KEY (`to`)
+    FOREIGN KEY (`dest`)
     REFERENCES `dac`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
