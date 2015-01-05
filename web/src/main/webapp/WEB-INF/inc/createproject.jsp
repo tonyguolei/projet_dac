@@ -24,7 +24,9 @@
           <input type="text" class="form-control" name="title" placeholder="Title"/>
       </div>
       <div class="form-group">
-          <textarea class="form-control" name="description" rows="15" placeholder="Description"/></textarea>
+        <div class="editor-wrapper">
+          <textarea id="editor" placeholder="Content here ...." name="description"></textarea>
+        </div>
       </div>
       <div class="form-group">
           <input type="text" class="form-control" name="tags" placeholder="Tags (eg 'soccer,phone,pizza')"/>

@@ -9,7 +9,7 @@
     <h2>Owner</h2>
     <p><a href="index.jsp?nav=user&id=${requestScope.project.idOwner.idUser}">${requestScope.project.idOwner.mail}</a></p>
     <h2>Description</h2>
-    <p>${requestScope.project.description}</p>
+    <div class="markdown">${requestScope.project.description}</div>
     <h2>Goal</h2>
     <p>$ ${requestScope.project.goal}</p>
     <h2>Fund level</h2>

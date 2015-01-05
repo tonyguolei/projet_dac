@@ -8,4 +8,13 @@ $(document).ready(function () {
         var me = $(this);
         me.text(moment(me.text(), "YYYY-MM-DD").fromNow());
     });
+    $('#editor').each(function (data) {
+        var editor = new Editor();
+        editor.render();
+    });
+
+    $('.markdown').each(function () {
+        var me = $(this);
+        me.html(marked(me.text()));
+    });
 });
