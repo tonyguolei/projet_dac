@@ -1,7 +1,8 @@
 # SelfStarter
 
 An other crowdfunding project, by Ensimag's students.
-Have a look to our qucik reminde
+
+Have a look to our quick reminder at the bottom of this file !
 
 
 
