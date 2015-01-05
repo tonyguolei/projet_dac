@@ -1,6 +1,7 @@
 # SelfStarter
 
 An other crowdfunding project, by Ensimag's students.
+Have a look to our qucik reminde
 
 
 
@@ -15,7 +16,7 @@ You will need a mysql database. An easy way to get one is to use
 
 #### With Docker
 
-First, install docker: [here](https://docs.docker.com/installation/ubuntulinux/).
+First, install docker: https://docs.docker.com/installation/ubuntulinux/
 If needed, run the docker deamon.
 
 Create and run the container named *mysql-dac* containing a mysql server with
@@ -96,7 +97,7 @@ between `<resources>` and `</resources>` :
 <jdbc-resource pool-name="dac" jndi-name="jdbc/dac"></jdbc-resource>
 ```
 
-##### Troubleshouting
+##### Troubleshooting
 
 If the copy/paste to the xml configuration did not worked, you can try this.
 
@@ -133,7 +134,7 @@ Run your Glassfish server, either with Netbeans, or with:
 $GLASSFISH_HOME/glassfish/bin/asadmin start-domain
 ```
 
-* Go to [here](http://localhost:4848/)
+* Go to http://localhost:4848/
 * Go to Common Task - Domain - Administrator Password
 * Set the password to `admin`
 
@@ -184,6 +185,11 @@ cd ear
 mvn glassfish:deploy
 ```
 
+### Run tests
+
+```
+mvn install -Ddac.skipTests=false
+```
 
 
 
@@ -203,6 +209,7 @@ If you followed our instructions, these should be valid...
 
 * Start MySQL `sudo docker start mysql-dac`
 * Stop MySQL `sudo docker stop mysql-dac`
+* Create tables `mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql`
 * Log into MySQL `mysql -udac -pcoucou -h127.0.0.1 -Ddac`
 * Start Glassfish `$GLASSFISH_HOME/glassfish/bin/asadmin start-domain`
 * Stop Glassfish `$GLASSFISH_HOME/glassfish/bin/asadmin stop-domain`
@@ -211,4 +218,5 @@ If you followed our instructions, these should be valid...
 * Deploy from command-line `mvn glassfish:deploy` (in ear/)
 * Undeploy from command-line `mvn glassfish:undeploy` (in ear/)
 * Redeploy from command-line `mvn glassfish:redeploy` (in ear/)
+* Run tests `mvn install -Ddac.skipTests=false`
 
