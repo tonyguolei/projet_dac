@@ -17,9 +17,14 @@
       <ul class="nav navbar-nav">
         <!-- TODO active class  nav is not set wtf-->
         <!--<li class="<c:if test="${request.getParameter('nav') == 'projects'}">active</c:if>"><a href="index.jsp?nav=projects">Browse Projects<c:if test="${request.getParameter('nav') == 'projects'}"><span class="sr-only">(current)</span></c:if></a></li>-->
-        <li><a href="index.jsp?nav=projects">Browse Projects</a></li>
-        <li><a href="index.jsp?nav=createproject">Create a new project</a></li>
-        <li><a href="ControllerMemorise?action=list&id=${sessionScope.user.idUser}">Saved projects</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="index.jsp?nav=projects">Browse Projects</a></li>
+                <li><a href="index.jsp?nav=createproject">Create a new project</a></li>
+                <li><a href="ControllerMemorise?action=list&id=${sessionScope.user.idUser}">Saved projects</a></li>
+            </ul>
+        </li>
 <!--        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
