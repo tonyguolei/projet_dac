@@ -15,7 +15,7 @@
     <h2>Fund level</h2>
     <p>$ ${requestScope.fundLevel} </p>
     <h2>Save this project</h2>
-    <p><a href="ControllerMemorise?action=create&id=${requestScope.project.idProject}">Remember!</a></p>
+    <p><a href="ControllerMemorise?action=create&id=${requestScope.project.idProject}">Remember!</a> <a href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}">Forget!</a></p>
     <h2>I want to fund this !</h2>
     <form class="form-inline" role="form" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
       <div class="form-group">

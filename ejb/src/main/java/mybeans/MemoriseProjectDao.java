@@ -57,4 +57,11 @@ public class MemoriseProjectDao extends Dao<MemoriseProject> {
         query.setParameter("idUser", user);
         return query.getResultList();
     }
+
+    public void remove(MemoriseProject memoriseProject) {
+        TypedQuery<Project> query = em.createNamedQuery("MemoriseProject.deleteByProjectUser", Project.class);
+        query.setParameter("idUser", memoriseProject.getIdUser());
+        query.setParameter("idProject", memoriseProject.getIdProject());
+        query.executeUpdate();
+    }
 }

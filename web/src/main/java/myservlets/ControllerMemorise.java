@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +36,9 @@ public class ControllerMemorise extends HttpServlet {
     private static final String ERROR_PARAM = "Please specify correct parameters.";
     private static final String ERROR_ID = "Please specify a correct user ID.";
     private static final String SUCCESS_CREATE = "Project remembered!";
+    private static final String SUCCESS_DELETE = "Project forgotten!";
+    private static final String ERROR_CREATE = "Project already remembered.";
+    private static final String ERROR_DELETE = "Project already forgotten.";
     
     @EJB
     private ProjectDao projectDao;
@@ -60,6 +64,9 @@ public class ControllerMemorise extends HttpServlet {
         switch (action) {
             case "create":
                 doCreate(request, response);
+                break;
+            case "remove":
+                doRemove(request, response);
                 break;
             case "list":
                 doList(request, response);
@@ -136,9 +143,14 @@ public class ControllerMemorise extends HttpServlet {
         }
         
         MemoriseProject memoriseProject = new MemoriseProject(user, project);
-        memoriseProjectDao.save(memoriseProject);
-        Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
-        response.sendRedirect("index.jsp?nav=project&id=" + id);
+        try {
+            memoriseProjectDao.save(memoriseProject);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+        } catch (EJBException e) {
+            Alert.addAlert(session, AlertType.INFO, ERROR_CREATE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+        }
     }
     
     
@@ -165,5 +177,42 @@ public class ControllerMemorise extends HttpServlet {
         request.setAttribute("projects", projects);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=projects");
         requestDispatcher.forward(request, response);
+    }
+
+    private void doRemove(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
+            response.sendRedirect("index.jsp?nav=login");
+            return;
+        }
+
+        String idS = request.getParameter("id");
+        int id;
+        try {
+            id = Integer.parseInt(idS);
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        Project project = projectDao.getByIdProject(id);
+        if(project == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        MemoriseProject memoriseProject = new MemoriseProject(user, project);
+        try {
+            memoriseProjectDao.remove(memoriseProject);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_DELETE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+        } catch (EJBException e) {
+            Alert.addAlert(session, AlertType.INFO, ERROR_DELETE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+        }
     }
 }
