@@ -38,6 +38,8 @@ public class ControllerUser extends HttpServlet {
     private static final String ERROR_CREATE = "Can not create the new user. The mail may already be attached to an account.";
     private static final String ERROR_INSPECT = "Please specify a valid user ID";
     private static final String ERROR_ID = "Please specify an ID";
+    private static final String ERROR_CONF_PASS = "Passwords missmatch. Please reenter your new password.";
+    private static final String SUCCESS_CHANGE_PASS = "Password succesfully modified.";
 
     @EJB
     private UserDao userDao;
@@ -68,6 +70,9 @@ public class ControllerUser extends HttpServlet {
                 break;
             case "inspect":
                 doInspect(request, response);
+                break;
+            case "changePass":
+                doChangePass(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -202,6 +207,31 @@ public class ControllerUser extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=user&id=" + id);
         requestDispatcher.forward(request, response);
         
+    }
+
+    /**
+     * Change the user password
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
+    private void doChangePass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pass = request.getParameter("pass");
+        String confpass = request.getParameter("confpass");
+        System.err.println(pass + " " + confpass);
+        if (!pass.equals(confpass)) {
+            //Passwords missmatch
+            Alert.addAlert(request.getSession(), AlertType.WARNING, ERROR_CONF_PASS);
+        } else {
+            //Change password
+            User user = (User)request.getSession().getAttribute("user");
+            user.setPassword(pass);
+            userDao.update(user);
+            Alert.addAlert(request.getSession(), AlertType.SUCCESS, SUCCESS_CHANGE_PASS);
+        }
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=settings");
+        requestDispatcher.forward(request, response);
     }
 
 }
