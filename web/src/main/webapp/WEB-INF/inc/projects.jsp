@@ -5,6 +5,7 @@
     }
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="jumbotron">
     <h1>Projects list</h1>
     <table class="table table-hover table-striped">
@@ -21,8 +22,8 @@
                 <tr>
                     <th scope="row"><a href="index.jsp?nav=project&id=${project.idProject}"><c:out value="${project.title}" /></a></th>
                     <td><a href="index.jsp?nav=user&id=${project.idOwner.idUser}"><c:out value="${project.idOwner.mail}" /></a></td>
-                    <td><c:out value="${project.goal}" /></td>
-                    <td><c:out value="${project.endDate}" /></td>
+                    <td>$ <c:out value="${project.goal}" /></td>
+                    <td><span class="time-relative"><fmt:formatDate pattern="yyyy-MM-dd" value="${project.endDate}" /></span>(<fmt:formatDate pattern="yyyy-MM-dd" value="${project.endDate}" />)</td>
                 </tr>
             </c:forEach>
         </tbody>

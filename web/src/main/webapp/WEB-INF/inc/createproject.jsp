@@ -39,7 +39,7 @@
           </div>
       </div>
       <div class="form-group">
-          <input type="text" class="form-control" name="endDate" placeholder="Deadline (yyyy-mm-dd)"/>
+          <input type="text" class="form-control datepicker" name="endDate" placeholder="Deadline"/>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
   </form>
