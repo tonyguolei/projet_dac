@@ -22,6 +22,18 @@ On arch:
 ```
 sudo systemctl start docker
 ```
+on osx:
+```
+brew install mysql
+mysql.server start
+mysql -uroot
+```
+then in the `mysql` prompt:
+```
+CREATE USER 'dac'@'localhost' IDENTIFIED BY 'coucou';
+GRANT ALL PRIVILEGES ON * . * TO 'dac'@'localhost';
+FLUSH PRIVILEGES;
+```
 
 Create and run the container named *mysql-dac* containing a mysql server with
 user *dac* and password *coucou* and database *dac*:
