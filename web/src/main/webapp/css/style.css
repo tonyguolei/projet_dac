@@ -6,3 +6,11 @@ footer {
     text-align: center;
     margin: 10px 10px 10px;
 }
+
+.no-padding {
+    padding: 5px 15px;
+}
+
+.redbg {
+    background-color: red;
+}

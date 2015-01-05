@@ -30,6 +30,8 @@
             <%@include file="WEB-INF/inc/project.jsp" %>
         <% } else if (nav.equals("createproject")) { %>
             <%@include file="WEB-INF/inc/createproject.jsp" %>
+        <% } else if (nav.equals("settings")) { %>
+            <%@include file="WEB-INF/inc/settings.jsp" %>
         <% } else { /*Page not found, go to 404*/ %>
             <%@include file="WEB-INF/err/404.jsp" %>
         <% } %>

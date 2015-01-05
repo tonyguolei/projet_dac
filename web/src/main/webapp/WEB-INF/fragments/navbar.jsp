@@ -59,6 +59,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" id="logIcon"></span> <c:out value="${sessionScope.user.mail}"/> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="index.jsp?nav=user&id=${sessionScope.user.idUser}">My Profile</a></li>
+            <li><a href="index.jsp?nav=settings&id=${sessionScope.user.idUser}">Settings</a></li>
             <li class="divider"></li>
             <li><a href="ControllerUser?action=logout">Logout</a></li>
           </ul>
