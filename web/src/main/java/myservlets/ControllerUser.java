@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import mybeans.Project;
+import mybeans.Fund;
 
 /**
  *
@@ -204,7 +205,9 @@ public class ControllerUser extends HttpServlet {
         request.setAttribute("inspectedUser", inspectedUser);
         
         List<Project> userProjects = userDao.getProjects(inspectedUser);
+        List<Fund> fundedProjects = userDao.getFunds(inspectedUser);
         request.setAttribute("userProjects", userProjects);
+        request.setAttribute("fundedProjects", fundedProjects);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=user&id=" + id);
         requestDispatcher.forward(request, response);
         

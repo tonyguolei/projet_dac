@@ -66,9 +66,26 @@ public class UserDao extends Dao<User> {
         return query.getResultList();
     }
     
+    /** Get the list af all projects created by a user
+     *
+     * @param user the user
+     * @return the user’s project
+     */
     public List<Project> getProjects(User user) {
         TypedQuery<Project> query = em.createNamedQuery("User.getProjects", Project.class);
         query.setParameter("idOwner", user);
+        return query.getResultList();
+    }
+
+    /**
+     * Get the list of all projects funded by a user
+     *
+     * @param user the user
+     * @return the funded projects
+     */
+    public List<Fund> getFunds(User user) {
+        TypedQuery<Fund> query = em.createNamedQuery("Fund.findByUser", Fund.class);
+        query.setParameter("idUser", user);
         return query.getResultList();
     }
 }

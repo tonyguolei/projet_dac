@@ -23,7 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Fund.findAll", query = "SELECT f FROM Fund f"),
     @NamedQuery(name = "Fund.findByIdFund", query = "SELECT f FROM Fund f WHERE f.idFund = :idFund"),
     @NamedQuery(name = "Fund.getFundLevel", query = "SELECT coalesce(sum(f.value),0) FROM Fund f WHERE f.idProject = :idProject"),
-    @NamedQuery(name = "Fund.findByValue", query = "SELECT f FROM Fund f WHERE f.value = :value")})
+    @NamedQuery(name = "Fund.findByValue", query = "SELECT f FROM Fund f WHERE f.value = :value"),
+    @NamedQuery(name = "Fund.findByUser", query = "SELECT f FROM Fund f WHERE f.idUser = :idUser")})
 public class Fund implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
