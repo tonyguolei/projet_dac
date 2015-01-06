@@ -1,9 +1,10 @@
 <%
-    if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null) {
+    if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null || request.getAttribute("comments") == null) {
         request.getRequestDispatcher("ControllerProject?action=inspect").forward(request, response);
         return;
     }
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="jumbotron">
     <h1>${requestScope.project.title}</h1>
     <h2>Owner</h2>
@@ -36,4 +37,19 @@
     <p>${requestScope.project.tags}</p>
     <h2>Report</h2>
     <p><a href="ControllerProject?action=report&id=${requestScope.project.idProject}"> Report this project</a></p>
+    <h2>Comments</h2>
+    <c:forEach items="${comments}" var="comment">
+        <p>From ${comment.idUser.mail} on ${comment.date}</p>
+        <div class="markdown">${comment.comment}</div>
+    </c:forEach>
+    <form role="form" method="POST" action="ControllerComment">
+        <input type="hidden" name="action" value="create"/>
+        <input type="hidden" name="id" value="${requestScope.project.idProject}"/>
+        <div class="form-group">
+            <div class="editor-wrapper">
+                <textarea id="editor" placeholder="Comment here ...." name="content"></textarea>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>
+    </form>
 </div>

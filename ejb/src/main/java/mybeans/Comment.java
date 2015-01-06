@@ -22,13 +22,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
+    @NamedQuery(name = "Comment.findByIdProject", query = "SELECT c FROM Comment c WHERE c.idProject = :idProject"),
     @NamedQuery(name = "Comment.findByIdComment", query = "SELECT c FROM Comment c WHERE c.idComment = :idComment"),
     @NamedQuery(name = "Comment.findByComment", query = "SELECT c FROM Comment c WHERE c.comment = :comment"),
     @NamedQuery(name = "Comment.findByDate", query = "SELECT c FROM Comment c WHERE c.date = :date")})
 public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idComment;
     @Basic(optional = false)
@@ -36,7 +37,7 @@ public class Comment implements Serializable {
     @Size(min = 1, max = 500)
     private String comment;
     @Basic(optional = false)
-    @NotNull
+    @Column(name = "date", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
@@ -51,6 +52,12 @@ public class Comment implements Serializable {
 
     public Comment(Integer idComment) {
         this.idComment = idComment;
+    }
+    
+    public Comment(User user, Project project, String comment) {
+        this.idUser = user;
+        this.idProject = project;
+        this.comment = comment;
     }
 
     public Comment(Integer idComment, String comment, Date date) {

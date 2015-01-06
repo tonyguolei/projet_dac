@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import mybeans.Comment;
+import mybeans.CommentDao;
 import mybeans.FundDao;
 import mybeans.UserDao;
 
@@ -46,6 +48,8 @@ public class ControllerProject extends HttpServlet {
     private ProjectDao projectDao;
     @EJB
     private FundDao fundDao;
+    @EJB
+    private CommentDao commentDao;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -211,6 +215,9 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
+        
+        List<Comment> comments = commentDao.getComments(project);
+        request.setAttribute("comments", comments);
         
         BigDecimal fundLevel = fundDao.getFundLevel(project);
         request.setAttribute("fundLevel", fundLevel);

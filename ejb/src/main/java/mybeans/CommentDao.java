@@ -52,4 +52,10 @@ public class CommentDao extends Dao<Comment> {
         TypedQuery<Comment> query = em.createNamedQuery("Comment.findAll", Comment.class);
         return query.getResultList();
     }
+
+    public List<Comment> getComments(Project project) {
+        TypedQuery<Comment> query = em.createNamedQuery("Comment.findByIdProject", Comment.class);
+        query.setParameter("idProject", project);
+        return query.getResultList();
+    }
 }
