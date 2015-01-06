@@ -1,12 +1,17 @@
 $(document).ready(function () {
-    console.log('Go on!');
     $('.datepicker').datepicker({
         format: 'YYYY-MM-DD'
     });
     $('.time-relative').each(function () {
-        console.log('hey');
         var me = $(this);
-        me.text(moment(me.text(), "YYYY-MM-DD").fromNow());
+        var date = me.text();
+        var format = me.attr('data-format') || 'YYYY-MM-DD';
+        console.log(format);
+        me.text(moment(date, format).fromNow())
+          .tooltip({
+              delay: 300,
+              title: date
+        });
     });
     $('#editor').each(function (data) {
         var editor = new Editor();

@@ -24,22 +24,21 @@
           <div class="input-group">
               <div class="input-group-addon">$</div>
               <input type="number" class="form-control" name="value" placeholder="Amount"/>
-              <div class="input-group-addon">.00</div>
           </div>
       </div>
       <button class="btn btn-default" type="submit">Fund!</button>
   </form>
     <h2>Creation date</h2>
-    <p>${requestScope.project.creationDate}</p>
+    <p><span class="time-relative"><fmt:formatDate pattern="yyyy-MM-dd" value="${requestScope.project.creationDate}" /></span></p>
     <h2>Deadline</h2>
-    <p>${requestScope.project.endDate}</p>
+    <p><span class="time-relative"><fmt:formatDate pattern="yyyy-MM-dd" value="${requestScope.project.endDate}" /></span></p>
     <h2>Tags</h2>
     <p>${requestScope.project.tags}</p>
     <h2>Report</h2>
     <p><a href="ControllerProject?action=report&id=${requestScope.project.idProject}"> Report this project</a></p>
     <h2>Comments</h2>
     <c:forEach items="${comments}" var="comment">
-        <p>From ${comment.idUser.mail} on ${comment.date}</p>
+        <p>From ${comment.idUser.mail} <span class="time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${comment.date}" /></span></p>
         <div class="markdown">${comment.comment}</div>
     </c:forEach>
     <form role="form" method="POST" action="ControllerComment">
