@@ -33,6 +33,8 @@ public class ControllerUser extends HttpServlet {
     private static final String SUCCESS_LOGOUT = "You are disconnected.";
     private static final String ERROR_LOGIN = "The email you entered is not attached to any account.";
     private static final String ERROR_PASS = "The password you entered is incorrect. Please try again (make sure your caps lock is off).";
+    private static final String ERROR_DELETED = "This account has been deleted.";
+    private static final String ERROR_BANNED = "This account has been banned.";
     private static final String SUCCESS_LOGIN = "Login succesful, welcome back!";
     private static final String SUCCESS_CREATE = "New user created! Please log in.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
@@ -42,6 +44,7 @@ public class ControllerUser extends HttpServlet {
     private static final String ERROR_CONF_PASS = "Passwords missmatch. Please reenter your new password.";
     private static final String SUCCESS_CHANGE_PASS = "Password succesfully modified.";
     private static final String ERROR_EMPTY_PASS = "You need to provide a new password.";
+    private static final String SUCCESS_DELETE_ACCOUNT = "User deleted successfully.";
 
     @EJB
     private UserDao userDao;
@@ -75,6 +78,9 @@ public class ControllerUser extends HttpServlet {
                 break;
             case "changePass":
                 doChangePass(request, response);
+                break;
+            case "deleteAccount":
+                doDeleteAccount(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -163,17 +169,29 @@ public class ControllerUser extends HttpServlet {
             return;
         }
         
-        if (password.equals(user.getPassword())) {
-            session.setAttribute("user", user);
-            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
-            response.sendRedirect("index.jsp");
-            return;
-        } else {
+        if (!password.equals(user.getPassword())) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
             System.out.println("Invalid password");
             response.sendRedirect("index.jsp?nav=login&mail=" + mail);
             return;
         }
+
+        if (user.getDeleted()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_DELETED);
+            response.sendRedirect("index.jsp?nav=login&mail=" + mail);
+            return;
+        }
+
+        if (user.getBanned()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_BANNED);
+            response.sendRedirect("index.jsp?nav=login&mail=" + mail);
+            return;
+        }
+
+        session.setAttribute("user", user);
+        Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
+        response.sendRedirect("index.jsp");
+        return;
     }
 
     private void doLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -241,4 +259,37 @@ public class ControllerUser extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
+    /**
+     * Delete the user account
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void doDeleteAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        String pass = request.getParameter("pass");
+
+        if (user == null) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+
+        if (!pass.equals(user.getPassword())) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
+            response.sendRedirect("index.jsp?nav=settings");
+            return;
+        }
+
+        user.setDeleted(true);
+        this.userDao.update(user);
+        session.invalidate();
+
+        HttpSession newSession = request.getSession();
+        Alert.addAlert(newSession, AlertType.SUCCESS, SUCCESS_DELETE_ACCOUNT);
+        response.sendRedirect("index.jsp");
+    }
 }

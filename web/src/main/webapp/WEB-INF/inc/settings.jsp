@@ -28,7 +28,14 @@
             <div class="list-group-item-danger active no-padding">Delete your account</div>
             <div class="list-group-item">
                 <p>Once you delete your account, there is no going back. Please be certain.</p>
-                <a class="btn btn-danger" role="button" href="#">Delete</a>
+                <form method="post" action="ControllerUser">
+                    <div class="form-group">
+                        <label for="pass">Type your password</label>
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" />
+                    </div>
+                    <input type="hidden" id="action" name="action" value="deleteAccount" />
+                    <input type="submit" class="btn btn-danger" role="button" href="#" value="Delete" />
+                </form>
             </div> 
             
         </div>
