@@ -186,6 +186,10 @@ cd ear
 mvn glassfish:deploy
 ```
 
+### Access the web site
+
+The web site is available at http://localhost:8080/web
+
 ### Run tests
 
 ```
