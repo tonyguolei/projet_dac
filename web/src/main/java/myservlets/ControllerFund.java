@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  *
@@ -26,6 +27,7 @@ public class ControllerFund extends HttpServlet {
 
     private static final String ERROR_LOGIN = "Please log in to fund a project.";
     private static final String ERROR_PARAM = "Please specify correct parameters.";
+    private static final String ERROR_DEADLINE = "You can not fund a project after its deadline is reached.";
     private static final String SUCCESS_CREATE = "Project funded!";
 
     @EJB
@@ -122,6 +124,12 @@ public class ControllerFund extends HttpServlet {
         if(project == null){
             Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
             response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        if (project.getEndDate().before(new Date())) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
             return;
         }
         
