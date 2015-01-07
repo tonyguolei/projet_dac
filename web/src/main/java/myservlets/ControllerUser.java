@@ -35,7 +35,7 @@ public class ControllerUser extends HttpServlet {
     private static final String ERROR_PASS = "The password you entered is incorrect. Please try again (make sure your caps lock is off).";
     private static final String ERROR_DELETED = "This account has been deleted.";
     private static final String ERROR_BANNED = "This account has been banned.";
-    private static final String SUCCESS_LOGIN = "Login succesful, welcome back!";
+    private static final String SUCCESS_LOGIN = "Login successful, welcome back!";
     private static final String SUCCESS_CREATE = "New user created! Please log in.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String ERROR_CREATE = "Can not create the new user. The mail may already be attached to an account.";
