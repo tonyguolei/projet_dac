@@ -9,9 +9,10 @@
 
 <div class="jumbotron">
   <h1>Welcome to SelfStarter!</h1>
-  <p>Here you can browse projects from other people to help them with your
-  money so that we can take a huge percentage to feed the cat.</p>
-  <p>Feel free to <a href="index.jsp?nav=signup">sign up!</a></p>
-  <p><a href="index.jsp?nav=createproject">Create a project</a></p>
-  <p><a href="index.jsp?nav=projects">List projects</a></p>
+  <h3>Feed developers</h3>
+  <h2>Help others</h2>
+  <p>Browse projects on SelfStarter to help developers realize amazing projects! <br/>
+  Every penny counts...</p>
+  <h2>Get help</h2>
+  <p>Post your project here and let the community help you to fund your project.</p>
 </div>
