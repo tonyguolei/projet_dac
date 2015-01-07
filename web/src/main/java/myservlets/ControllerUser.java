@@ -44,7 +44,7 @@ public class ControllerUser extends HttpServlet {
     private static final String ERROR_CONF_PASS = "Passwords missmatch. Please reenter your new password.";
     private static final String SUCCESS_CHANGE_PASS = "Password succesfully modified.";
     private static final String ERROR_EMPTY_PASS = "You need to provide a new password.";
-    private static final String SUCCESS_DELETE_ACCOUNT = "User deleted successfully.";
+    private static final String SUCCESS_DELETE_ACCOUNT = "Your account as been successfully deleted.";
 
     @EJB
     private UserDao userDao;
