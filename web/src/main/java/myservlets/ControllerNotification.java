@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import mybeans.Notification;
 import mybeans.NotificationDao;
 import mybeans.User;
 
@@ -36,13 +37,19 @@ public class ControllerNotification extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        User user = (User)session.getAttribute("user");
-        request.setAttribute("numberNewNotification", notificationDao.getNonReadNumber(user));
-        request.setAttribute("listNotification", notificationDao.getAllByUserId(user));
-
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?" + (String)request.getAttribute("fwd"));
-        requestDispatcher.forward(request, response);
+        
+        String action = request.getParameter("action");
+        switch (action) {
+            case "getNumber":
+                doGetNumber(request, response);
+                break;
+            case "read":
+                doRead(request, response);
+                break;
+            default:
+                response.sendRedirect("index.jsp");
+                break;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,4 +91,29 @@ public class ControllerNotification extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void doGetNumber(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        
+        request.setAttribute("numberNewNotification", notificationDao.getNonReadNumber(user));
+        request.setAttribute("listNotification", notificationDao.getAllByUserId(user));
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?" + (String)request.getAttribute("fwd"));
+        requestDispatcher.forward(request, response);
+    }
+    
+    private void doRead(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        int idProject = Integer.parseInt(request.getParameter("idProject"));
+        int idNotif = Integer.parseInt(request.getParameter("idNotif"));
+        
+        Notification notification = notificationDao.getByIdNotification(idNotif);
+        if (notification != null) {
+            notificationDao.delete(notification);
+        }
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=project&id=" + idProject);
+        requestDispatcher.forward(request, response);
+    }
 }

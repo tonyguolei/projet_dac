@@ -2,7 +2,7 @@
 <%
     if (request.getAttribute("numberNewNotification") == null) {
         request.setAttribute("fwd", request.getQueryString());
-        request.getRequestDispatcher("ControllerNotification").forward(request, response);
+        request.getRequestDispatcher("ControllerNotification?action=getNumber").forward(request, response);
         return;
     }
 %>
@@ -79,7 +79,7 @@
           </a>
           <ul class="dropdown-menu" role="menu">
               <c:forEach items="${requestScope.listNotification}" var="notif">
-                  <li><a href="index.jsp?nav=project&id=${notif.idProject.idProject}">${notif.description}</a></li>
+                  <li><a href="ControllerNotification?action=read&idProject=${notif.idProject.idProject}&idNotif=${notif.idNotification}">${notif.description}</a></li>
               </c:forEach>
           </ul>    
         </li>
