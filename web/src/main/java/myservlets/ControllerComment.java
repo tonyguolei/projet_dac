@@ -9,6 +9,7 @@ import alerts.Alert;
 import alerts.AlertType;
 import java.io.IOException;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class ControllerComment extends HttpServlet {
     private static final String ERROR_LOGIN = "Please log in to comment on a project.";
     private static final String ERROR_PARAM = "Please specify correct parameters.";
     private static final String SUCCESS_CREATE = "Commented!";
+    private static final String ERROR_CREATE = "Your comment should not exceed 500 characters.";
     private static final String ERROR_EMPTY_COMMENT = "Please enter a comment.";
     
     @EJB
@@ -132,10 +134,15 @@ public class ControllerComment extends HttpServlet {
             return;
         }
         
-        Comment comment = new Comment(user, project, content);
-        commentDao.save(comment);
-        Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
-        response.sendRedirect("index.jsp?nav=project&id="+id);
+        try {
+            Comment comment = new Comment(user, project, content);
+            commentDao.save(comment);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+        } catch (EJBException e) {
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+        }
     }
 
 }
