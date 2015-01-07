@@ -36,6 +36,7 @@ public class ControllerProject extends HttpServlet {
 
     private static final String ERROR_LOGIN = "Please log in to create a new project.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
+    private static final String ERROR_DEADLINE = "The deadline can not be in the past.";
     private static final String SUCCESS_CREATE = "Project created succefully!";
     private static final String SUCCESS_REPORT = "Project reported succefully!";
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
@@ -159,6 +160,12 @@ public class ControllerProject extends HttpServlet {
             return;
         } catch (IllegalArgumentException e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+            response.sendRedirect("index.jsp?nav=createproject");
+            return;
+        }
+        
+        if (endDate.before(new Date())) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
             response.sendRedirect("index.jsp?nav=createproject");
             return;
         }
