@@ -82,6 +82,9 @@ public class ControllerUser extends HttpServlet {
             case "deleteAccount":
                 doDeleteAccount(request, response);
                 break;
+            case "list":
+                doList(request, response);
+                break;
             default:
                 response.sendRedirect("index.jsp");
                 break;
@@ -291,5 +294,12 @@ public class ControllerUser extends HttpServlet {
         HttpSession newSession = request.getSession();
         Alert.addAlert(newSession, AlertType.SUCCESS, SUCCESS_DELETE_ACCOUNT);
         response.sendRedirect("index.jsp");
+    }
+
+    private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<User> users = userDao.getAll();
+        request.setAttribute("users", users);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=users");
+        requestDispatcher.forward(request, response);
     }
 }

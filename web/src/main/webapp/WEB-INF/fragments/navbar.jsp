@@ -20,11 +20,17 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="index.jsp?nav=projects">Browse Projects</a></li>
-                <li><a href="index.jsp?nav=createproject">Create a new project</a></li>
-                <li><a href="ControllerMemorise?action=list&id=${sessionScope.user.idUser}">Saved projects</a></li>
-            </ul>
-        </li>
+                <li><a href="index.jsp?nav=projects">Browse</a></li>
+                <li><a href="index.jsp?nav=createproject">Create new</a></li>
+                <li><a href="ControllerMemorise?action=list&id=${sessionScope.user.idUser}">Saved</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="index.jsp?nav=users">List</a></li>
+              </ul>
+            </li>
 <!--        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
