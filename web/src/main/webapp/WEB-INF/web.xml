@@ -20,6 +20,10 @@
         <servlet-name>ControllerComment</servlet-name>
         <servlet-class>myservlets.ControllerComment</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerNotification</servlet-name>
+        <servlet-class>myservlets.ControllerNotification</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControllerProject</servlet-name>
         <url-pattern>/ControllerProject</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ControllerComment</servlet-name>
         <url-pattern>/ControllerComment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerNotification</servlet-name>
+        <url-pattern>/ControllerNotification</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

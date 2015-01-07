@@ -1,4 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+    if (request.getAttribute("numberNewNotification") == null) {
+        request.setAttribute("fwd", request.getQueryString());
+        request.getRequestDispatcher("ControllerNotification").forward(request, response);
+        return;
+    }
+%>
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -63,6 +71,18 @@
         </div>
           <% } else { %>
       <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-bell label label-primary">
+                ${requestScope.numberNewNotification}
+            </span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+              <c:forEach items="${requestScope.listNotification}" var="notif">
+                  <li><a href="index.jsp?nav=project&id=${notif.idProject.idProject}">${notif.description}</a></li>
+              </c:forEach>
+          </ul>    
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" id="logIcon"></span> <c:out value="${sessionScope.user.mail}"/> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

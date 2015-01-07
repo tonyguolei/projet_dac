@@ -25,7 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notification.findByIdNotification", query = "SELECT n FROM Notification n WHERE n.idNotification = :idNotification"),
     @NamedQuery(name = "Notification.findByDescription", query = "SELECT n FROM Notification n WHERE n.description = :description"),
     @NamedQuery(name = "Notification.findByDate", query = "SELECT n FROM Notification n WHERE n.date = :date"),
-    @NamedQuery(name = "Notification.findByIsRead", query = "SELECT n FROM Notification n WHERE n.isRead = :isRead")})
+    @NamedQuery(name = "Notification.findByIsRead", query = "SELECT n FROM Notification n WHERE n.isRead = :isRead"),
+    @NamedQuery(name = "Notification.findNotReadByUser", query = "SELECT count(n) FROM Notification n WHERE n.idUser = :idUser AND n.isRead = false"),
+    @NamedQuery(name = "Notification.findAllByUserid", query = "SELECT n FROM Notification n WHERE n.idUser = :idUser")})
 public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
