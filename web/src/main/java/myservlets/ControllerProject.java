@@ -26,7 +26,6 @@ import java.util.List;
 import mybeans.Comment;
 import mybeans.CommentDao;
 import mybeans.FundDao;
-import mybeans.UserDao;
 
 /**
  *
@@ -140,11 +139,6 @@ public class ControllerProject extends HttpServlet {
         String tags = request.getParameter("tags");
         String goalS = request.getParameter("goal");
         String endDateS = request.getParameter("endDate");
-        System.out.println(title);
-        System.out.println(description);
-        System.out.println(goalS);
-        System.out.println(endDateS);
-        System.out.println(tags);
         if (title == null || title.equals("") ||
                 description == null || description.equals("") ||
                 tags == null || tags.equals("") ||
@@ -157,7 +151,7 @@ public class ControllerProject extends HttpServlet {
         BigDecimal goal = BigDecimal.ZERO;
         Date endDate = new java.sql.Date(0);
         try {
-            goal = BigDecimal.valueOf(Integer.parseInt(goalS));
+            goal = BigDecimal.valueOf(Float.parseFloat(goalS));
             endDate = java.sql.Date.valueOf(endDateS);
         } catch (NumberFormatException e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
