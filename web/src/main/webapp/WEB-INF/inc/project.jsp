@@ -1,3 +1,4 @@
+<%@page import="mybeans.User"%>
 <%
     if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null || request.getAttribute("comments") == null) {
         request.getRequestDispatcher("ControllerProject?action=inspect").forward(request, response);
@@ -19,15 +20,15 @@
     <p><a href="ControllerMemorise?action=create&id=${requestScope.project.idProject}">Remember!</a> <a href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}">Forget!</a></p>
     <h2>I want to fund this !</h2>
     <form class="form-inline" role="form" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
-      <div class="form-group">
-          <label class="sr-only" for="value">Amount (in dollars)</label>
-          <div class="input-group">
-              <div class="input-group-addon">$</div>
-              <input type="text" class="form-control" name="value" placeholder="Amount"/>
-          </div>
-      </div>
-      <button class="btn btn-default" type="submit">Fund!</button>
-  </form>
+        <div class="form-group">
+            <label class="sr-only" for="value">Amount (in dollars)</label>
+            <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" class="form-control" name="value" placeholder="Amount"/>
+            </div>
+        </div>
+        <button class="btn btn-default" type="submit">Fund!</button>
+    </form>
     <h2>Creation date</h2>
     <p><span class="time-relative"><fmt:formatDate pattern="yyyy-MM-dd" value="${requestScope.project.creationDate}" /></span></p>
     <h2>Deadline</h2>
@@ -51,4 +52,15 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>
     </form>
+    <% Object currentUser = session.getAttribute("user"); %>
+    <% if (currentUser != null) {%>
+    <%     if (((User) currentUser).getIsAdmin()) {%>
+    <br/>
+    <form role="form" method="POST" action="ControllerProject">
+        <input type="hidden" name="action" value="delete"/>
+        <input type="hidden" name="id" value="${requestScope.project.idProject}">
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Delete project</button>
+    </form>
+    <%     }%>
+    <% }%>
 </div>

@@ -162,7 +162,7 @@ public class ControllerProject extends HttpServlet {
         
         projectDao.delete(project);
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_DELETE);
-        response.sendRedirect("index.jsp?nav=project&id="+id);
+        response.sendRedirect("index.jsp?nav=projects");
     }
     
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
