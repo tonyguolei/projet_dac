@@ -35,6 +35,11 @@ public class ControllerUser extends HttpServlet {
     private static final String ERROR_PASS = "The password you entered is incorrect. Please try again (make sure your caps lock is off).";
     private static final String ERROR_DELETED = "This account has been deleted.";
     private static final String ERROR_BANNED = "This account has been banned.";
+    private static final String ERROR_BAN_NOT_ADMIN = "You must be an admin to ban someone.";
+    private static final String ERROR_BAN_ADMIN = "You can't ban an admin account.";
+    private static final String ERROR_ALREADY_BANNED = "This account has already been banned.";
+    private static final String ERROR_LOGIN_BAN = "You must be connected as an admin to ban someone.";
+    private static final String SUCCESS_BAN = "User successfully banned.";
     private static final String SUCCESS_LOGIN = "Login successful, welcome back!";
     private static final String SUCCESS_CREATE = "New user created! Please log in.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
@@ -86,6 +91,9 @@ public class ControllerUser extends HttpServlet {
             case "list":
                 doList(request, response);
                 break;
+            case "ban":
+                doBan(request, response);
+                break;
             default:
                 response.sendRedirect("index.jsp");
                 break;
@@ -131,6 +139,55 @@ public class ControllerUser extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void doBan(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_BAN);
+            response.sendRedirect("index.jsp?nav=login");
+            return;
+        }
+        
+        if (!user.getIsAdmin()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_NOT_ADMIN);
+            doInspect(request, response);
+            return;
+        }
+        
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
+            response.sendRedirect("index.jsp?nav=users");
+            return;
+        }
+
+        User bannedUser = userDao.getByIdUser(id);
+        if(bannedUser == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=users");
+            return;
+        }
+        
+        if (bannedUser.getIsAdmin()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_ADMIN);
+            doInspect(request, response);
+            return;
+        }
+        
+        if (bannedUser.getBanned()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ALREADY_BANNED);
+            doInspect(request, response);
+            return;
+        }
+        
+        bannedUser.setBanned(true);
+        userDao.update(bannedUser);
+        Alert.addAlert(request.getSession(), AlertType.SUCCESS, SUCCESS_BAN);
+        doInspect(request, response);
+    }
+    
     private void doSignup(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String mail = request.getParameter("mail");
