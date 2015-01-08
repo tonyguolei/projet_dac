@@ -79,7 +79,10 @@
           </a>
           <ul class="dropdown-menu" role="menu">
               <c:forEach items="${requestScope.listNotification}" var="notif">
-                  <li><a href="ControllerNotification?action=read&idProject=${notif.idProject.idProject}&idNotif=${notif.idNotification}">${notif.description}</a></li>
+                  <li>
+                      <span class="dropdown-header"><strong>${notif.idProject.title}</strong></span>
+                      <a href="ControllerNotification?action=read&idProject=${notif.idProject.idProject}&idNotif=${notif.idNotification}">${notif.description}</a>
+                  </li>
               </c:forEach>
           </ul>    
         </li>
