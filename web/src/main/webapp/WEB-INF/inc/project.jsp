@@ -46,7 +46,7 @@
         <input type="hidden" name="id" value="${requestScope.project.idProject}"/>
         <div class="form-group">
             <div class="editor-wrapper">
-                <textarea id="editor" placeholder="Comment here ...." name="content"></textarea>
+                <textarea id="editor" data-height="160" data-maxlen="500" placeholder="Comment here ...." name="content"></textarea>
             </div>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>

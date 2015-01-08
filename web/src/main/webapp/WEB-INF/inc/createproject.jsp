@@ -25,7 +25,7 @@
       </div>
       <div class="form-group">
         <div class="editor-wrapper">
-          <textarea id="editor" placeholder="Content here ...." name="description"></textarea>
+          <textarea id="editor" data-maxlen="20000" placeholder="Content here ...." name="description"></textarea>
         </div>
       </div>
     <div class="row">

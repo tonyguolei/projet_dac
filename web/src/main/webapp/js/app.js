@@ -1,4 +1,20 @@
 $(document).ready(function () {
+    // CodeMirror Extension
+    var enforceMaxLength = function(cm, change) {
+        var maxLength = cm.getOption("maxLength");
+        if (maxLength && change.update) {
+            var str = change.text.join("\n");
+            var delta = str.length-(cm.indexFromPos(change.to) - cm.indexFromPos(change.from));
+            if (delta <= 0) { return true; }
+            delta = cm.getValue().length+delta-maxLength;
+            if (delta > 0) {
+                str = str.substr(0, str.length-delta);
+                change.update(change.from, change.to, str.split("\n"));
+            }
+        }
+        return true;
+    };
+    
     $('.datepicker').datepicker({
         format: 'YYYY-MM-DD'
     });
@@ -14,8 +30,18 @@ $(document).ready(function () {
         });
     });
     $('#editor').each(function (data) {
+        var me = $(this);
+        var width = me.attr('data-width'); // null -> dont change
+        var height = me.attr('data-height');
+        var maxLen = me.attr('data-maxlen');
         var editor = new Editor();
         editor.render();
+        editor.codemirror.setSize(width, height);
+        if (maxLen) {
+            editor.codemirror.setOption("maxLength", maxLen);
+            editor.codemirror.on("beforeChange", enforceMaxLength);
+        }
+        window.editor = editor;
     });
 
     $('.markdown').each(function () {
