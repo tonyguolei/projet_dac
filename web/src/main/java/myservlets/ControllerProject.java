@@ -7,9 +7,7 @@ package myservlets;
 
 import alerts.Alert;
 import alerts.AlertType;
-import mybeans.Project;
-import mybeans.ProjectDao;
-import mybeans.User;
+import mybeans.*;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -23,9 +21,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import mybeans.Comment;
-import mybeans.CommentDao;
-import mybeans.FundDao;
 
 /**
  *
@@ -50,7 +45,7 @@ public class ControllerProject extends HttpServlet {
     private FundDao fundDao;
     @EJB
     private CommentDao commentDao;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -146,7 +141,13 @@ public class ControllerProject extends HttpServlet {
                 tags == null || tags.equals("") ||
                 goalS == null || endDateS == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-            response.sendRedirect("index.jsp?nav=createproject");
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException e) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
             return;
         }
 
@@ -157,17 +158,35 @@ public class ControllerProject extends HttpServlet {
             endDate = java.sql.Date.valueOf(endDateS);
         } catch (NumberFormatException e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-            response.sendRedirect("index.jsp?nav=createproject");
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException ee) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
             return;
         } catch (IllegalArgumentException e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-            response.sendRedirect("index.jsp?nav=createproject");
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException ee) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
             return;
         }
-        
+
         if (endDate.before(new Date())) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
-            response.sendRedirect("index.jsp?nav=createproject");
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException e) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
             return;
         }
 
@@ -179,7 +198,13 @@ public class ControllerProject extends HttpServlet {
             return;
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
-            response.sendRedirect("index.jsp?nav=createproject");
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException ee) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
             return;
         }
 
@@ -217,10 +242,10 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
-        
+
         List<Comment> comments = commentDao.getComments(project);
         request.setAttribute("comments", comments);
-        
+
         BigDecimal fundLevel = fundDao.getFundLevel(project);
         request.setAttribute("fundLevel", fundLevel);
         request.setAttribute("project", project);
@@ -245,7 +270,7 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
-        
+
         project.setFlagged(true);
         projectDao.update(project);
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_REPORT);
