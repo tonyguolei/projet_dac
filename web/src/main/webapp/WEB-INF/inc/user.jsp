@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="jumbotron">
     <h1>${requestScope.inspectedUser.mail}</h1>
+    <p>Balance : $${requestScope.inspectedUser.balance}</p>
     <h2>Projects created</h2>
     <table class="table table-hover table-striped">
         <thead>

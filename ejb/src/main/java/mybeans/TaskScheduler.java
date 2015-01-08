@@ -5,6 +5,7 @@
  */
 package mybeans;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -30,22 +31,34 @@ public class TaskScheduler {
     private ProjectDao projectDao;
     @EJB
     private NotificationDao notificationDao;
+    @EJB
+    private FundDao fundDao;
+    @EJB
+    private UserDao userDao;
     
-    @Schedule
+    @Schedule(hour="*")
     private void checkDeadLine() {
         System.out.println("Checking deadline...");
         
         List<Project> projects = projectDao.getAll();
-        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+	String today = sdf.format(new Date()); 
         
         for (Project p : projects) {
-            if (p.getEndDate().compareTo(today) <= 0) {
+            if (sdf.format(p.getEndDate()).equals(today)  && !p.alreadyTransferred()) {
                 Notification notif = new Notification(
                         p.getIdOwner(),
                         p,
                         DEADLINE_REACHED
                 );
                 notificationDao.save(notif);
+                if (fundDao.getFundLevel(p).compareTo(p.getGoal()) >= 0) {
+                    User user = p.getIdOwner();
+                    user.addBalance(fundDao.getFundLevel(p));
+                    userDao.update(user);
+                    p.transferDone();
+                    projectDao.update(p);
+                }
             }
         }
     }

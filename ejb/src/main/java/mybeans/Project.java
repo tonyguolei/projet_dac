@@ -67,6 +67,9 @@ public class Project implements Serializable {
     @Basic(optional = false)
     @NotNull
     private boolean flagged;
+    @Basic(optional = false)
+    @NotNull
+    private boolean transferDone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProject")
     private Collection<MemoriseProject> memoriseProjectCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProject")
@@ -196,6 +199,14 @@ public class Project implements Serializable {
 
     public void setIdOwner(User idOwner) {
         this.idOwner = idOwner;
+    }
+    
+    public void transferDone() {
+        this.transferDone = true;
+    }
+    
+    public boolean alreadyTransferred() {
+        return this.transferDone;
     }
 
     @XmlTransient
