@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idNotification;
     @Basic(optional = false)
@@ -39,7 +39,7 @@ public class Notification implements Serializable {
     @Size(min = 1, max = 500)
     private String description;
     @Basic(optional = false)
-    @NotNull
+    @Column(name = "date", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @Basic(optional = false)
@@ -57,6 +57,13 @@ public class Notification implements Serializable {
 
     public Notification(Integer idNotification) {
         this.idNotification = idNotification;
+    }
+    
+    public Notification(User user, Project project, String description) {
+        this.idUser = user;
+        this.idProject = project;
+        this.description = description;
+        this.isRead = false;
     }
 
     public Notification(Integer idNotification, String description, Date date, boolean isRead) {

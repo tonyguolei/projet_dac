@@ -29,11 +29,14 @@ public class ControllerFund extends HttpServlet {
     private static final String ERROR_PARAM = "Please specify correct parameters.";
     private static final String ERROR_DEADLINE = "You can not fund a project after its deadline is reached.";
     private static final String SUCCESS_CREATE = "Project funded!";
+    private static final String NOTIFICATION_FUNDED = "It's a win, your project has been funded";
 
     @EJB
     private ProjectDao projectDao;
     @EJB
     private FundDao fundDao;
+    @EJB
+    private NotificationDao notificationDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -134,8 +137,18 @@ public class ControllerFund extends HttpServlet {
             return;
         }
         
+        BigDecimal oldFundLevel = fundDao.getFundLevel(project);
         Fund fund = new Fund(user, project, value);
         fundDao.save(fund);
+        if (fundDao.getFundLevel(project).compareTo(project.getGoal()) >= 0 &&
+                oldFundLevel.compareTo(project.getGoal()) == -1) {
+            Notification notif = new Notification(
+                    project.getIdOwner(),
+                    project,
+                    NOTIFICATION_FUNDED
+            );
+            notificationDao.save(notif);
+        }
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
         response.sendRedirect("index.jsp?nav=project&id=" + id);
     }
