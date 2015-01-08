@@ -39,6 +39,7 @@ public class ControllerProject extends HttpServlet {
     private static final String SUCCESS_CREATE = "Project created succefully!";
     private static final String SUCCESS_REPORT = "Project reported succefully!";
     private static final String SUCCESS_DELETE = "Project deleted succefully!";
+    private static final String SUCCESS_EDIT = "Project modified succefully!";
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_INSPECT = "Please specify a valid project ID";
@@ -88,6 +89,9 @@ public class ControllerProject extends HttpServlet {
             case "getEditPage":
                 doGetEditPage(request, response);
                 break;
+            case "edit":
+                doEdit(request, response);
+                break;
             default:
                 response.sendRedirect("index.jsp");
                 break;
@@ -133,6 +137,112 @@ public class ControllerProject extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void doEdit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_EDIT);
+            response.sendRedirect("index.jsp?nav=login");
+            return;
+        }
+        
+        if (!user.getIsAdmin()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_EDIT);
+            doInspect(request, response);
+            return;
+        }
+        
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+
+        Project project = projectDao.getByIdProject(id);
+        if(project == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String tags = request.getParameter("tags");
+        String goalS = request.getParameter("goal");
+        String endDateS = request.getParameter("endDate");
+        if (title == null || title.equals("") ||
+                description == null || description.equals("") ||
+                tags == null || tags.equals("") ||
+                goalS == null || endDateS == null) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException e) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
+            return;
+        }
+
+        BigDecimal goal = BigDecimal.ZERO;
+        Date endDate = new java.sql.Date(0);
+        try {
+            goal = BigDecimal.valueOf(Float.parseFloat(goalS));
+            endDate = java.sql.Date.valueOf(endDateS);
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException ee) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
+            return;
+        } catch (IllegalArgumentException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException ee) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
+            return;
+        }
+
+        if (endDate.before(new Date())) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
+            try {
+                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
+            } catch (ServletException e) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
+                response.sendRedirect("index.jsp?nav=createproject");
+                return;
+            }
+            return;
+        }
+        
+        try {
+            project.setTitle(title);
+            project.setDescription(description);
+            project.setTags(tags);
+            project.setGoal(goal);
+            project.setEndDate(endDate);
+            projectDao.update(project);
+            Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_EDIT);
+            doInspect(request, response);
+        } catch (Exception e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
+            request.setAttribute("project", project);
+            request.getRequestDispatcher("index.jsp?nav=editproject").forward(request, response);
+        }
+    }
+    
     private void doGetEditPage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
