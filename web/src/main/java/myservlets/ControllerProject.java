@@ -30,10 +30,13 @@ import java.util.List;
 public class ControllerProject extends HttpServlet {
 
     private static final String ERROR_LOGIN = "Please log in to create a new project.";
+    private static final String ERROR_LOGIN_DELETE = "You must log in to delete a project.";
+    private static final String ERROR_NOT_ADMIN_DELETE = "You must be an admin to delete a project.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String ERROR_DEADLINE = "The deadline can not be in the past.";
     private static final String SUCCESS_CREATE = "Project created succefully!";
     private static final String SUCCESS_REPORT = "Project reported succefully!";
+    private static final String SUCCESS_DELETE = "Project deleted succefully!";
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_INSPECT = "Please specify a valid project ID";
@@ -76,6 +79,9 @@ public class ControllerProject extends HttpServlet {
                 break;
             case "report":
                 doReport(request, response);
+                break;
+            case "delete":
+                doDeleteProject(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -122,6 +128,43 @@ public class ControllerProject extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private void doDeleteProject(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession(true);
+        
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        Project project = projectDao.getByIdProject(id);
+        if(project == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+        
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_DELETE);
+            doInspect(request, response);
+            return;
+        }
+        
+        if (!user.getIsAdmin()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_DELETE);
+            doInspect(request, response);
+            return;
+        }
+        
+        projectDao.delete(project);
+        Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_DELETE);
+        response.sendRedirect("index.jsp?nav=projects");
+    }
+    
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
@@ -130,7 +173,7 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
-
+        
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String tags = request.getParameter("tags");
