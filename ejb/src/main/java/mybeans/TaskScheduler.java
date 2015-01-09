@@ -34,7 +34,7 @@ public class TaskScheduler {
     private UserDao userDao;
 
     @Resource
-    private UserTransaction userTransaction;
+    private EJBContext context;
     
     @Schedule(hour="*")
     private void checkDeadLine() {
@@ -43,7 +43,8 @@ public class TaskScheduler {
         List<Project> projects = projectDao.getAll();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
         String today = sdf.format(new Date());
-
+        UserTransaction userTransaction = context.getUserTransaction();
+        
         for (Project p : projects) {
             if (sdf.format(p.getEndDate()).equals(today) && !p.alreadyTransferred()) {
                 Notification notif = new Notification(
@@ -65,7 +66,7 @@ public class TaskScheduler {
                         userTransaction.commit();
                     } catch (Exception e) {
                         try {
-                            userTransaction.setRollbackOnly();
+                            userTransaction.rollback();
                         } catch (SystemException e1) {
                             e1.printStackTrace();
                         }
