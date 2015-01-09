@@ -22,7 +22,6 @@ public class Alert {
      * @param msg the message to display, should be a static final in the controller calling it
      */
     public static void addAlert(HttpSession session, AlertType type, String msg) {
-        System.err.println("Adding a "+type+" message.");
         String alertListName = "msg-"+type;
         ArrayList<String> messages = (ArrayList<String>)session.getAttribute(alertListName);
         if (messages == null) {

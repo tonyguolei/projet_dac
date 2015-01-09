@@ -1,13 +1,8 @@
-<%@page import="java.util.List"%>
-<%@page import="mybeans.Project"%>
-<%@page import="mybeans.User"%>
 <%
     if (request.getAttribute("projects") == null) {
         request.getRequestDispatcher("ControllerProject?action=list").forward(request, response);
         return;
     }
-
-    User currentUser = (User) session.getAttribute("user");
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
