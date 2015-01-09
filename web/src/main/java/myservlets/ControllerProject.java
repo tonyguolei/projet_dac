@@ -44,7 +44,6 @@ public class ControllerProject extends HttpServlet {
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_INSPECT = "Please specify a valid project ID";
 
-
     @EJB
     private ProjectDao projectDao;
     @EJB
@@ -139,19 +138,19 @@ public class ControllerProject extends HttpServlet {
 
     private void doEdit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         if (user == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_EDIT);
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
-        
+
         if (!user.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_EDIT);
             doInspect(request, response);
             return;
         }
-        
+
         int id;
         try {
             id = Integer.parseInt(request.getParameter("id"));
@@ -162,21 +161,21 @@ public class ControllerProject extends HttpServlet {
         }
 
         Project project = projectDao.getByIdProject(id);
-        if(project == null){
+        if (project == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
-        
+
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String tags = request.getParameter("tags");
         String goalS = request.getParameter("goal");
         String endDateS = request.getParameter("endDate");
-        if (title == null || title.equals("") ||
-                description == null || description.equals("") ||
-                tags == null || tags.equals("") ||
-                goalS == null || endDateS == null) {
+        if (title == null || title.equals("")
+                || description == null || description.equals("")
+                || tags == null || tags.equals("")
+                || goalS == null || endDateS == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
             try {
                 request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
@@ -226,7 +225,7 @@ public class ControllerProject extends HttpServlet {
             }
             return;
         }
-        
+
         try {
             project.setTitle(title);
             project.setDescription(description);
@@ -242,22 +241,22 @@ public class ControllerProject extends HttpServlet {
             request.getRequestDispatcher("index.jsp?nav=editproject").forward(request, response);
         }
     }
-    
+
     private void doGetEditPage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         if (user == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_EDIT);
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
-        
+
         if (!user.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_EDIT);
             doInspect(request, response);
             return;
         }
-        
+
         int id;
         try {
             id = Integer.parseInt(request.getParameter("id"));
@@ -268,19 +267,19 @@ public class ControllerProject extends HttpServlet {
         }
 
         Project project = projectDao.getByIdProject(id);
-        if(project == null){
+        if (project == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
-        
+
         request.setAttribute("project", project);
         request.getRequestDispatcher("index.jsp?nav=editproject").forward(request, response);
     }
-    
+
     private void doDeleteProject(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
-        
+
         int id;
         try {
             id = Integer.parseInt(request.getParameter("id"));
@@ -289,58 +288,52 @@ public class ControllerProject extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
-        
+
         Project project = projectDao.getByIdProject(id);
-        if(project == null){
+        if (project == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
-        
-        User user = (User)session.getAttribute("user");
+
+        User user = (User) session.getAttribute("user");
         if (user == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_DELETE);
             doInspect(request, response);
             return;
         }
-        
+
         if (!user.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_DELETE);
             doInspect(request, response);
             return;
         }
-        
+
         projectDao.delete(project);
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_DELETE);
         response.sendRedirect("index.jsp?nav=projects");
     }
-    
-    private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         if (user == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
             response.sendRedirect("index.jsp?nav=login");
             return;
         }
-        
+
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         String tags = request.getParameter("tags");
         String goalS = request.getParameter("goal");
         String endDateS = request.getParameter("endDate");
-        if (title == null || title.equals("") ||
-                description == null || description.equals("") ||
-                tags == null || tags.equals("") ||
-                goalS == null || endDateS == null) {
+        if (title == null || title.equals("")
+                || description == null || description.equals("")
+                || tags == null || tags.equals("")
+                || goalS == null || endDateS == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-            try {
-                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
-            } catch (ServletException e) {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-                response.sendRedirect("index.jsp?nav=createproject");
-                return;
-            }
+            request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
             return;
         }
 
@@ -351,35 +344,17 @@ public class ControllerProject extends HttpServlet {
             endDate = java.sql.Date.valueOf(endDateS);
         } catch (NumberFormatException e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-            try {
-                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
-            } catch (ServletException ee) {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-                response.sendRedirect("index.jsp?nav=createproject");
-                return;
-            }
+            request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
             return;
         } catch (IllegalArgumentException e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-            try {
-                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
-            } catch (ServletException ee) {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_FORM);
-                response.sendRedirect("index.jsp?nav=createproject");
-                return;
-            }
+            request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
             return;
         }
 
         if (endDate.before(new Date())) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
-            try {
-                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
-            } catch (ServletException e) {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_DEADLINE);
-                response.sendRedirect("index.jsp?nav=createproject");
-                return;
-            }
+            request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
             return;
         }
 
@@ -391,13 +366,7 @@ public class ControllerProject extends HttpServlet {
             return;
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
-            try {
-                request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
-            } catch (ServletException ee) {
-                Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
-                response.sendRedirect("index.jsp?nav=createproject");
-                return;
-            }
+            request.getRequestDispatcher("index.jsp?nav=createproject").forward(request, response);
             return;
         }
 
@@ -430,7 +399,7 @@ public class ControllerProject extends HttpServlet {
         }
 
         Project project = projectDao.getByIdProject(id);
-        if(project == null){
+        if (project == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
             return;
@@ -458,7 +427,7 @@ public class ControllerProject extends HttpServlet {
         }
 
         Project project = projectDao.getByIdProject(id);
-        if(project == null){
+        if (project == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
             return;
@@ -467,7 +436,7 @@ public class ControllerProject extends HttpServlet {
         project.setFlagged(true);
         projectDao.update(project);
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_REPORT);
-        response.sendRedirect("index.jsp?nav=project&id="+id);
+        response.sendRedirect("index.jsp?nav=project&id=" + id);
     }
 
 }
