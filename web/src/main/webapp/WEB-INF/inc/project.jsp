@@ -52,21 +52,25 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>
     </form>
-    <% Object currentUser = session.getAttribute("user"); %>
-    <% if (currentUser != null) {%>
-    <%     if (((User) currentUser).getIsAdmin()) {%>
+    <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
     <br/>
     <form role="form" method="POST" action="ControllerProject">
         <input type="hidden" name="action" value="getEditPage"/>
         <input type="hidden" name="id" value="${requestScope.project.idProject}">
         <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
     </form>
+    </c:if>
+    <c:if test="${sessionScope.user.isAdmin}">
     <br/>
+    <form role="form" method="POST" action="ControllerProject">
+        <input type="hidden" name="action" value="getEditPage"/>
+        <input type="hidden" name="id" value="${requestScope.project.idProject}">
+        <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
+    </form>
     <form role="form" method="POST" action="ControllerProject">
         <input type="hidden" name="action" value="delete"/>
         <input type="hidden" name="id" value="${requestScope.project.idProject}">
         <button class="btn btn-lg btn-danger btn-block" type="submit">Delete project</button>
     </form>
-    <%     }%>
-    <% }%>
+    </c:if>
 </div>

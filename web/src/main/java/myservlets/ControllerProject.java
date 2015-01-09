@@ -33,7 +33,7 @@ public class ControllerProject extends HttpServlet {
     private static final String ERROR_LOGIN_DELETE = "You must log in to delete a project.";
     private static final String ERROR_LOGIN_EDIT = "You must log in to edit a project.";
     private static final String ERROR_NOT_ADMIN_DELETE = "You must be an admin to delete a project.";
-    private static final String ERROR_NOT_ADMIN_EDIT = "You must be an admin to edit a project.";
+    private static final String ERROR_EDIT_NOT_ALLOWED = "You must be the owner of the project or an admin to edit a project.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String ERROR_DEADLINE = "The deadline can not be in the past.";
     private static final String SUCCESS_CREATE = "Project created succefully!";
@@ -145,12 +145,6 @@ public class ControllerProject extends HttpServlet {
             return;
         }
 
-        if (!user.getIsAdmin()) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_EDIT);
-            doInspect(request, response);
-            return;
-        }
-
         int id;
         try {
             id = Integer.parseInt(request.getParameter("id"));
@@ -164,6 +158,12 @@ public class ControllerProject extends HttpServlet {
         if (project == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+
+        if (!user.getIsAdmin() && !user.equals(project.getIdOwner())) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_EDIT_NOT_ALLOWED);
+            doInspect(request, response);
             return;
         }
 
@@ -251,12 +251,6 @@ public class ControllerProject extends HttpServlet {
             return;
         }
 
-        if (!user.getIsAdmin()) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_EDIT);
-            doInspect(request, response);
-            return;
-        }
-
         int id;
         try {
             id = Integer.parseInt(request.getParameter("id"));
@@ -270,6 +264,12 @@ public class ControllerProject extends HttpServlet {
         if (project == null) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
             response.sendRedirect("index.jsp?nav=projects");
+            return;
+        }
+
+        if (!user.getIsAdmin() && !user.equals(project.getIdOwner())) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_EDIT_NOT_ALLOWED);
+            doInspect(request, response);
             return;
         }
 
