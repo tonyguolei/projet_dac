@@ -78,7 +78,7 @@
         </div>
         <div class="form-group">
             <div class="editor-wrapper">
-                <textarea id="editor" data-maxlen="20000" placeholder="Content here ...." name="description" required><c:choose><c:when test="<%=isEdit%>">${project.description}</c:when><c:otherwise><%=description%></c:otherwise></c:choose></textarea>
+                <textarea id="editor" data-maxlen="20000" placeholder="Content here ...." name="description"><c:choose><c:when test="<%=isEdit%>">${project.description}</c:when><c:otherwise><%=description%></c:otherwise></c:choose></textarea>
             </div>
         </div>
         <div class="row">
