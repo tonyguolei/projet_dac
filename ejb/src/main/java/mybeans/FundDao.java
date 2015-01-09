@@ -37,9 +37,9 @@ public class FundDao extends Dao<Fund> {
     public Fund getByIdFund(int id) {
         TypedQuery<Fund> query = em.createNamedQuery("Fund.findByIdFund", Fund.class);
         query = query.setParameter("idFund", id);
-        try{
+        try {
             return query.getSingleResult();
-        }catch (NoResultException e){
+        } catch (NoResultException e){
             return null;
         }
     }
@@ -54,9 +54,31 @@ public class FundDao extends Dao<Fund> {
         return query.getResultList();
     }
     
+    /**
+     * Return the sum of the funds for a project
+     * @param project
+     * @return 
+     */
     public BigDecimal getFundLevel(Project project) {
         TypedQuery<BigDecimal> query = em.createNamedQuery("Fund.getFundLevel", BigDecimal.class);
         query = query.setParameter("idProject", project);
         return query.getSingleResult();
+    }
+    
+    /**
+     * Return the fund of a user for a project
+     * @param user
+     * @param project
+     * @return 
+     */
+    public Fund getFundByUser(User user, Project project) {
+        TypedQuery<Fund> query = em.createNamedQuery("Fund.findAFund", Fund.class);
+        query = query.setParameter("idUser", user);
+        query = query.setParameter("idProject", project);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
     }
 }

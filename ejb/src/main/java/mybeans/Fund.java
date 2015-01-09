@@ -24,7 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Fund.findByIdFund", query = "SELECT f FROM Fund f WHERE f.idFund = :idFund"),
     @NamedQuery(name = "Fund.getFundLevel", query = "SELECT coalesce(sum(f.value),0) FROM Fund f WHERE f.idProject = :idProject"),
     @NamedQuery(name = "Fund.findByValue", query = "SELECT f FROM Fund f WHERE f.value = :value"),
-    @NamedQuery(name = "Fund.findByUser", query = "SELECT f FROM Fund f WHERE f.idUser = :idUser")})
+    @NamedQuery(name = "Fund.findByUser", query = "SELECT f FROM Fund f WHERE f.idUser = :idUser"),
+    @NamedQuery(name = "Fund.findAFund", query = "SELECT f FROM Fund f WHERE f.idUser = :idUser AND f.idProject = :idProject")})
 public class Fund implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -74,6 +75,10 @@ public class Fund implements Serializable {
 
     public void setValue(BigDecimal value) {
         this.value = value;
+    }
+
+    public void addValue(BigDecimal value) {
+        this.value = this.value.add(value);
     }
 
     public User getIdUser() {

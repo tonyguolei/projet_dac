@@ -138,8 +138,16 @@ public class ControllerFund extends HttpServlet {
         }
         
         BigDecimal oldFundLevel = fundDao.getFundLevel(project);
-        Fund fund = new Fund(user, project, value);
-        fundDao.save(fund);
+        Fund fund = fundDao.getFundByUser(user, project);
+        if (fund == null) {
+            fund = new Fund(user, project, value);
+            fundDao.save(fund);
+        } else {
+            fund.addValue(value);
+            fundDao.update(fund);
+        }
+        
+        
         if (fundDao.getFundLevel(project).compareTo(project.getGoal()) >= 0 &&
                 oldFundLevel.compareTo(project.getGoal()) == -1) {
             Notification notif = new Notification(
