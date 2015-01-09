@@ -56,11 +56,11 @@ public class TaskScheduler {
                     try {
                         //start transaction
                         userTransaction.begin();
+                        p.transferDone();
+                        projectDao.update(p);
                         User user = p.getIdOwner();
                         user.addBalance(fundDao.getFundLevel(p));
                         userDao.update(user);
-                        p.transferDone();
-                        projectDao.update(p);
                         //commit transaction
                         userTransaction.commit();
                     } catch (Exception e) {
