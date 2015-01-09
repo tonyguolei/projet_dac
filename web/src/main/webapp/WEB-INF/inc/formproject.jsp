@@ -3,6 +3,7 @@
     Author     : Thibaut Coutelou
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="mybeans.Project"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="alerts.AlertType"%>
@@ -18,18 +19,40 @@
         return;
     }
 
-    if (request.getAttribute("project") == null) {
-        request.getRequestDispatcher("ControllerProject?action=edit").forward(request, response);
-        return;
-    }
+    boolean isEdit = request.getParameter("nav").equals("editproject");
     
-    Project project = (Project) request.getAttribute("project");
-    String endDate = (new SimpleDateFormat("yyyy-MM-dd")).format(project.getEndDate());
+    String endDate="";
+    if (isEdit) {
+        if (request.getAttribute("project") == null) {
+            request.getRequestDispatcher("ControllerProject?action=edit").forward(request, response);
+            return;
+        }
+        Project project = (Project) request.getAttribute("project");
+        endDate = (new SimpleDateFormat("yyyy-MM-dd")).format(project.getEndDate());
+    }
+
 %>
 
 <div class="jumbotron">
-    <h1>Modify an existing project</h1>
-    <form role="form" method="POST" action="ControllerProject?action=edit">
+    
+    <c:choose>
+        <c:when test="<%=isEdit%>">
+            <h1>Modify an existing project</h1>
+        </c:when>
+        <c:otherwise>
+            <h1>Create a project</h1>
+        </c:otherwise>
+    </c:choose>
+    <form role="form" method="POST" action="ControllerProject?action=
+        <c:choose>
+            <c:when test="<%=isEdit%>">
+                edit
+            </c:when>
+            <c:otherwise>
+                create
+            </c:otherwise>
+        </c:choose>
+    ">
         <input type="hidden" name="id" value="${project.idProject}">
         <div class="form-group">
             <input type="text" class="form-control" name="title" placeholder="Title" value="${project.title}"/>
@@ -54,6 +77,15 @@
                 <input type="text" class="form-control" name="goal" placeholder="Goal" value="${project.goal}"/>
             </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Modify</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                <c:choose>
+                    <c:when test="<%=isEdit%>">
+                        Update
+                    </c:when>
+                    <c:otherwise>
+                        Create
+                    </c:otherwise>
+                </c:choose>   
+            </button>
     </form>
 </div>

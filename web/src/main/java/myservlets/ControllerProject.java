@@ -65,9 +65,11 @@ public class ControllerProject extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        String action = request.getParameter("action");
+        String action = request.getParameter("action").trim();
+        System.out.println("Action: " + action);
         switch (action) {
             case "create":
+                System.out.println("Create");
                 doCreate(request, response);
                 break;
             case "list":
