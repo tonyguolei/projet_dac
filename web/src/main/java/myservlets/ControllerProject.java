@@ -362,7 +362,7 @@ public class ControllerProject extends HttpServlet {
         try {
             projectDao.save(project);
             Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("index.jsp?nav=project&id=" + project.getIdProject());
             return;
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
