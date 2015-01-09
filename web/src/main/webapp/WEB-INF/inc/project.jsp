@@ -24,7 +24,7 @@
             <label class="sr-only" for="value">Amount (in dollars)</label>
             <div class="input-group">
                 <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" name="value" placeholder="Amount"/>
+                <input type="number" min="0" step="any" class="form-control" name="value" placeholder="Amount"/>
             </div>
         </div>
         <button class="btn btn-default" type="submit">Fund!</button>
