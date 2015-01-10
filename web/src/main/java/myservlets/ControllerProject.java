@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class ControllerProject extends HttpServlet {
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_INSPECT = "Please specify a valid project ID";
+    private static final String NOTIF_PROJECT_MODIFIED = "This project has been modified, have a look";
 
     @EJB
     private ProjectDao projectDao;
@@ -50,6 +52,8 @@ public class ControllerProject extends HttpServlet {
     private FundDao fundDao;
     @EJB
     private CommentDao commentDao;
+    @EJB
+    private NotificationDao notificationDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -236,6 +240,25 @@ public class ControllerProject extends HttpServlet {
             project.setEndDate(endDate);
             projectDao.update(project);
             Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_EDIT);
+            
+            //Send notification
+            LinkedHashSet<User> users = new LinkedHashSet<>();
+            for (Fund f : project.getFundCollection()) {
+                users.add(f.getIdUser());
+            }
+            for (MemoriseProject mp : project.getMemoriseProjectCollection()) {
+                if (!users.contains(mp.getIdUser()))
+                    users.add(mp.getIdUser());
+            }
+            for (User u : users) {
+                Notification notif = new Notification(
+                        u,
+                        project,
+                        NOTIF_PROJECT_MODIFIED
+                );
+                notificationDao.save(notif);
+            }
+            
             doInspect(request, response);
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DB);

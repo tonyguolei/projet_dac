@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedHashSet;
 
 /**
  *
@@ -29,7 +30,8 @@ public class ControllerFund extends HttpServlet {
     private static final String ERROR_PARAM = "Please specify correct parameters.";
     private static final String ERROR_DEADLINE = "You can not fund a project after its deadline is reached.";
     private static final String SUCCESS_CREATE = "Project funded!";
-    private static final String NOTIFICATION_FUNDED = "It's a win, your project has been funded";
+    private static final String NOTIFICATION_FUNDED = "It's a win, a project you have funded has reached its goal !";
+    private static final String NOTIFICATION_FUNDED_OWNER = "It's a win, your project has been funded !";
 
     @EJB
     private ProjectDao projectDao;
@@ -153,10 +155,28 @@ public class ControllerFund extends HttpServlet {
             Notification notif = new Notification(
                     project.getIdOwner(),
                     project,
+                    NOTIFICATION_FUNDED_OWNER
+            );
+            notificationDao.save(notif);
+        }
+
+        LinkedHashSet<User> users = new LinkedHashSet<>();
+        for (Fund f : project.getFundCollection()) {
+            users.add(f.getIdUser());
+        }
+        for (MemoriseProject mp : project.getMemoriseProjectCollection()) {
+            if (!users.contains(mp.getIdUser()))
+                users.add(mp.getIdUser());
+        }
+        for (User u : users) {
+            Notification notif = new Notification(
+                    u,
+                    project,
                     NOTIFICATION_FUNDED
             );
             notificationDao.save(notif);
         }
+        
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
         response.sendRedirect("index.jsp?nav=project&id=" + id);
     }
