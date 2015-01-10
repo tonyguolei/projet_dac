@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import javax.validation.constraints.Min;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Project implements Serializable {
     @Basic(optional = false)
     private Integer idProject;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Min(value=0)
     @Basic(optional = false)
     @NotNull
     private BigDecimal goal;

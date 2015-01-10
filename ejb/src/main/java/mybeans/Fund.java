@@ -8,6 +8,7 @@ package mybeans;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -33,6 +34,7 @@ public class Fund implements Serializable {
     @Basic(optional = false)
     private Integer idFund;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Min(value=0)
     @Basic(optional = false)
     @NotNull
     private BigDecimal value;
