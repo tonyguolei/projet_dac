@@ -158,23 +158,23 @@ public class ControllerFund extends HttpServlet {
                     NOTIFICATION_FUNDED_OWNER
             );
             notificationDao.save(notif);
-        }
-
-        LinkedHashSet<User> users = new LinkedHashSet<>();
-        for (Fund f : project.getFundCollection()) {
-            users.add(f.getIdUser());
-        }
-        for (MemoriseProject mp : project.getMemoriseProjectCollection()) {
-            if (!users.contains(mp.getIdUser()))
-                users.add(mp.getIdUser());
-        }
-        for (User u : users) {
-            Notification notif = new Notification(
-                    u,
-                    project,
-                    NOTIFICATION_FUNDED
-            );
-            notificationDao.save(notif);
+            LinkedHashSet<User> users = new LinkedHashSet<>();
+            for (Fund f : project.getFundCollection()) {
+                users.add(f.getIdUser());
+            }
+            for (MemoriseProject mp : project.getMemoriseProjectCollection()) {
+                if (!users.contains(mp.getIdUser())) {
+                    users.add(mp.getIdUser());
+                }
+            }
+            for (User u : users) {
+                notif = new Notification(
+                        u,
+                        project,
+                        NOTIFICATION_FUNDED
+                );
+                notificationDao.save(notif);
+            }
         }
         
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
