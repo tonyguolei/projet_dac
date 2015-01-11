@@ -10,3 +10,7 @@ footer {
 .no-padding {
     padding: 5px 15px;
 }
+
+.back-success {
+    background-color: #4CAF50 !important;
+}
