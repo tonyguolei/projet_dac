@@ -6,6 +6,7 @@
 package mybeans;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,11 +24,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PrivateMessage.findAll", query = "SELECT p FROM PrivateMessage p"),
     @NamedQuery(name = "PrivateMessage.findByIdPrivateMessage", query = "SELECT p FROM PrivateMessage p WHERE p.idPrivateMessage = :idPrivateMessage"),
     @NamedQuery(name = "PrivateMessage.findByMessage", query = "SELECT p FROM PrivateMessage p WHERE p.message = :message"),
-    @NamedQuery(name = "PrivateMessage.findByIsRead", query = "SELECT p FROM PrivateMessage p WHERE p.isRead = :isRead")})
+    @NamedQuery(name = "PrivateMessage.findNotReadByDest", query = "SELECT count(pm) FROM PrivateMessage pm WHERE pm.dest = :dest AND pm.isRead = false"),
+    @NamedQuery(name = "PrivateMessage.findByIsRead", query = "SELECT p FROM PrivateMessage p WHERE p.isRead = :isRead"),
+    @NamedQuery(name = "PrivateMessage.findAllNotReadByUserid", query = "SELECT pm FROM PrivateMessage pm WHERE pm.dest = :dest AND pm.isRead = false"),
+    @NamedQuery(name = "PrivateMessage.conversations", query = "SELECT pm FROM PrivateMessage pm WHERE pm.exp = :user OR pm.dest = :user ORDER BY pm.idPrivateMessage DESC"),
+    @NamedQuery(name = "PrivateMessage.conversation", query = "SELECT pm FROM PrivateMessage pm WHERE (pm.exp = :exp AND pm.dest = :dest) OR (pm.exp = :dest AND pm.dest = :exp) ORDER BY pm.idPrivateMessage DESC")})
 public class PrivateMessage implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idPrivateMessage;
     @Basic(optional = false)
@@ -49,6 +54,13 @@ public class PrivateMessage implements Serializable {
 
     public PrivateMessage(Integer idPrivateMessage) {
         this.idPrivateMessage = idPrivateMessage;
+    }
+    
+    public PrivateMessage(User exp, User dest, String message) {
+        this.exp = exp;
+        this.dest = dest;
+        this.message = message;
+        this.isRead = false;
     }
 
     public PrivateMessage(Integer idPrivateMessage, String message, boolean isRead) {
@@ -95,6 +107,19 @@ public class PrivateMessage implements Serializable {
 
     public void setExp(User exp) {
         this.exp = exp;
+    }
+    
+    /**
+     * Return true if pm and this are in the same conversation
+     * @param pm
+     * @return 
+     */
+    public boolean sameConversation(PrivateMessage pm) {
+        if ((this.exp.equals(pm.exp) && this.dest.equals(pm.dest)) ||
+                (this.exp.equals(pm.dest) && this.dest.equals(pm.exp))) {
+            return true;
+        }
+        return false;
     }
 
     @Override

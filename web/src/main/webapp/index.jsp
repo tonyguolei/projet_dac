@@ -36,6 +36,12 @@
             <%@include file="WEB-INF/inc/formproject.jsp" %>
         <% } else if (nav.equals("settings")) { %>
             <%@include file="WEB-INF/inc/settings.jsp" %>
+        <% } else if (nav.equals("conversations")) { %>
+            <%@include file="WEB-INF/inc/conversations.jsp" %>
+        <% } else if (nav.equals("conversation")) { %>
+            <%@include file="WEB-INF/inc/conversation.jsp" %>
+        <% } else if (nav.equals("newmessage")) { %>
+            <%@include file="WEB-INF/inc/newmessage.jsp" %>
         <% } else { /*Page not found, go to 404*/ %>
             <%@include file="WEB-INF/err/404.jsp" %>
         <% } %>

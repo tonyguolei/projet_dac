@@ -9,22 +9,26 @@ import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mybeans.Notification;
 import mybeans.NotificationDao;
+import mybeans.PrivateMessageDao;
 import mybeans.User;
 
 /**
  *
  * @author guillaumeperrin
  */
-public class ControllerNotification extends HttpServlet {
+public class ControllerNavbar extends HttpServlet {
 
     @EJB
     private NotificationDao notificationDao;
+    @EJB
+    private PrivateMessageDao privateMessageDao;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,8 +48,8 @@ public class ControllerNotification extends HttpServlet {
             case "getNumber":
                 doGetNumber(request, response);
                 break;
-            case "read":
-                doRead(request, response);
+            case "readNotif":
+                doReadNotif(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -98,12 +102,14 @@ public class ControllerNotification extends HttpServlet {
         
         request.setAttribute("numberNewNotification", notificationDao.getNonReadNumber(user));
         request.setAttribute("listNotification", notificationDao.getAllByUserId(user));
+        request.setAttribute("numberNewPrivateMessage", privateMessageDao.getNonReadNumber(user));
+        request.setAttribute("listPrivateMessage", privateMessageDao.getAllNotReadByUserId(user));
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?" + (String)request.getAttribute("fwd"));
         requestDispatcher.forward(request, response);
     }
     
-    private void doRead(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void doReadNotif(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
         int idProject = Integer.parseInt(request.getParameter("idProject"));

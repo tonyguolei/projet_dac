@@ -4,7 +4,7 @@
 <%
     if (request.getAttribute("numberNewNotification") == null) {
         request.setAttribute("fwd", request.getQueryString());
-        request.getRequestDispatcher("ControllerNotification?action=getNumber").forward(request, response);
+        request.getRequestDispatcher("ControllerNavbar?action=getNumber").forward(request, response);
         return;
     }
 %>
@@ -73,29 +73,57 @@
       </div>
       <% } else { %>
       <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" id="privateMessages">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-envelope label label-primary">
+              ${requestScope.numberNewPrivateMessage}
+            </span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <c:forEach items="${requestScope.listPrivateMessage}" var="pm">
+                <li>
+                  <span class="dropdown-header"><strong>${pm.exp.mail}</strong></span>
+                      <c:choose>
+                          <c:when test="${sessionScope.user.idUser == pm.dest.idUser}">
+                      <a href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
+                      </c:when>
+                      <c:otherwise>
+                          <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
+                          </c:otherwise>
+                      </c:choose>
+                      ${pm.message}
+                    </a>
+                </li>
+            </c:forEach>
+            <c:if test="${requestScope.listPrivateMessage.size() > 0}">
+                <li class="divider"></li>
+                </c:if>
+            <li><a href="index.jsp?nav=conversations">Show all conversations</a></li>
+          </ul>
+        </li>
         <li class="dropdown" id="notifications">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <span class="glyphicon glyphicon-bell badge back-success">
               ${requestScope.numberNewNotification}
             </span>
           </a>
-              <% Long notifs = (Long) request.getAttribute("numberNewNotification");
-              if (notifs > 0) { %>
-              <ul class="dropdown-menu" role="menu">
-                <c:forEach items="${requestScope.listNotification}" var="notif">
-                    <li>
+          <% Long notifs = (Long) request.getAttribute("numberNewNotification");
+                  if (notifs > 0) { %>
+          <ul class="dropdown-menu" role="menu">
+            <c:forEach items="${requestScope.listNotification}" var="notif">
+                <li>
                   <span class="dropdown-header"><strong>${notif.idProject.title}</strong></span>
-                  <a href="ControllerNotification?action=read&idProject=${notif.idProject.idProject}&idNotif=${notif.idNotification}">${notif.description}</a>
+                  <a href="ControllerNavbar?action=readNotif&idProject=${notif.idProject.idProject}&idNotif=${notif.idNotification}">${notif.description}</a>
                 </li>
             </c:forEach>
           </ul>
-                  <% } else {%>
-                  <ul class="dropdown-menu no-notifs" role="menu">
-                    <li>
-                      <span class="dropdown-header">No new notifications</span>
-                    </li>
-                  </ul>
-                  <% } %>
+          <% } else {%>
+          <ul class="dropdown-menu no-notifs" role="menu">
+            <li>
+              <span class="dropdown-header">No new notifications</span>
+            </li>
+          </ul>
+          <% } %>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" id="logIcon"></span> <c:out value="${sessionScope.user.mail}"/> <span class="caret"></span></a>
