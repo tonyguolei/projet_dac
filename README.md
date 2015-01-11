@@ -17,7 +17,10 @@ You will need a mysql database. An easy way to get one is to use
 
 #### With Docker
 
-First, install docker: https://docs.docker.com/installation/ubuntulinux/
+First, [install docker](https://docs.docker.com/installation/ubuntulinux/) and `mysql-client`. Running these should be enough
+```
+sudo apt-get install docker.io mysql-client
+```
 If needed, run the docker deamon.
 
 Create and run the container named *mysql-dac* containing a mysql server with
