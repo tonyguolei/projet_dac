@@ -14,3 +14,81 @@ footer {
 .back-success {
     background-color: #4CAF50 !important;
 }
+.back-danger {
+    background-color: #E51C23 !important;
+}
+.back-primary {
+    background-color: #0D87E9 !important;
+}
+
+small.by {
+    font-size: 25%;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.progress-bar-success.progress-bar:last-child:before {
+    border-radius: 3px;
+}
+
+.progress-bar:last-child {
+    border-radius: 3px;
+}
+
+.project-stats li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.project-stats li:last-child {
+    margin-right: 0px;
+}
+
+.project-stats-value {
+    color: #182D0D;
+    font-weight: bold;
+}
+
+.project-tags-box {
+    width: auto;
+    word-wrap: break-word;
+}
+.project-tags {
+    display: inline-block;
+}
+
+.project-tags .label {
+    margin-right: 3px;
+    display: inline-block;
+    padding: 0.35em 0.6em 0.3em;
+}
+.project-tags .label:first-child {
+    margin-left: 3px;
+}
+
+.project-tags .glyphicon {
+    margin-right: 7px;
+}
+
+.project-tags a {
+    color: #555;
+    text-decoration: none;
+}
+
+.project-tags a:hover {
+    color: #0A6EBD;
+}
