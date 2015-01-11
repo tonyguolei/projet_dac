@@ -14,30 +14,28 @@
         return;
     }
 %>
-   <div class="container-fluid">
-     <div class="row">
-       <div>
-         <a href="index.jsp?nav=newmessage" class="btn btn-primary">New message</a>
-       </div>
-       <div>
-         <h3>Messages</h3>
-         <div class="col-xs-8">
-           <div class="list-group">
-           <c:forEach  items="${requestScope.listAllPrivateMessage}" var="pm">
-               <c:choose>
-                   <c:when test="${sessionScope.user.idUser == pm.dest.idUser}">
-                       <a href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
-                   </c:when>
-                   <c:otherwise>
-                       <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
-                   </c:otherwise>
-               </c:choose>
-                 <h6 class="list-group-item-heading active">${pm.exp.mail} -> ${pm.dest.mail}</h6>
-               </a>
-               <p class="list-group-item-text">${pm.message}</p>
-           </c:forEach>   
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
+<div class="row">
+  <div>
+    <a href="index.jsp?nav=newmessage" class="btn btn-primary">New message</a>
+  </div>
+  <div>
+    <h3>Messages</h3>
+    <div class="col-xs-8">
+      <div class="list-group">
+        <c:forEach  items="${requestScope.listAllPrivateMessage}" var="pm">
+            <c:choose>
+                <c:when test="${sessionScope.user.idUser == pm.dest.idUser}">
+                    <a href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
+                    </c:when>
+                    <c:otherwise>
+                        <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
+                        </c:otherwise>
+                    </c:choose>
+                    <h6 class="list-group-item-heading active">${pm.exp.mail} -> ${pm.dest.mail}</h6>
+                </a>
+                <p class="list-group-item-text markdown">${pm.message}</p>
+            </c:forEach>   
+      </div>
+    </div>
+  </div>
+</div>

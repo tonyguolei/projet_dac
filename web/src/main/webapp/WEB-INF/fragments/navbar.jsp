@@ -91,7 +91,7 @@
                           <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
                           </c:otherwise>
                       </c:choose>
-                      ${pm.message}
+                      <span class="markdown">${pm.message}</span>
                     </a>
                 </li>
             </c:forEach>

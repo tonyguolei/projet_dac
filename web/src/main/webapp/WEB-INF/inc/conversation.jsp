@@ -11,13 +11,14 @@
     }
 %>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="list-group">
-      <h5 class="list-group-item-heading">${requestScope.dest}</h5>
-      <c:forEach  items="${requestScope.listMessageConversation}" var="pm">
-        <p class="list-group-item-text">${pm.message}</p>
-      </c:forEach>   
-    </div>
+<div class="row">
+  <div>
+    <a href="index.jsp?nav=newmessage&dest=${param['dest']}" class="btn btn-primary">Answer</a>
+  </div>
+  <div class="list-group">
+    <h5 class="list-group-item-heading">${param['dest']}</h5>
+    <c:forEach  items="${requestScope.listMessageConversation}" var="pm">
+      <p class="list-group-item-text markdown">${pm.message}</p>
+    </c:forEach>   
   </div>
 </div>
