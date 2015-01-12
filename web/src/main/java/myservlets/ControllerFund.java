@@ -126,7 +126,8 @@ public class ControllerFund extends HttpServlet {
             return;
         }
         
-        if (value.compareTo(BigDecimal.ZERO) <= 0) {
+        if (value.compareTo(BigDecimal.ZERO) <= 0 ||
+                (valueS.length() - valueS.lastIndexOf(".")) > 3) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
             response.sendRedirect("index.jsp?nav=project&id=" + id);
             return;
