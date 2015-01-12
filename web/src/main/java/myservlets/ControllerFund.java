@@ -125,6 +125,12 @@ public class ControllerFund extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
+        
+        if (value.compareTo(BigDecimal.ZERO) <= 0) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+            return;
+        }
 
         Project project = projectDao.getByIdProject(id);
         if(project == null){
