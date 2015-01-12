@@ -212,6 +212,7 @@ If you followed our instructions, these should be valid...
 * MySQL dac:coucou root:dac
 * Glassfish admin:admin
 * VM equipe2:dac root:dac
+* Application admin account admin@dac.com:dac
 
 ### Commands
 
