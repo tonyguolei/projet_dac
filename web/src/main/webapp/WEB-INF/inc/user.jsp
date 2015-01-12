@@ -56,12 +56,18 @@
     </table>
     <h2>Projects saved</h2>
     <p><a href="ControllerMemorise?action=list&id=${requestScope.inspectedUser.idUser}">Here</a></p>
-    <c:if test="${sessionScope.user.isAdmin && !requestScope.inspectedUser.banned && !requestScope.inspectedUser.isAdmin}">
+    <c:if test="${sessionScope.user.isAdmin && !requestScope.inspectedUser.isAdmin}">
     <br/>
     <form role="form" method="POST" action="ControllerUser">
-        <input type="hidden" name="action" value="ban"/>
         <input type="hidden" name="id" value="${requestScope.inspectedUser.idUser}">
+        <c:if test="${!requestScope.inspectedUser.banned}">
+        <input type="hidden" name="action" value="ban"/>
         <button class="btn btn-lg btn-danger btn-block" type="submit">Ban this user</button>
+        </c:if>
+        <c:if test="${requestScope.inspectedUser.banned}">
+        <input type="hidden" name="action" value="unban"/>
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Unban this user</button>
+        </c:if>
     </form>
     </c:if>
 </div>

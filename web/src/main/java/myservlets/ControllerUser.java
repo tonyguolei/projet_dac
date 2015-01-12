@@ -40,6 +40,7 @@ public class ControllerUser extends HttpServlet {
     private static final String ERROR_ALREADY_BANNED = "This account has already been banned.";
     private static final String ERROR_LOGIN_BAN = "You must be connected as an admin to ban someone.";
     private static final String SUCCESS_BAN = "User successfully banned.";
+    private static final String SUCCESS_UNBAN = "User successfully unbanned.";
     private static final String SUCCESS_LOGIN = "Login successful, welcome back!";
     private static final String SUCCESS_CREATE = "New user created! Please log in.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
@@ -93,6 +94,9 @@ public class ControllerUser extends HttpServlet {
                 break;
             case "ban":
                 doBan(request, response);
+                break;
+            case "unban":
+                doUnban(request, response);
                 break;
             default:
                 response.sendRedirect("index.jsp");
@@ -150,7 +154,7 @@ public class ControllerUser extends HttpServlet {
         
         if (!user.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_NOT_ADMIN);
-            doInspect(request, response);
+            response.sendRedirect("index.jsp?nav=users");
             return;
         }
         
@@ -172,20 +176,20 @@ public class ControllerUser extends HttpServlet {
         
         if (bannedUser.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_ADMIN);
-            doInspect(request, response);
+            response.sendRedirect("index.jsp?nav=user&id="+id);
             return;
         }
         
         if (bannedUser.getBanned()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_ALREADY_BANNED);
-            doInspect(request, response);
+            response.sendRedirect("index.jsp?nav=user&id="+id);
             return;
         }
         
         bannedUser.setBanned(true);
         userDao.update(bannedUser);
         Alert.addAlert(request.getSession(), AlertType.SUCCESS, SUCCESS_BAN);
-        doInspect(request, response);
+        response.sendRedirect("index.jsp?nav=user&id="+id);
     }
     
     private void doSignup(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -359,5 +363,48 @@ public class ControllerUser extends HttpServlet {
         request.setAttribute("users", users);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=users");
         requestDispatcher.forward(request, response);
+    }
+
+    private void doUnban(HttpServletRequest request, HttpServletResponse response) throws IOException, IOException, ServletException {
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_BAN);
+            response.sendRedirect("index.jsp?nav=login");
+            return;
+        }
+        
+        if (!user.getIsAdmin()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_NOT_ADMIN);
+            response.sendRedirect("index.jsp?nav=users");
+            return;
+        }
+        
+        int id;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        } catch (NumberFormatException e) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
+            response.sendRedirect("index.jsp?nav=users");
+            return;
+        }
+
+        User bannedUser = userDao.getByIdUser(id);
+        if(bannedUser == null){
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
+            response.sendRedirect("index.jsp?nav=users");
+            return;
+        }
+        
+        if (bannedUser.getIsAdmin()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_ADMIN);
+            response.sendRedirect("index.jsp?nav=user&id="+id);
+            return;
+        }
+        
+        bannedUser.setBanned(false);
+        userDao.update(bannedUser);
+        Alert.addAlert(request.getSession(), AlertType.SUCCESS, SUCCESS_UNBAN);
+        response.sendRedirect("index.jsp?nav=user&id="+id);
     }
 }
