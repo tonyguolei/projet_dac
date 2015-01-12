@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -44,6 +45,8 @@ public class ControllerProject extends HttpServlet {
     private static final String ERROR_DB = "Something went wrong when creating your project. Please try again later";
     private static final String ERROR_ID = "Please specify an ID";
     private static final String ERROR_INSPECT = "Please specify a valid project ID";
+    private static final String ERROR_EDIT_GOAL = "You must be an administrator to modify the goal of a project.";
+    private static final String ERROR_EDIT_DEADLINE = "You must be an administrator to modify the deadline of a project.";
     private static final String NOTIF_PROJECT_MODIFIED = "This project has been modified, have a look";
 
     @EJB
@@ -231,6 +234,21 @@ public class ControllerProject extends HttpServlet {
             }
             return;
         }
+        
+        if (!user.getIsAdmin()) {
+            if (project.getGoal().compareTo(goal) != 0) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_EDIT_GOAL);
+                request.setAttribute("project", project);
+                request.getRequestDispatcher("index.jsp?nav=editproject").forward(request, response);
+                return;
+            }
+            if (!project.getEndDate().equals(endDate)) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_EDIT_DEADLINE);
+                request.setAttribute("project", project);
+                request.getRequestDispatcher("index.jsp?nav=editproject").forward(request, response);
+                return;
+            }
+        }
 
         try {
             project.setTitle(title);
@@ -259,7 +277,7 @@ public class ControllerProject extends HttpServlet {
                 notificationDao.save(notif);
             }
             
-            doInspect(request, response);
+            response.sendRedirect("index.jsp?nav=project&id="+id);
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
             request.setAttribute("project", project);
