@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="javax.enterprise.context.RequestScoped"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
     if (request.getAttribute("numberNewNotification") == null) {
         request.setAttribute("fwd", request.getQueryString());
@@ -91,7 +92,7 @@
                           <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
                           </c:otherwise>
                       </c:choose>
-                      <span class="markdown">${pm.message}</span>
+                      <span class="markdown">${fn:substring(pm.message, 0, 20)}</span>
                     </a>
                 </li>
             </c:forEach>
