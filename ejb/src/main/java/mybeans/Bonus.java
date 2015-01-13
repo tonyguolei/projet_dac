@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 public class Bonus implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Basic(optional = false)
     private Integer idBonus;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -60,6 +60,13 @@ public class Bonus implements Serializable {
         this.value = value;
         this.title = title;
         this.description = description;
+    }
+
+    public Bonus(BigDecimal value, String title, String description, Project idProject) {
+        this.value = value;
+        this.title = title;
+        this.description = description;
+        this.idProject = idProject;
     }
 
     public Integer getIdBonus() {

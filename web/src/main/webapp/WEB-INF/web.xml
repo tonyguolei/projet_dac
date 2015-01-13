@@ -28,6 +28,10 @@
         <servlet-name>ControllerPrivateMessage</servlet-name>
         <servlet-class>myservlets.ControllerPrivateMessage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerBonus</servlet-name>
+        <servlet-class>myservlets.ControllerBonus</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControllerProject</servlet-name>
         <url-pattern>/ControllerProject</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ControllerPrivateMessage</servlet-name>
         <url-pattern>/ControllerPrivateMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerBonus</servlet-name>
+        <url-pattern>/ControllerBonus</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
