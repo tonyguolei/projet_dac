@@ -92,3 +92,13 @@ small.by {
 .project-tags a:hover {
     color: #0A6EBD;
 }
+
+.logo {
+    display: inline-block !important;
+    margin-top: -5px;
+    height: 32px;
+}
+
+.logo-text {
+    margin-left: -7px;
+}

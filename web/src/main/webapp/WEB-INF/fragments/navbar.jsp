@@ -20,7 +20,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.jsp">SelfStarter</a>
+      <a class="navbar-brand" href="index.jsp"><img class="logo" src="img/logo-mini.png" /><span class="logo-text">elfStarter</span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
