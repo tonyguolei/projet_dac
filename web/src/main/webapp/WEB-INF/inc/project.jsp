@@ -1,9 +1,9 @@
 <%@page import="mybeans.User"%>
 <%
-    if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null || request.getAttribute("comments") == null) {
-        request.getRequestDispatcher("ControllerProject?action=inspect").forward(request, response);
-        return;
-    }
+  if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null || request.getAttribute("comments") == null || request.getAttribute("bonus") == null) {
+    request.getRequestDispatcher("ControllerProject?action=inspect").forward(request, response);
+    return;
+  }
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="jumbotron">
@@ -48,41 +48,73 @@
         <div class="project-tags">${requestScope.project.tags}</div>
       </div>
     </div>
-        <div class="col-sm-8 col-xs-12">
-          <div class="row">
-            <form class="form-inline" role="form" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
-              <div class="form-group col-sm-5 col-xs-12">
-                <label class="sr-only" for="value">Amount (in dollars)</label>
-                <div class="input-group input-group-lg">
-                  <div class="input-group-addon">$</div>
-                  <input type="number" min="0" step="any" class="form-control" name="value" placeholder="Amount"/>
-                </div>
-              </div>
-              <div class="col-sm-7 col-xs-12">
-                <button class="btn btn-success btn-lg btn-block" type="submit">Fund!</button>
-              </div>
-            </form>
+    <div class="col-sm-8 col-xs-12">
+      <div class="row">
+        <form class="form-inline" role="form" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
+          <div class="form-group col-sm-5 col-xs-12">
+            <label class="sr-only" for="value">Amount (in dollars)</label>
+            <div class="input-group input-group-lg">
+              <div class="input-group-addon">$</div>
+              <input type="number" min="0" step="any" class="form-control" name="value" placeholder="Amount"/>
+            </div>
           </div>
-        </div>
+          <div class="col-sm-7 col-xs-12">
+            <button class="btn btn-success btn-lg btn-block" type="submit">Fund!</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   <hr>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#story" aria-controls="story" role="tab" data-toggle="tab">Story</a></li>
+    <li role="presentation"><a href="#bonus" aria-controls="bonus" role="tab" data-toggle="tab">Bonus</a></li>
     <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
-      <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
+    <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
       <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-      </c:if>
-      <c:if test="${sessionScope.user.isAdmin}">
+    </c:if>
+    <c:if test="${sessionScope.user.isAdmin}">
       <li role="presentation"><a href="#admin" aria-controls="admin" role="tab" data-toggle="tab">Admin</a></li>
-      </c:if>
+    </c:if>
   </ul>
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active markdown enable-video" id="story" >${requestScope.project.description}</div>
+    <div role="tabpanel" class="tab-pane" id="bonus">
+      <h2>Bonus</h2>
+      <c:forEach items="${bonus}" var="bonus">
+        <p>Title:&nbsp${bonus.title}</p>
+        <p>Value:&nbsp${bonus.value}</p>
+        <div class="markdown">Description:&nbsp${bonus.description}</div>
+      </c:forEach>
+      <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
+        <div role="tabpanel" class="tab-pane" id="create_bonus">
+          <br/>
+          <form role="form" method="POST" action="ControllerBonus">
+            <input type="hidden" name="action" value="create"/>
+            <input type="hidden" name="id" value="${requestScope.project.idProject}">
+            <div class="form-group">
+              <div class="row">
+                <div class="form-group col-sm-6">
+                  <input type="text" class="form-control" name="title" placeholder="Title" required>
+                </div>
+                <div class="form-group col-sm-6">
+                  <input type="number" min="0" step="any" class="form-control" name="value" placeholder="Value" required>
+                </div>
+              </div>
+              <div class="editor-wrapper">
+                <textarea id="description_bonus" data-height="160" data-maxlen="500" placeholder="Description" name="description"></textarea>
+              </div>
+            </div>
+            <button class="btn btn-lg btn-warning btn-block" type="submit">Create bonus</button>
+          </form>
+        </div>
+      </c:if>
+    </div>
     <div role="tabpanel" class="tab-pane" id="comments">
       <h2>Comments</h2>
       <c:forEach items="${comments}" var="comment">
-          <p>From ${comment.idUser.mail} <span class="time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${comment.date}" /></span></p>
-          <div class="markdown">${comment.comment}</div>
+        <p>From ${comment.idUser.mail} <span class="time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${comment.date}" /></span></p>
+        <div class="markdown">${comment.comment}</div>
       </c:forEach>
       <form role="form" method="POST" action="ControllerComment">
         <input type="hidden" name="action" value="create"/>
@@ -95,30 +127,30 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>
       </form>
     </div>
-        <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
-            <div role="tabpanel" class="tab-pane" id="settings">
-              <br/>
-              <form role="form" method="POST" action="ControllerProject">
-                <input type="hidden" name="action" value="getEditPage"/>
-                <input type="hidden" name="id" value="${requestScope.project.idProject}">
-                <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
-              </form>
-            </div>
-        </c:if>
+    <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
+      <div role="tabpanel" class="tab-pane" id="settings">
+        <br/>
+        <form role="form" method="POST" action="ControllerProject">
+          <input type="hidden" name="action" value="getEditPage"/>
+          <input type="hidden" name="id" value="${requestScope.project.idProject}">
+          <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
+        </form>
+      </div>
+    </c:if>
     <c:if test="${sessionScope.user.isAdmin}">
-        <div role="tabpanel" class="tab-pane" id="admin">
-          <br/>
-          <form role="form" method="POST" action="ControllerProject">
-            <input type="hidden" name="action" value="getEditPage"/>
-            <input type="hidden" name="id" value="${requestScope.project.idProject}">
-            <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
-          </form>
-          <form role="form" method="POST" action="ControllerProject">
-            <input type="hidden" name="action" value="delete"/>
-            <input type="hidden" name="id" value="${requestScope.project.idProject}">
-            <button class="btn btn-lg btn-danger btn-block" type="submit">Delete project</button>
-          </form>
-        </div>
+      <div role="tabpanel" class="tab-pane" id="admin">
+        <br/>
+        <form role="form" method="POST" action="ControllerProject">
+          <input type="hidden" name="action" value="getEditPage"/>
+          <input type="hidden" name="id" value="${requestScope.project.idProject}">
+          <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
+        </form>
+        <form role="form" method="POST" action="ControllerProject">
+          <input type="hidden" name="action" value="delete"/>
+          <input type="hidden" name="id" value="${requestScope.project.idProject}">
+          <button class="btn btn-lg btn-danger btn-block" type="submit">Delete project</button>
+        </form>
+      </div>
     </c:if>
   </div>
 </div>

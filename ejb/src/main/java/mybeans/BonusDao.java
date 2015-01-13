@@ -52,4 +52,11 @@ public class BonusDao extends Dao<Bonus> {
         TypedQuery<Bonus> query = em.createNamedQuery("Bonus.findAll", Bonus.class);
         return query.getResultList();
     }
+
+    
+    public List<Bonus> getBonus(Project project) {
+        TypedQuery<Bonus> query = em.createNamedQuery("Bonus.findByIdProject", Bonus.class);
+        query.setParameter("idProject", project);
+        return query.getResultList();
+    }
 }

@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -57,6 +56,8 @@ public class ControllerProject extends HttpServlet {
     private CommentDao commentDao;
     @EJB
     private NotificationDao notificationDao;
+    @EJB
+    private BonusDao bonusDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -451,6 +452,13 @@ public class ControllerProject extends HttpServlet {
         List<Comment> comments = commentDao.getComments(project);
         request.setAttribute("comments", comments);
 
+        List<Bonus> bonus = bonusDao.getBonus(project);
+        if(bonus == null) {
+            request.setAttribute("bonus", "");
+        }else{
+            request.setAttribute("bonus", bonus);
+        }
+        
         BigDecimal fundLevel = fundDao.getFundLevel(project);
         request.setAttribute("fundLevel", fundLevel);
         request.setAttribute("project", project);

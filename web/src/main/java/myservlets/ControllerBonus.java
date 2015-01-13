@@ -7,6 +7,7 @@ import mybeans.*;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
 /**
  * Created by guolei on 1/13/15.
  */
-public class ControllerBonus {
+public class ControllerBonus extends HttpServlet {
 
     private static final String ERROR_LOGIN = "Please log in to comment on a project.";
     private static final String ERROR_PROJECT_ID = "Project id doesn't exist, internal server error.";
@@ -55,6 +56,34 @@ public class ControllerBonus {
                 break;
         }
     }
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
     
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
@@ -83,33 +112,32 @@ public class ControllerBonus {
         }
 
         String valueS = request.getParameter("value");
-        if (valueS.equals("")) {
+        if (valueS == null || valueS.equals("")) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_EMPTY_VALUE);
-            response.sendRedirect("index.jsp?nav=project&id="+id);
-            return;
-        }
-
-        String title = request.getParameter("title");
-        if (title.equals("")) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_EMPTY_TITLE);
-            response.sendRedirect("index.jsp?nav=project&id="+id);
-            return;
-        }
-
-        String description = request.getParameter("description");
-        if (description.equals("")) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_EMPTY_DESCRIPTION);
             response.sendRedirect("index.jsp?nav=project&id="+id);
             return;
         }
 
         BigDecimal value;
         try {
-            id = Integer.parseInt(idS);
             value = new BigDecimal(Float.parseFloat(valueS));
         } catch (NumberFormatException e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_PARAM);
-            response.sendRedirect("index.jsp?nav=projects");
+            response.sendRedirect("index.jsp?nav=projects&id="+id);
+            return;
+        }
+        
+        String title = request.getParameter("title");
+        if (title == null || title.equals("")) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_EMPTY_TITLE);
+            response.sendRedirect("index.jsp?nav=project&id="+id);
+            return;
+        }
+
+        String description = request.getParameter("description");
+        if (description == null || description.equals("")) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_EMPTY_DESCRIPTION);
+            response.sendRedirect("index.jsp?nav=project&id="+id);
             return;
         }
 

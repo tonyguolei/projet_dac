@@ -25,7 +25,8 @@ import java.math.BigDecimal;
     @NamedQuery(name = "Bonus.findByIdBonus", query = "SELECT b FROM Bonus b WHERE b.idBonus = :idBonus"),
     @NamedQuery(name = "Bonus.findByValue", query = "SELECT b FROM Bonus b WHERE b.value = :value"),
     @NamedQuery(name = "Bonus.findByTitle", query = "SELECT b FROM Bonus b WHERE b.title = :title"),
-    @NamedQuery(name = "Bonus.findByDescription", query = "SELECT b FROM Bonus b WHERE b.description = :description")})
+    @NamedQuery(name = "Bonus.findByDescription", query = "SELECT b FROM Bonus b WHERE b.description = :description"),
+    @NamedQuery(name = "Bonus.findByIdProject", query = "SELECT b FROM Bonus b WHERE b.idProject = :idProject")})
 public class Bonus implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
