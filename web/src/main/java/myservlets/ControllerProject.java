@@ -459,6 +459,15 @@ public class ControllerProject extends HttpServlet {
             request.setAttribute("bonus", bonus);
         }
         
+        User user = (User) session.getAttribute("user");
+        request.setAttribute("userFundLevel", BigDecimal.ZERO);
+        if (user != null) {
+            Fund fund = fundDao.getFundByUser(user, project);
+            if (fund != null) {
+                request.setAttribute("userFundLevel", fund.getValue());
+            }
+        }
+        
         BigDecimal fundLevel = fundDao.getFundLevel(project);
         request.setAttribute("fundLevel", fundLevel);
         request.setAttribute("project", project);
