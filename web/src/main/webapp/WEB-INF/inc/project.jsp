@@ -102,7 +102,7 @@
                 </div>
               </div>
               <div class="editor-wrapper">
-                <textarea id="description_bonus" data-height="160" data-maxlen="500" placeholder="Description" name="description"></textarea>
+                <textarea id="description_bonus" class="editor" data-height="160" data-maxlen="500" placeholder="Description" name="description"></textarea>
               </div>
             </div>
             <button class="btn btn-lg btn-warning btn-block" type="submit">Create bonus</button>
@@ -111,17 +111,17 @@
       </c:if>
     </div>
     <div role="tabpanel" class="tab-pane" id="comments">
-      <h2>Comments</h2>
+      <!--<h2>Comments</h2> -->
       <c:forEach items="${comments}" var="comment">
         <p>From ${comment.idUser.mail} <span class="time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${comment.date}" /></span></p>
-        <div class="markdown">${comment.comment}</div>
+        <div class="markdown smaller">${comment.comment}</div>
       </c:forEach>
       <form role="form" method="POST" action="ControllerComment">
         <input type="hidden" name="action" value="create"/>
         <input type="hidden" name="id" value="${requestScope.project.idProject}"/>
         <div class="form-group">
           <div class="editor-wrapper">
-            <textarea id="editor" data-height="160" data-maxlen="500" placeholder="Comment here ...." name="content"></textarea>
+            <textarea class="editor" data-height="160" data-maxlen="500" placeholder="Comment here ...." name="content"></textarea>
           </div>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Comment</button>

@@ -41,13 +41,15 @@ $(document).ready(function () {
 
     $('.tooltip-need').tooltip();
 
-    $('#editor').each(function (data) {
+    $('.editor').each(function (data) {
         var me = $(this);
         var width = me.attr('data-width'); // null -> dont change
         var height = me.attr('data-height');
         var maxLen = me.attr('data-maxlen');
-        var editor = new Editor();
-        editor.render();
+        var editor = new Editor({
+            element: this
+        });
+        //editor.render();
         editor.codemirror.setSize(width, height);
         if (maxLen) {
             editor.codemirror.setOption("maxLength", maxLen);
