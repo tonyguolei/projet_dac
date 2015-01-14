@@ -1,0 +1,41 @@
+$percent: 0.75;
+$hpercent: 0.35;
+.markdown.smaller {
+    h1, h2, h3 {
+        margin-top: 23px * $percent;
+        margin-bottom: 11.5px * $percent;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 200 * $percent;
+        line-height: 1.1 * $percent;
+    }
+    h1 {
+        font-size: 58.5px * $hpercent;
+    }
+    h2 {
+        font-size: 45px * $hpercent;
+    }
+    h3 {
+        font-size: 34px * $hpercent;
+    }
+    h4 {
+        font-size: 24px * $percent;
+    }
+    h5 {
+        font-size: 20px * $percent;
+    }
+    h6 {
+        font-size: 14px * $percent;
+    }
+
+    p {
+        font-size:  20px * $percent;
+    }
+
+    pre {
+        padding: 11px * $percent;
+        margin: 0 0 11.5p * $percent;
+        font-size: 12px * $percent;
+        line-height: 1.846 * $percent;
+    }
+}

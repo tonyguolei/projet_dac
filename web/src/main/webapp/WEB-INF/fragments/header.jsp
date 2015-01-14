@@ -7,6 +7,7 @@
 <link href="${pageContext.servletContext.contextPath}/css/datepicker.css" rel="stylesheet">
 <link href="${pageContext.servletContext.contextPath}/css/editor.css" rel="stylesheet">
 <link href="${pageContext.servletContext.contextPath}/css/style.css" rel="stylesheet">
+<link href="${pageContext.servletContext.contextPath}/css/markdown.css" rel="stylesheet">
 
 <link rel="icon" href="${pageContext.servletContext.contextPath}/img/logo.png">
 
