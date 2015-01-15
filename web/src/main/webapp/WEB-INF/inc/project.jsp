@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="mybeans.Bonus"%>
+<%@page import="java.util.Map"%>
 <%@page import="mybeans.User"%>
 <%
     if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null || request.getAttribute("comments") == null || request.getAttribute("bonus") == null || request.getAttribute("userFundLevel") == null) {
@@ -75,6 +78,7 @@
         <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
             <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            <li role="presentation"><a href="#bonus_orders" aria-controls="bonus_orders" role="tab" data-toggle="tab">Bonus orders</a></li>
             </c:if>
             <c:if test="${sessionScope.user.isAdmin}">
             <li role="presentation"><a href="#admin" aria-controls="admin" role="tab" data-toggle="tab">Admin</a></li>
@@ -148,6 +152,26 @@
                     <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
                 </form>
             </div>
+            <c:if test="${!userByBonus.isEmpty()}">
+                <div role="tabpanel" class="tab-pane" id="bonus_orders">
+                    <br/>
+                    <ul>
+                        <c:forEach items="${userByBonus.entrySet()}" var="userBonusEntry">
+                            <c:set value="${userBonusEntry.getValue().size()}" var="listSize"></c:set>
+                            <li> <p> ${userBonusEntry.getKey().title} <small> (${listSize} backer${listSize>1?"s":""}) </small> </p> </li>
+                                <c:if test="${listSize > 0}">
+                                <ul>
+                                    <c:forEach items="${userBonusEntry.getValue()}" var="backer">
+                                        <li> 
+                                            <a href="index.jsp?nav=user&id=${backer.idUser}">${backer.mail}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
         </c:if>
         <c:if test="${sessionScope.user.isAdmin}">
             <div role="tabpanel" class="tab-pane" id="admin">

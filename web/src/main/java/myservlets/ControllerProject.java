@@ -20,9 +20,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import rightsmanager.RightsManager;
+import java.util.Map;
 
 /**
  *
@@ -237,7 +240,7 @@ public class ControllerProject extends HttpServlet {
             }
             return;
         }
-        
+
         if (!user.getIsAdmin()) {
             if (project.getGoal().compareTo(goal) != 0) {
                 Alert.addAlert(session, AlertType.DANGER, ERROR_EDIT_GOAL);
@@ -261,15 +264,16 @@ public class ControllerProject extends HttpServlet {
             project.setEndDate(endDate);
             projectDao.update(project);
             Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_EDIT);
-            
+
             //Send notification
             LinkedHashSet<User> users = new LinkedHashSet<>();
             for (Fund f : project.getFundCollection()) {
                 users.add(f.getIdUser());
             }
             for (MemoriseProject mp : project.getMemoriseProjectCollection()) {
-                if (!users.contains(mp.getIdUser()))
+                if (!users.contains(mp.getIdUser())) {
                     users.add(mp.getIdUser());
+                }
             }
             for (User u : users) {
                 Notification notif = new Notification(
@@ -279,8 +283,8 @@ public class ControllerProject extends HttpServlet {
                 );
                 notificationDao.save(notif);
             }
-            
-            response.sendRedirect("index.jsp?nav=project&id="+id);
+
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
         } catch (Exception e) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
             request.setAttribute("project", project);
@@ -459,12 +463,13 @@ public class ControllerProject extends HttpServlet {
         request.setAttribute("comments", comments);
 
         List<Bonus> bonus = bonusDao.getBonus(project);
-        if(bonus == null) {
+        if (bonus == null) {
             request.setAttribute("bonus", "");
-        }else{
+        } else {
             request.setAttribute("bonus", bonus);
         }
-        
+
+        // fund level of the current user on this project (0 if nobody is connected).
         User user = (User) session.getAttribute("user");
         request.setAttribute("userFundLevel", BigDecimal.ZERO);
         if (user != null) {
@@ -473,7 +478,26 @@ public class ControllerProject extends HttpServlet {
                 request.setAttribute("userFundLevel", fund.getValue());
             }
         }
-        
+
+        // structure giving the list of backers receiving each bonus.
+        if (project.getIdOwner().equals(user)) {
+            Map<Bonus, List<User>> userByBonus = new HashMap();
+
+            for (Bonus b : project.getBonusCollection()) {
+                List<User> userList = new LinkedList();
+                
+                for (Fund fund : project.getFundCollection()) {
+                    if (fund.getValue().compareTo(b.getValue()) >= 0) {
+                        userList.add(fund.getIdUser());
+                    }
+                }
+                
+                userByBonus.put(b, userList);
+            }
+            
+            request.setAttribute("userByBonus", userByBonus);
+        }
+
         BigDecimal fundLevel = fundDao.getFundLevel(project);
         request.setAttribute("fundLevel", fundLevel);
         request.setAttribute("project", project);
