@@ -22,6 +22,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import mybeans.Project;
 import mybeans.Fund;
+import rightsmanager.RightsManager;
 
 /**
  *
@@ -146,11 +147,8 @@ public class ControllerUser extends HttpServlet {
     private void doBan(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_BAN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_BAN)) return;
         
         if (!user.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_NOT_ADMIN);
@@ -337,11 +335,7 @@ public class ControllerUser extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String pass = request.getParameter("pass");
 
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_INSPECT);
-            response.sendRedirect("index.jsp?nav=projects");
-            return;
-        }
+        if (RightsManager.isNotLoggedRedirectTo(session, response, AlertType.DANGER, ERROR_INSPECT, "index.jsp?nav=projects")) return;
 
         if (!pass.equals(user.getPassword())) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_PASS);
@@ -368,11 +362,8 @@ public class ControllerUser extends HttpServlet {
     private void doUnban(HttpServletRequest request, HttpServletResponse response) throws IOException, IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_BAN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_BAN)) return;
         
         if (!user.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_BAN_NOT_ADMIN);

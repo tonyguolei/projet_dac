@@ -21,6 +21,7 @@ import mybeans.PrivateMessage;
 import mybeans.PrivateMessageDao;
 import mybeans.User;
 import mybeans.UserDao;
+import rightsmanager.RightsManager;
 
 /**
  *
@@ -111,11 +112,8 @@ public class ControllerPrivateMessage extends HttpServlet {
     private void doListConversation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
         
         List<PrivateMessage> listAllPm = privateMessageDao.getConversations(user);
         
@@ -128,11 +126,8 @@ public class ControllerPrivateMessage extends HttpServlet {
     private void doNewMessage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }    
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
         
         String dest = request.getParameter("dest");
         String message = request.getParameter("message");
@@ -166,11 +161,8 @@ public class ControllerPrivateMessage extends HttpServlet {
     private void doConversation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
         
         String dest = (String) request.getParameter("dest");
         if (dest == null || dest.equals("")) {

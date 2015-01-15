@@ -24,6 +24,7 @@ import mybeans.Project;
 import mybeans.ProjectDao;
 import mybeans.User;
 import mybeans.UserDao;
+import rightsmanager.RightsManager;
 
 /**
  *
@@ -120,11 +121,8 @@ public class ControllerMemorise extends HttpServlet {
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
 
         String idS = request.getParameter("id");
         int id;
@@ -168,11 +166,7 @@ public class ControllerMemorise extends HttpServlet {
         }
         
         User user = userDao.getByIdUser(id);
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_ID);
-            response.sendRedirect("index.jsp?nav=projects");
-            return;
-        }
+        if (RightsManager.isNotLoggedRedirectTo(session, response, AlertType.DANGER, ERROR_ID, "index.jsp?nav=projects")) return;
         
         List<Project> projects = memoriseProjectDao.getByUser(user);
         request.setAttribute("projects", projects);
@@ -183,12 +177,9 @@ public class ControllerMemorise extends HttpServlet {
     private void doRemove(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
-
+        
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN));
+        
         String idS = request.getParameter("id");
         int id;
         try {

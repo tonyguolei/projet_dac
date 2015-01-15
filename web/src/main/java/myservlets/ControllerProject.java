@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import rightsmanager.RightsManager;
 
 /**
  *
@@ -149,12 +150,11 @@ public class ControllerProject extends HttpServlet {
     private void doEdit(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_EDIT);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
 
+        System.err.println("LOL1");
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_EDIT)) return;
+        System.err.println("LOL2");
+        
         int id;
         try {
             id = Integer.parseInt(request.getParameter("id"));
@@ -289,11 +289,8 @@ public class ControllerProject extends HttpServlet {
     private void doGetEditPage(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_EDIT);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_EDIT)) return;
 
         int id;
         try {
@@ -341,11 +338,8 @@ public class ControllerProject extends HttpServlet {
         }
 
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN_DELETE);
-            doInspect(request, response);
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_DELETE)) return;
 
         if (!user.getIsAdmin()) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_DELETE);
@@ -361,11 +355,8 @@ public class ControllerProject extends HttpServlet {
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
 
         String title = request.getParameter("title");
         String description = request.getParameter("description");

@@ -3,6 +3,7 @@
     Author     : Thibaut Coutelou
 --%>
 
+<%@page import="rightsmanager.RightsManager"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="mybeans.Project"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -12,12 +13,8 @@
    folder, DO NOT use <html> tags or stuff as they're already in */ %>
 
 <%
-    if (session.getAttribute("user") == null) {
-        String ERROR_LOGIN = "Please log in to edit a project.";
-        Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-        response.sendRedirect("index.jsp?nav=login");
-        return;
-    }
+    String ERROR_LOGIN = "Please log in to edit a project.";
+    if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
 
     boolean isEdit = request.getParameter("nav").equals("editproject");
 

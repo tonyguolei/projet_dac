@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import rightsmanager.RightsManager;
 
 /**
  *
@@ -107,11 +108,8 @@ public class ControllerFund extends HttpServlet {
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
 
         String idS = request.getParameter("id");
         String valueS = request.getParameter("value");

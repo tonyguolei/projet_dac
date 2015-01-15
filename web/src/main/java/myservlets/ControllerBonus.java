@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
+import rightsmanager.RightsManager;
 
 /**
  * Created by guolei on 1/13/15.
@@ -88,11 +89,8 @@ public class ControllerBonus extends HttpServlet {
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.SUCCESS, ERROR_LOGIN)) return;
 
         String idS = request.getParameter("id");
         int id;

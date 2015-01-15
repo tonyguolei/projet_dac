@@ -20,6 +20,7 @@ import mybeans.CommentDao;
 import mybeans.Project;
 import mybeans.ProjectDao;
 import mybeans.User;
+import rightsmanager.RightsManager;
 
 /**
  *
@@ -105,11 +106,8 @@ public class ControllerComment extends HttpServlet {
     private void doCreate(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
-        if (user == null) {
-            Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-            response.sendRedirect("index.jsp?nav=login");
-            return;
-        }
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
 
         String idS = request.getParameter("id");
         int id;

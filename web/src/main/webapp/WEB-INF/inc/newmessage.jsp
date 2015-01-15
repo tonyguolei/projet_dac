@@ -4,15 +4,12 @@
     Author     : guillaumeperrin
 --%>
 
+<%@page import="rightsmanager.RightsManager"%>
 <%@page import="alerts.Alert"%>
 <%@page import="alerts.AlertType"%>
 <%
-    if (session.getAttribute("user") == null) {
-        String ERROR_LOGIN = "Please log in to send a private message.";
-        Alert.addAlert(session, AlertType.DANGER, ERROR_LOGIN);
-        response.sendRedirect("index.jsp?nav=login");
-        return;
-    }
+    String ERROR_LOGIN = "Please log in to send a private message.";
+    if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
     
     String dest = request.getAttribute("dest") == null ? "" : (String) request.getAttribute("dest");
     dest = request.getParameter("dest") == null ? dest : request.getParameter("dest");
