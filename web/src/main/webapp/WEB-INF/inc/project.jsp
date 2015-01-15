@@ -11,6 +11,9 @@
     <div>
         <a class="tooltip-need badge back-primary" href="ControllerMemorise?action=create&id=${requestScope.project.idProject}" title="Remember"><span class="glyphicon glyphicon-eye-open"></span></a>
         <a class="tooltip-need badge" href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}" title="Forget"><span class="glyphicon glyphicon-eye-close"></span></a>
+        <c:if test="${sessionScope.user.isAdmin}">
+        <a class="pull-right tooltip-need badge back-danger" href="ControllerProject?action=delete&id=${requestScope.project.idProject}" title="Delete this project"><span class="glyphicon glyphicon-remove"></span></a>
+        </c:if>
         <a class="pull-right tooltip-need badge back-danger" href="ControllerProject?action=report&id=${requestScope.project.idProject}" title="Report this project"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
     </div>
     <hr>
