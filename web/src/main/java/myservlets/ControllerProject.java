@@ -59,6 +59,8 @@ public class ControllerProject extends HttpServlet {
     private NotificationDao notificationDao;
     @EJB
     private BonusDao bonusDao;
+    @EJB
+    private PrivateMessageDao privateMessageDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -345,6 +347,19 @@ public class ControllerProject extends HttpServlet {
             Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_DELETE);
             doInspect(request, response);
             return;
+        }
+
+        // Send a notification to the project owner
+        User projectOwner = project.getIdOwner();
+        if (projectOwner != null) {
+            String message = "One of your projects has been deleted: " + project.getTitle() + ".";
+            PrivateMessage pm = new PrivateMessage(user, projectOwner, message);
+
+            try {
+                privateMessageDao.save(pm);
+            } catch (Exception e) {
+                Alert.addAlert(session, AlertType.DANGER, ERROR_DB);
+            }
         }
 
         projectDao.delete(project);
