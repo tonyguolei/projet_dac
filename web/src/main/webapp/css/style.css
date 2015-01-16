@@ -115,3 +115,8 @@ small.by {
 #comments .time-relative {
     margin-left: 2em;
 }
+
+.nav .small-dropdown {
+    padding-left: 2px;
+    padding-right: 2px;
+}
