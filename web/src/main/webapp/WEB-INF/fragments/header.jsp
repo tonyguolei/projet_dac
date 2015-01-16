@@ -9,7 +9,7 @@
 <link href="${pageContext.servletContext.contextPath}/css/style.css" rel="stylesheet">
 <link href="${pageContext.servletContext.contextPath}/css/markdown.css" rel="stylesheet">
 
-<link rel="icon" href="${pageContext.servletContext.contextPath}/img/logo.png">
+<link rel="icon" href="${pageContext.servletContext.contextPath}/img/logo-mini.png">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
