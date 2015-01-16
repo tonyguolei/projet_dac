@@ -17,9 +17,15 @@ $(document).ready(function () {
         return true;
     };
 
-    var notifs = $('#notifications');
+    var notifs = $('#notifications'),
+      pms = $('#privateMessages');
     if (notifs.find('ul').hasClass('no-notifs')) {
         var label = notifs.find('.badge');
+        label.removeClass('back-success');
+        label.text(' ');
+    }
+    if (pms.find('ul').hasClass('no-notifs')) {
+        var label = pms.find('.badge');
         label.removeClass('back-success');
         label.text(' ');
     }

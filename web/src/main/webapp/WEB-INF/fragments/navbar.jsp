@@ -75,35 +75,48 @@
       <% } else { %>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" id="privateMessages">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <span class="glyphicon glyphicon-envelope label label-primary">
+          <a href="#" class="dropdown-toggle small-dropdown" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-envelope badge back-success">
               ${requestScope.numberNewPrivateMessage}
             </span>
           </a>
-          <ul class="dropdown-menu" role="menu">
-            <c:forEach items="${requestScope.listPrivateMessage}" var="pm">
-                <li>
-                  <span class="dropdown-header"><strong>${pm.exp.mail}</strong></span>
-                      <c:choose>
-                          <c:when test="${sessionScope.user.idUser == pm.dest.idUser}">
-                      <a href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
-                      </c:when>
-                      <c:otherwise>
-                          <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
-                          </c:otherwise>
-                      </c:choose>
-                      <span class="markdown">${fn:substring(pm.message, 0, 20)}</span>
-                    </a>
-                </li>
-            </c:forEach>
-            <c:if test="${requestScope.listPrivateMessage.size() > 0}">
+              <% Long msgs = (Long) request.getAttribute("numberNewPrivateMessage");
+              if (msgs > 0) { %>
+              <ul class="dropdown-menu" role="menu">
+                <c:forEach items="${requestScope.listPrivateMessage}" var="pm">
+                    <li>
+                      <span class="dropdown-header"><strong>${pm.exp.mail}</strong></span>
+                          <c:choose>
+                              <c:when test="${sessionScope.user.idUser == pm.dest.idUser}">
+                          <a href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
+                          </c:when>
+                          <c:otherwise>
+                              <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
+                              </c:otherwise>
+                          </c:choose>
+                                <span class="markdown smaller">${fn:substring(pm.message, 0, 20)}</span>
+                              </a>
+                    </li>
+                </c:forEach>
+                    <c:if test="${requestScope.listPrivateMessage.size() > 0}">
+                        <li class="divider"></li>
+                        </c:if>
+                        <li class="no-notifs">
+                          <a href="index.jsp?nav=conversations">Show all conversations</a>
+                    </li>
+              </ul>
+              <% } else {%>
+          <ul class="dropdown-menu no-notifs" role="menu">
+            <li>
+              <span class="dropdown-header">No new messages</span>
+            </li>
                 <li class="divider"></li>
-                </c:if>
             <li><a href="index.jsp?nav=conversations">Show all conversations</a></li>
           </ul>
+          <% } %>
         </li>
         <li class="dropdown" id="notifications">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          <a href="#" class="dropdown-toggle small-dropdown" data-toggle="dropdown" role="button" aria-expanded="false">
             <span class="glyphicon glyphicon-bell badge back-success">
               ${requestScope.numberNewNotification}
             </span>
