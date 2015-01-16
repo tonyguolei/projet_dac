@@ -347,15 +347,17 @@ public class ControllerProject extends HttpServlet {
 
         if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_DELETE)) return;
 
-        if (!user.getIsAdmin()) {
+        User projectOwner = project.getIdOwner();
+        boolean userIsOwner = user.equals(projectOwner);
+
+        if (!user.getIsAdmin() && !userIsOwner) {
             Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN_DELETE);
             doInspect(request, response);
             return;
         }
 
-        // Send a notification to the project owner
-        User projectOwner = project.getIdOwner();
-        if (projectOwner != null) {
+        // Send a message to the project owner
+        if (!userIsOwner) {
             String message = "One of your projects has been deleted: " + project.getTitle() + ".";
             PrivateMessage pm = new PrivateMessage(user, projectOwner, message);
 

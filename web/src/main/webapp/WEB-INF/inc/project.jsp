@@ -14,9 +14,6 @@
   <div>
     <a class="tooltip-need badge back-primary" href="ControllerMemorise?action=create&id=${requestScope.project.idProject}" title="Remember"><span class="glyphicon glyphicon-eye-open"></span></a>
     <a class="tooltip-need badge" href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}" title="Forget"><span class="glyphicon glyphicon-eye-close"></span></a>
-      <c:if test="${sessionScope.user.isAdmin || sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
-      <a class="pull-right tooltip-need badge back-danger" href="ControllerProject?action=delete&id=${requestScope.project.idProject}" title="Delete this project"><span class="glyphicon glyphicon-remove"></span></a>
-      </c:if>
     <a class="pull-right tooltip-need badge back-danger" href="ControllerProject?action=report&id=${requestScope.project.idProject}" title="Report this project"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
   </div>
   <hr>
@@ -157,6 +154,11 @@
             <input type="hidden" name="action" value="getEditPage"/>
             <input type="hidden" name="id" value="${requestScope.project.idProject}">
             <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
+          </form>
+          <form role="form" method="POST" action="ControllerProject">
+            <input type="hidden" name="action" value="delete"/>
+            <input type="hidden" name="id" value="${requestScope.project.idProject}">
+            <button class="btn btn-lg btn-danger btn-block" type="submit">Delete project</button>
           </form>
         </div>
         <c:if test="${!userByBonus.isEmpty()}">
