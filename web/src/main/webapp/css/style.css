@@ -102,3 +102,8 @@ small.by {
 .logo-text {
     margin-left: -7px;
 }
+
+.big-input {
+    font-size: 4em !important;
+    height: auto;
+}

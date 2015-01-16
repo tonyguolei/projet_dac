@@ -26,7 +26,7 @@
                     <th scope="row"><a href="index.jsp?nav=project&id=${project.idProject}"><c:out value="${project.title}" /></a></th>
                     <td><a href="index.jsp?nav=user&id=${project.idOwner.idUser}"><c:out value="${project.idOwner.mail}" /></a></td>
                     <td>$ <c:out value="${project.goal}" /></td>
-                    <td><span class="time-relative"><fmt:formatDate pattern="yyyy-MM-dd" value="${project.endDate}" /></span></td>
+                    <td><span class="time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${project.endDate}" /></span></td>
                     <c:if test="${sessionScope.user.isAdmin}">
                     <td>
                         <c:if test="${project.flagged}">

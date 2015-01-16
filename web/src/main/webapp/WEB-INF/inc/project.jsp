@@ -36,11 +36,11 @@
             </li>
             <li>
                 <span class="project-stats-label">Created</span>
-                <div class="project-stats-value time-relative"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${requestScope.project.creationDate}" /></div>
+                <div class="project-stats-value time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${requestScope.project.creationDate}" /></div>
             </li>
             <li>
                 <span class="project-stats-label">Ends</span>
-                <div class="project-stats-value time-relative"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${requestScope.project.endDate}" /></div>
+                <div class="project-stats-value time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${requestScope.project.endDate}" /></div>
             </li>
         </ul>
     </div>

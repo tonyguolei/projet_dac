@@ -46,9 +46,6 @@
         <c:when test="<%=isEdit%>">
             <h1>Modify an existing project</h1>
         </c:when>
-        <c:otherwise>
-            <h1>Create a project</h1>
-        </c:otherwise>
     </c:choose>
     <form role="form" method="POST" action="ControllerProject?action=
         <c:choose>
@@ -62,7 +59,7 @@
     ">
         <input type="hidden" name="id" value="${project.idProject}">
         <div class="form-group">
-            <input type="text" class="form-control" name="title" placeholder="Title" required
+            <input type="text" class="form-control input-lg big-input" name="title" placeholder="Name your project" required
                 <c:choose>
                     <c:when test="<%=isEdit%>">
                         value="${project.title}"
