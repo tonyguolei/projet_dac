@@ -94,9 +94,10 @@
                               <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
                               </c:otherwise>
                           </c:choose>
-                                <span class="markdown smaller">${fn:substring(pm.message, 0, 20)}</span>
+                                <span class="markdown smaller">${fn:substring(pm.message, 0, 300)}</span>
                               </a>
-                    </li>
+                          </li>
+                          <div class="fadeout"></div>
                 </c:forEach>
                     <c:if test="${requestScope.listPrivateMessage.size() > 0}">
                         <li class="divider"></li>
