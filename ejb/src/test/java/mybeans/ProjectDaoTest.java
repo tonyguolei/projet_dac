@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class ProjectDaoTest {
-    private static EJBContainer container;
     private static UserDao instanceUserDao;
     private static ProjectDao instanceProjectDao;
     private BigDecimal goal = BigDecimal.valueOf(100);
@@ -43,9 +42,8 @@ public class ProjectDaoTest {
     @BeforeClass
     public static void setUpClass() {
         try {
-            container = ContainerInstance.getContainer();
-            instanceUserDao = (UserDao) container.getContext().lookup("java:global/classes/UserDao");
-            instanceProjectDao = (ProjectDao) container.getContext().lookup("java:global/classes/ProjectDao");
+            instanceUserDao = BeanTestUtils.lookup(UserDao.class, "UserDao");
+            instanceProjectDao = (ProjectDao) BeanTestUtils.lookup(ProjectDao.class, "ProjectDao");
             instanceUserDao.save(user);
             user = instanceUserDao.getByMail(mail);
             System.out.println("ProjectDao unit test start");

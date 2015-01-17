@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
  * @author guolei
  */
 public class UserDaoTest {
-    private static EJBContainer container;
     private static UserDao instance;
     
     public UserDaoTest() {
@@ -29,8 +28,7 @@ public class UserDaoTest {
     @BeforeClass
     public static void setUpClass() {
         try {
-            container = ContainerInstance.getContainer();
-            instance = (UserDao) container.getContext().lookup("java:global/classes/UserDao");
+            instance = (UserDao) BeanTestUtils.lookup(UserDao.class, "UserDao");
             System.out.println("UsertDao unit test start");
         } catch (NamingException ex) {
             Logger.getLogger(UserDaoTest.class.getName()).log(Level.SEVERE, null, ex);

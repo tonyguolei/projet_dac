@@ -196,11 +196,15 @@ The web site is available at http://localhost:8080/web
 ### Run tests
 
 ```
-mvn install -Ddac.skipTests=false
+mvn test -Ddac.skipTests=false
 ```
 
+### Generate coverage report
 
-
+```
+mvn site -Ddac.skipTests=false
+```
+The report website can be found in coverage-report/
 
 
 ## Quick reminder
@@ -227,5 +231,6 @@ If you followed our instructions, these should be valid...
 * Deploy from command-line `mvn glassfish:deploy` (in ear/)
 * Undeploy from command-line `mvn glassfish:undeploy` (in ear/)
 * Redeploy from command-line `mvn glassfish:redeploy` (in ear/)
-* Run tests `mvn install -Ddac.skipTests=false`
+* Run tests `mvn test -Ddac.skipTests=false`
+* Generate coverage report `mvn site -Ddac.skipTests=false`
 
