@@ -4,6 +4,7 @@ An other crowdfunding project, by Ensimag's students.
 
 Have a look to our quick reminder at the bottom of this file !
 
+![Selfstarter logo](https://raw.githubusercontent.com/tonyguolei/projet_dac/master/web/src/main/webapp/img/logo.png)
 
 
 
