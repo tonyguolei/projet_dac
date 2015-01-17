@@ -5,9 +5,6 @@
  */
 package mybeans;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import junit.framework.Assert;
 import org.junit.*;
 
@@ -34,6 +31,7 @@ public class UserDaoTest {
         try {
             container = ContainerInstance.getContainer();
             instance = (UserDao) container.getContext().lookup("java:global/classes/UserDao");
+            System.out.println("UsertDao unit test start");
         } catch (NamingException ex) {
             Logger.getLogger(UserDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -43,8 +41,9 @@ public class UserDaoTest {
     public static void tearDownClass() {
         User entity = instance.getByMail("test@gmail.com");
         if(entity != null){
-            instance.delete(entity); 
+            instance.delete(entity);
         }
+        System.out.println("UserDao unit test stop");
     }
     
     /**

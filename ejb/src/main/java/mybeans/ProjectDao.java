@@ -41,6 +41,23 @@ public class ProjectDao extends Dao<Project> {
             return null;
         }
     }
+
+    /**
+     * Get the Project entity bean having the given title.
+     *
+     * @param id Primary key of the project.
+     * @return The project having id as a primary key.
+     */
+    public Project getByTitleProject(String title) {
+        TypedQuery<Project> query = em.createNamedQuery("Project.findByTitle", Project.class);
+        query = query.setParameter("title", title);
+        try{
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
+    }
+
     
     /**
      * Get the list of all projects.

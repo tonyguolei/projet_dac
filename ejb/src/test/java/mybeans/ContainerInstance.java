@@ -21,4 +21,8 @@ public class ContainerInstance {
         }
         return container;
     }
+
+    public static void closeContainer() {
+        container.close();
+    }
 }
