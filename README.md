@@ -1,13 +1,10 @@
 # SelfStarter
 
-An other crowdfunding project, by Ensimag's students.
+Another crowdfunding project, by Ensimag's students.
 
 Have a look to our quick reminder at the bottom of this file !
 
 ![Selfstarter logo](https://raw.githubusercontent.com/tonyguolei/projet_dac/master/web/src/main/webapp/img/logo.png)
-
-
-
 
 ## Setup
 
@@ -41,7 +38,7 @@ To resume the mysql server container:
 sudo docker start mysql-dac
 ```
 
-The database keep its state when the container is stoped (No need to recreate
+The database keeps its state when the container is stopped (No need to recreate
 the table).
 
 #### On OSx
@@ -61,7 +58,7 @@ FLUSH PRIVILEGES;
 
 #### Create tables
 
-To create the tables, use:
+To create the tables, do:
 ```
 mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql
 ```
@@ -70,9 +67,9 @@ mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql
 
 Download and unpack Glassfish, or use Netbeans to install it.
 
-#### Environement variables
+#### Environment variables
 
-Set `$GLASSFISH_HOME` in your .bashrc:
+Set `$GLASSFISH_HOME` in your `.bashrc`:
 ```
 export GLASSFISH_HOME=...
 ```
@@ -82,13 +79,13 @@ export GLASSFISH_HOME=...
 Download the JDBC driver for MySQL from
 `http://dev.mysql.com/downloads/connector/j/3.1.html`
 
-Extract it and put `mysql-connector-java-3.1.14-bin.jar` in
+Extract it and put the `mysql-connector-java-3.1.14-bin.jar` in
 `$GLASSFISH_HOME/glassfish/lib`
 
 #### Connect Glassfish to MySQL
 
 To setup the ressource `jdbc/dac` and the connection pool `dac`, insert the
-following into `$GLASSFISH_HOME/glassfish/domains/domain1/config/domain.xml`
+following lines into `$GLASSFISH_HOME/glassfish/domains/domain1/config/domain.xml`
 between `<resources>` and `</resources>` :
 ```
 <jdbc-connection-pool datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource" res-type="javax.sql.ConnectionPoolDataSource" name="dac">
@@ -104,10 +101,10 @@ between `<resources>` and `</resources>` :
 
 ##### Troubleshooting
 
-If the copy/paste to the xml configuration did not worked, you can try this.
+If the copy/paste above did not worked, you can try this:
 
 * Launch your GlassFish server.
-* Go to GlassFish admin page (usually http://localhost:4848, change the port as
+* Go to GlassFish admin page (usually [http://localhost:4848](http://localhost:4848), modify the port as
 needed).
 * Go to Resources - JDBC - Connection Pools - New
 ```
@@ -115,7 +112,7 @@ Pool name: dac
 Resource: javax.sql.ConnectionPoolDataSource
 Database driver: MySQL
 ```
-* You need to change properties such as:
+* You need to change some properties as below:
 ```
 URL and url: jdbc:mysql://localhost:3306/dac
 ServerName: localhost
@@ -139,7 +136,7 @@ Run your Glassfish server, either with Netbeans, or with:
 $GLASSFISH_HOME/glassfish/bin/asadmin start-domain
 ```
 
-* Go to http://localhost:4848/
+* Go to [http://localhost:4848](http://localhost:4848)
 * Go to Common Task - Domain - Administrator Password
 * Set the password to `admin`
 
@@ -150,7 +147,7 @@ $GLASSFISH_HOME/glassfish/bin/asadmin start-domain
 
 You need to set `$GLASSFISH_HOME` for Netbeans.
 
-* Go to your $(netbeans intallation folder)/etc
+* Go to your `<netbeans intallation folder>/etc`
 * Add the following line at the end of `netbeans.conf`
 ```
 export GLASSFISH_HOME
@@ -158,18 +155,11 @@ export GLASSFISH_HOME
 
 #### Glassfish
 
-If you use the embedded Glassfish, you will need to set the new password to
+If you use the embedded Glassfish, you need to set the new password to
 `admin`:
 * Go to Service - Servers - Glassfish
 * Right click - Properties -Common
 * Set the password to `admin`
-
-
-
-
-
-
-
 
 ## Build and run
 
@@ -192,7 +182,7 @@ mvn glassfish:deploy
 
 ### Access the web site
 
-The web site is available at http://localhost:8080/web
+The web site is available at [http://localhost:8080/web](http://localhost:8080/web)
 
 ### Run tests
 
@@ -205,12 +195,12 @@ mvn test -Ddac.skipTests=false
 ```
 mvn site -Ddac.skipTests=false
 ```
-The report website can be found in coverage-report/
+The report website can be found in `coverage-report/`
 
 
 ## Quick reminder
 
-If you followed our instructions, these should be valid...
+If you followed our instructions, these lines should be valid...
 
 ### Passwords
 
