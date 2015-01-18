@@ -37,5 +37,34 @@ $hpercent: 0.55;
         margin: 0 0 11.5p * $percent;
         font-size: 12px * $percent;
         line-height: 1.846 * $percent;
+
+    }
+}
+
+.discussion {
+    .msg {
+        border-radius: 2em;
+        padding-left: 1em;
+        padding-right: 1em;
+        word-break: break-all;
+    }
+
+    .msg-left {
+        background-color: #ccc;
+        border-bottom-left-radius: 2px;
+        margin-right: 5em;
+    }
+
+    .msg-right {
+        border-bottom-right-radius: 2px;
+        margin-left: 5em;
+    }
+
+    .msg-read::after {
+        content: '✓ Read';
+        float: right;
+        position: relative;
+        top: -3em;
+        color: #B0B0B0;
     }
 }

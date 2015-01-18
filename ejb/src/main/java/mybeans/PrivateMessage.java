@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "PrivateMessage.findByIsRead", query = "SELECT p FROM PrivateMessage p WHERE p.isRead = :isRead"),
     @NamedQuery(name = "PrivateMessage.findAllNotReadByUserid", query = "SELECT pm FROM PrivateMessage pm WHERE pm.dest = :dest AND pm.isRead = false"),
     @NamedQuery(name = "PrivateMessage.conversations", query = "SELECT pm FROM PrivateMessage pm WHERE pm.exp = :user OR pm.dest = :user ORDER BY pm.idPrivateMessage DESC"),
-    @NamedQuery(name = "PrivateMessage.conversation", query = "SELECT pm FROM PrivateMessage pm WHERE (pm.exp = :exp AND pm.dest = :dest) OR (pm.exp = :dest AND pm.dest = :exp) ORDER BY pm.idPrivateMessage DESC")})
+    @NamedQuery(name = "PrivateMessage.conversation", query = "SELECT pm FROM PrivateMessage pm WHERE (pm.exp = :exp AND pm.dest = :dest) OR (pm.exp = :dest AND pm.dest = :exp) ORDER BY pm.idPrivateMessage ASC")})
 public class PrivateMessage implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
