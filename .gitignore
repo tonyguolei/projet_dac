@@ -5,3 +5,5 @@ target
 gfembed[0-9]*tmp
 .DS_Store
 /ear/target/
+coverage-report/
+ejb/derby.log
