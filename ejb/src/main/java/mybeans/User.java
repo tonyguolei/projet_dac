@@ -76,10 +76,6 @@ public class User implements Serializable {
 
     public User() {
     }
-
-    public User(Integer idUser) {
-        this.idUser = idUser;
-    }
     
     public User(String mail, String password) {
         this.mail = mail;
@@ -90,32 +86,12 @@ public class User implements Serializable {
         this.isAdmin = false;
     }
 
-    public User(Integer idUser, String mail, String password, BigDecimal balance, boolean deleted, boolean banned, boolean isAdmin) {
-        this.idUser = idUser;
-        this.mail = mail;
-        this.password = password;
-        this.balance = balance;
-        this.deleted = deleted;
-        this.banned = banned;
-        this.isAdmin = isAdmin;
-    }
-    
-    
-
     public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
-
     public String getMail() {
         return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public String getPassword() {
@@ -128,10 +104,6 @@ public class User implements Serializable {
 
     public BigDecimal getBalance() {
         return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
     }
     
     public void addBalance(BigDecimal balance) {
@@ -158,17 +130,9 @@ public class User implements Serializable {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
     @XmlTransient
     public Collection<PrivateMessage> getPrivateMessageCollection() {
         return privateMessageCollection;
-    }
-
-    public void setPrivateMessageCollection(Collection<PrivateMessage> privateMessageCollection) {
-        this.privateMessageCollection = privateMessageCollection;
     }
 
     @XmlTransient
@@ -176,17 +140,9 @@ public class User implements Serializable {
         return privateMessageCollection1;
     }
 
-    public void setPrivateMessageCollection1(Collection<PrivateMessage> privateMessageCollection1) {
-        this.privateMessageCollection1 = privateMessageCollection1;
-    }
-
     @XmlTransient
     public Collection<MemoriseProject> getMemoriseProjectCollection() {
         return memoriseProjectCollection;
-    }
-
-    public void setMemoriseProjectCollection(Collection<MemoriseProject> memoriseProjectCollection) {
-        this.memoriseProjectCollection = memoriseProjectCollection;
     }
 
     @XmlTransient
@@ -194,17 +150,9 @@ public class User implements Serializable {
         return commentCollection;
     }
 
-    public void setCommentCollection(Collection<Comment> commentCollection) {
-        this.commentCollection = commentCollection;
-    }
-
     @XmlTransient
     public Collection<Fund> getFundCollection() {
         return fundCollection;
-    }
-
-    public void setFundCollection(Collection<Fund> fundCollection) {
-        this.fundCollection = fundCollection;
     }
 
     @XmlTransient
@@ -212,17 +160,9 @@ public class User implements Serializable {
         return projectCollection;
     }
 
-    public void setProjectCollection(Collection<Project> projectCollection) {
-        this.projectCollection = projectCollection;
-    }
-
     @XmlTransient
     public Collection<Notification> getNotificationCollection() {
         return notificationCollection;
-    }
-
-    public void setNotificationCollection(Collection<Notification> notificationCollection) {
-        this.notificationCollection = notificationCollection;
     }
 
     @Override
