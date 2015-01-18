@@ -29,11 +29,11 @@ import rightsmanager.RightsManager;
  */
 public class ControllerPrivateMessage extends HttpServlet {
 
-    private static final String ERROR_LOGIN = "Please log in to use private message functions.";
+    private static final String ERROR_LOGIN = "Please log in to use the private message functionality.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
     private static final String UNKNOWN_USER = "The recipient is unknown !";
-    private static final String SUCCESS_SEND = "Message send succefully!";
-    private static final String ERROR_DB = "Something went wrong when sending your project. Please try again later";
+    private static final String SUCCESS_SEND = "Message sent!";
+    private static final String ERROR_DB = "Something went wrong when submiting your project. Please try again later.";
 
     @EJB
     private PrivateMessageDao privateMessageDao;
