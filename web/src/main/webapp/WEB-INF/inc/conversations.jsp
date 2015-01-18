@@ -14,13 +14,13 @@
         return;
     }
 %>
-<div class="row">
+<div class="container-fluid">
   <div>
     <a href="index.jsp?nav=newmessage" class="btn btn-primary">New message</a>
   </div>
   <div>
     <h3>Messages</h3>
-    <div class="col-xs-8">
+    <div class="">
       <div class="list-group">
         <c:forEach  items="${requestScope.listAllPrivateMessage}" var="pm">
             <c:choose>
@@ -33,8 +33,8 @@
                     </c:choose>
                     <h6 class="list-group-item-heading active">${pm.exp.mail} -> ${pm.dest.mail}</h6>
                 </a>
-                <p class="list-group-item-text markdown">${pm.message}</p>
-            </c:forEach>   
+                    <div class="list-group-item-text markdown">${pm.message}</div>
+                    </c:forEach>   
       </div>
     </div>
   </div>
