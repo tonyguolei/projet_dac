@@ -39,7 +39,7 @@ public class TaskScheduler {
     private EJBContext context;
     
     @Schedule(hour="*")
-    private void checkDeadLine() {
+    public void checkDeadLine() {
         System.out.println("Checking deadline...");
 
         List<Project> projects = projectDao.getAll();
@@ -72,23 +72,23 @@ public class TaskScheduler {
                     );
                     notificationDao.save(notif);
                 }
-                if (fundDao.getFundLevel(p).compareTo(p.getGoal()) >= 0) {
-                    try {
-                        //start transaction
-                        userTransaction.begin();
-                        p.transferDone();
-                        projectDao.update(p);
+                try {
+                    //start transaction
+                    userTransaction.begin();
+                    p.transferDone();
+                    projectDao.update(p);
+                    if (fundDao.getFundLevel(p).compareTo(p.getGoal()) >= 0) {
                         User user = p.getIdOwner();
                         user.addBalance(fundDao.getFundLevel(p));
                         userDao.update(user);
-                        //commit transaction
-                        userTransaction.commit();
-                    } catch (Exception e) {
-                        try {
-                            userTransaction.rollback();
-                        } catch (SystemException e1) {
-                            e1.printStackTrace();
-                        }
+                    }
+                    //commit transaction
+                    userTransaction.commit();
+                } catch (Exception e) {
+                    try {
+                        userTransaction.rollback();
+                    } catch (SystemException e1) {
+                        e1.printStackTrace();
                     }
                 }
             }
