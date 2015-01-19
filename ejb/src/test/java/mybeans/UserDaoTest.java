@@ -159,4 +159,31 @@ public class UserDaoTest {
         instanceProjectDao.delete(p);
         instanceUserDao.delete(u);
     }
+    
+    /**
+     * Test of getters and setters method, of class UserDao.
+     */
+    @Test
+    public void testGettersSetters() throws Exception {
+        System.out.println("getters and setters");
+        User u = new User("test@gmail.com", "test");
+        instanceUserDao.save(u);
+        assertEquals(false, u.getDeleted());
+        u.setDeleted(true);
+        instanceUserDao.update(u);
+        assertEquals(true, u.getDeleted());
+        assertEquals(false, u.getBanned());
+        u.setBanned(true);
+        instanceUserDao.update(u);
+        assertEquals(true, u.getBanned());
+        assertEquals(false, u.getIsAdmin());
+        assertEquals(true, u.equals(u));
+        assertEquals(false, u.equals(1));
+        Assert.assertNotNull(u.toString());
+        User v = new User("test2@gmail.com", "test");
+        assertEquals(false, u.equals(v));
+        assertEquals(false, v.equals(u));
+        instanceUserDao.delete(u);
+    }
+    
 }

@@ -12,7 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -128,41 +127,6 @@ public class User implements Serializable {
 
     public boolean getIsAdmin() {
         return isAdmin;
-    }
-
-    @XmlTransient
-    public Collection<PrivateMessage> getPrivateMessageCollection() {
-        return privateMessageCollection;
-    }
-
-    @XmlTransient
-    public Collection<PrivateMessage> getPrivateMessageCollection1() {
-        return privateMessageCollection1;
-    }
-
-    @XmlTransient
-    public Collection<MemoriseProject> getMemoriseProjectCollection() {
-        return memoriseProjectCollection;
-    }
-
-    @XmlTransient
-    public Collection<Comment> getCommentCollection() {
-        return commentCollection;
-    }
-
-    @XmlTransient
-    public Collection<Fund> getFundCollection() {
-        return fundCollection;
-    }
-
-    @XmlTransient
-    public Collection<Project> getProjectCollection() {
-        return projectCollection;
-    }
-
-    @XmlTransient
-    public Collection<Notification> getNotificationCollection() {
-        return notificationCollection;
     }
 
     @Override
