@@ -32,7 +32,7 @@
             <div class="msg msg-right markdown bg-success<c:if test="${pm.isRead == true}"> msg-read</c:if>">${pm.message}</div>
           </c:when>
           <c:otherwise>
-            <div class="msg msg-left markdown">${pm.message}</div>
+            <div class="msg msg-left markdown <c:if test="${pm.isRead == false}"> msg-unread</c:if>">${pm.message}</div>
           </c:otherwise>
         </c:choose>
       </c:forEach>
