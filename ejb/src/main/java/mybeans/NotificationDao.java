@@ -50,11 +50,7 @@ public class NotificationDao extends Dao<Notification> {
     public long getNonReadNumber(User idUser) {
         TypedQuery<Long> query = em.createNamedQuery("Notification.findNotReadByUser", Long.class);
         query = query.setParameter("idUser", idUser);
-        try {
-            return query.getSingleResult();
-        } catch (NoResultException e){
-            return 0;
-        }
+        return query.getSingleResult();
     }
     
     /**
@@ -67,14 +63,5 @@ public class NotificationDao extends Dao<Notification> {
         query = query.setParameter("idUser", idUser);
         return query.getResultList();
     }
-    
-    /**
-     * Get the list of all notifications.
-     * 
-     * @return The list of all notifications.
-     */
-    public List<Notification> getAll() {
-        TypedQuery<Notification> query = em.createNamedQuery("Notification.findAll", Notification.class);
-        return query.getResultList();
-    }
+
 }

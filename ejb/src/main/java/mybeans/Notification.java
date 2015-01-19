@@ -55,10 +55,6 @@ public class Notification implements Serializable {
     public Notification() {
     }
 
-    public Notification(Integer idNotification) {
-        this.idNotification = idNotification;
-    }
-    
     public Notification(User user, Project project, String description) {
         this.idUser = user;
         this.idProject = project;
@@ -66,19 +62,8 @@ public class Notification implements Serializable {
         this.isRead = false;
     }
 
-    public Notification(Integer idNotification, String description, Date date, boolean isRead) {
-        this.idNotification = idNotification;
-        this.description = description;
-        this.date = date;
-        this.isRead = isRead;
-    }
-
     public Integer getIdNotification() {
         return idNotification;
-    }
-
-    public void setIdNotification(Integer idNotification) {
-        this.idNotification = idNotification;
     }
 
     public String getDescription() {
@@ -93,10 +78,6 @@ public class Notification implements Serializable {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public boolean getIsRead() {
         return isRead;
     }
@@ -109,16 +90,8 @@ public class Notification implements Serializable {
         return idUser;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
     public Project getIdProject() {
         return idProject;
-    }
-
-    public void setIdProject(Project idProject) {
-        this.idProject = idProject;
     }
 
     @Override
