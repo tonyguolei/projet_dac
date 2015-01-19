@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <div class="editor-wrapper">
-        <textarea class="editor" data-maxlen="2000" placeholder="Content here ...." name="message"><%=message%></textarea>
+        <textarea class="editor" data-maxlen="2000" data-height="220" placeholder="Content here ...." name="message"><%=message%></textarea>
       </div>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>

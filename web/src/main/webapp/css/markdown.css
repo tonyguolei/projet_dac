@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .markdown.smaller h1, .markdown.smaller h2, .markdown.smaller h3 {
   margin-top: 17.25px;
   margin-bottom: 8.625px; }
@@ -23,5 +24,24 @@
   margin: 0 0 8.625p;
   font-size: 9px;
   line-height: 1.3845; }
+
+.discussion .msg {
+  border-radius: 2em;
+  padding-left: 1em;
+  padding-right: 1em;
+  word-break: break-all; }
+.discussion .msg-left {
+  background-color: #ccc;
+  border-bottom-left-radius: 2px;
+  margin-right: 5em; }
+.discussion .msg-right {
+  border-bottom-right-radius: 2px;
+  margin-left: 5em; }
+.discussion .msg-read::after {
+  content: '✓ Read';
+  float: right;
+  position: relative;
+  top: -3em;
+  color: #B0B0B0; }
 
 /*# sourceMappingURL=markdown.css.map */

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var body = $("html, body");
     // CodeMirror Extension
     var enforceMaxLength = function (cm, change) {
         var maxLength = cm.getOption("maxLength");
@@ -116,4 +117,15 @@ $(document).ready(function () {
         var me = $(this);
         me.addClass('img-responsive');
     });
+
+    var msgsUnread = $('.msg-unread:first');
+    var scrollToMe = function scrollToMe() {
+        var me = $(this);
+        body.animate({scrollTop: me.offset().top - 5});
+    };
+    if (msgsUnread.length < 1) {
+        $('.msg:last').each(scrollToMe);
+    } else {
+        msgsUnread.each(scrollToMe);
+    }
 });
