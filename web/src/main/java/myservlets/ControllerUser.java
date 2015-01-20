@@ -52,6 +52,7 @@ public class ControllerUser extends HttpServlet {
     private static final String SUCCESS_CHANGE_PASS = "Password succesfully modified.";
     private static final String ERROR_EMPTY_PASS = "You need to provide a new password.";
     private static final String SUCCESS_DELETE_ACCOUNT = "Your account as been successfully deleted.";
+    private static final String ERROR_NOT_ADMIN = "You must be an admin to access this page.";
 
     @EJB
     private UserDao userDao;
@@ -353,6 +354,13 @@ public class ControllerUser extends HttpServlet {
     }
 
     private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        if (!user.getIsAdmin()) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_NOT_ADMIN);
+            response.sendRedirect("index.jsp");
+            return;
+        }
         List<User> users = userDao.getAll();
         request.setAttribute("users", users);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=users");

@@ -36,12 +36,14 @@
                     <li><a href="ControllerMemorise?action=list&id=${sessionScope.user.idUser}">Saved</a></li>
             </ul>
         </li>
+        <c:if test="${sessionScope.user.isAdmin}">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="index.jsp?nav=users">List</a></li>
           </ul>
         </li>
+        </c:if>
         <!--        <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
