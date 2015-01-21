@@ -163,3 +163,11 @@ small.by {
     max-height: 248px;
     overflow: hidden;
 }
+
+.nav-justified .badge {
+    margin-left: 0.5em;
+}
+
+#profile-nav {
+    margin-bottom: 2em;
+}
