@@ -18,7 +18,7 @@
 
     <properties>
         <gf.port>8080</gf.port>
-        <dac.skipTests>true</dac.skipTests>
+        <skipTests>true</skipTests>
     </properties>
 
     <reporting>

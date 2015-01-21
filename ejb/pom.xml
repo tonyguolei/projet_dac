@@ -80,7 +80,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <skip>${dac.skipTests}</skip>
+                    <skip>${skipTests}</skip>
                 </configuration>
             </plugin>
             <plugin>

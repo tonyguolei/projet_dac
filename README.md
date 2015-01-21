@@ -187,13 +187,13 @@ The web site is available at [http://localhost:8080/web](http://localhost:8080/w
 ### Run tests
 
 ```
-mvn test -Ddac.skipTests=false
+mvn test -DskipTests=false
 ```
 
 ### Generate coverage report
 
 ```
-mvn site -Ddac.skipTests=false
+mvn site -DskipTests=false
 ```
 The report website can be found in `coverage-report/`
 
@@ -222,6 +222,6 @@ If you followed our instructions, these lines should be valid...
 * Deploy from command-line `mvn glassfish:deploy` (in ear/)
 * Undeploy from command-line `mvn glassfish:undeploy` (in ear/)
 * Redeploy from command-line `mvn glassfish:redeploy` (in ear/)
-* Run tests `mvn test -Ddac.skipTests=false`
-* Generate coverage report `mvn site -Ddac.skipTests=false`
+* Run tests `mvn test -DskipTests=false`
+* Generate coverage report `mvn site -DskipTests=false`
 
