@@ -51,6 +51,14 @@ public class PrivateMessage implements Serializable {
 
     public PrivateMessage() {
     }
+    
+    public PrivateMessage(PrivateMessage pm) {
+        this.idPrivateMessage = pm.idPrivateMessage;
+        this.exp = pm.exp;
+        this.dest = pm.dest;
+        this.message = pm.message;
+        this.isRead = pm.isRead;
+    }
 
     public PrivateMessage(Integer idPrivateMessage) {
         this.idPrivateMessage = idPrivateMessage;

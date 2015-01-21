@@ -183,8 +183,9 @@ public class ControllerPrivateMessage extends HttpServlet {
         
         for(PrivateMessage pm : listMessageConversation) {
             if (!pm.getIsRead() && pm.getDest().equals(user)) {
-                pm.setIsRead(true);
-                privateMessageDao.update(pm);
+                PrivateMessage pmCopy = new PrivateMessage(pm);
+                pmCopy.setIsRead(true);
+                privateMessageDao.update(pmCopy);
             }
         }
         
