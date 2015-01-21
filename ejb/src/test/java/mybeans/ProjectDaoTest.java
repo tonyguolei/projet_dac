@@ -12,6 +12,7 @@ import javax.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,28 +26,18 @@ import static org.junit.Assert.assertEquals;
 public class ProjectDaoTest {
     private static UserDao instanceUserDao;
     private static ProjectDao instanceProjectDao;
-    private BigDecimal goal = BigDecimal.valueOf(100);
-    private String title = "testProjetDao";
-    private String title1 = "test1";
-    private static String mail = "testUserDao@gmail.com";
-    private static String password = "test";
-    private static User user = new User(mail, password);
+    private static User user;
     private static Project project;
-    private String description = "test";
-    private Date endDate = java.sql.Date.valueOf("2100-01-01");
-    private String tags = "test";
 
     public ProjectDaoTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
+        System.out.println("ProjectDao unit test start");
         try {
             instanceUserDao = BeanTestUtils.lookup(UserDao.class, "UserDao");
-            instanceProjectDao = (ProjectDao) BeanTestUtils.lookup(ProjectDao.class, "ProjectDao");
-            instanceUserDao.save(user);
-            user = instanceUserDao.getByMail(mail);
-            System.out.println("ProjectDao unit test start");
+            instanceProjectDao = BeanTestUtils.lookup(ProjectDao.class, "ProjectDao");
         } catch (NamingException ex) {
             Logger.getLogger(UserDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,49 +56,62 @@ public class ProjectDaoTest {
 
     @Before
     public void setUp() {
+        user = new User("test"+Math.random()+"@test.com", "test");
+        instanceUserDao.save(user);
+        project = new Project(user, BigDecimal.TEN, "Projet test"+Math.random(), "Description test", Date.valueOf("2100-01-01"), "test,test1,test2");
+        instanceProjectDao.save(project);
     }
 
     @After
     public void tearDown() {
+        instanceProjectDao.delete(project);
+        instanceUserDao.delete(user);
     }
 
-    /**
-     * Test of save method, of class ProjectDao.
-     */
     @Test
-    public void testSave() throws Exception {
-        System.out.println("save");
-        project = new Project(user, goal, title, description, endDate, tags);
-        instanceProjectDao.save(project);
-        assertEquals(instanceProjectDao.getByTitleProject(title), project);
-        instanceProjectDao.delete(project);
+    public void testGetIdProject() {
+        System.out.println("getIdProject");
+        Project p1 = instanceProjectDao.getByIdProject(project.getIdProject());
+        Assert.assertEquals(project, p1);
+        Project p2 = instanceProjectDao.getByIdProject(-1);
+        Assert.assertNull(p2);
     }
-
-    /**
-     * Test of delete method, of class ProjectDao.
-     */
+    
     @Test
-    public void testDelete() throws Exception {
-        System.out.println("delete");
-        project = new Project(user, goal, title, description, endDate, tags);
-        instanceProjectDao.save(project);
-        assertEquals(instanceProjectDao.getByTitleProject(title), project);
-        instanceProjectDao.delete(project);
-        Project project = instanceProjectDao.getByTitleProject(title);
-        Assert.assertNull(project);
+    public void testGetAll() {
+        System.out.println("getAll");
+        List l = instanceProjectDao.getAll();
+        Assert.assertTrue(l.size() >= 1);
     }
-
-    /**
-     * Test of update method, of class ProjectDao.
-     */
+    
     @Test
-    public void testUpdate() throws Exception {
-        System.out.println("update");
-        project = new Project(user, goal, title, description, endDate, tags);
-        instanceProjectDao.save(project);
-        project.setTitle(title1);
-        instanceProjectDao.update(project);
-        assertEquals((instanceProjectDao.getByTitleProject(title1)).getTitle(), title1);
-        instanceProjectDao.delete(project);
+    public void testGetAllMatching() {
+        System.out.println("getAllMatching");
+        List l = instanceProjectDao.getAllMatching("test1");
+        Assert.assertTrue(l.size() >= 1);
+    }
+    
+    @Test
+    public void testGettersSetters() {
+        System.out.println("getters and setters");
+        project.setGoal(BigDecimal.ONE);
+        String t = "Title"+Math.random();
+        project.setTitle(t);
+        assertEquals(project.getTitle(), t);
+        String d = "Description"+Math.random();
+        project.setDescription(d);
+        assertEquals(project.getDescription(), d);
+        System.out.println(project.getCreationDate());
+        project.setEndDate(Date.valueOf("2101-01-01"));
+        project.setTags("coucou");
+        assertEquals(project.getTags(), "coucou");
+        project.setFlagged(true);
+        Assert.assertTrue(project.getFlagged());
+        Assert.assertFalse(project.equals(1));
+        Project p = new Project(user, BigDecimal.TEN, "Projet test"+Math.random(), "Description test", Date.valueOf("2100-01-01"), "test,test1,test2");
+        Assert.assertFalse(p.equals(project));
+        Assert.assertFalse(project.equals(p));
+        Assert.assertNotNull(project.toString());
+
     }
 }

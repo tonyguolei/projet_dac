@@ -88,10 +88,6 @@ public class Project implements Serializable {
 
     public Project() {
     }
-
-    public Project(Integer idProject) {
-        this.idProject = idProject;
-    }
     
     public Project(User Owner, BigDecimal goal, String title, String description, Date endDate, String tags) {
         this.idOwner = Owner;
@@ -106,10 +102,6 @@ public class Project implements Serializable {
 
     public Integer getIdProject() {
         return idProject;
-    }
-
-    public void setIdProject(Integer idProject) {
-        this.idProject = idProject;
     }
 
     public BigDecimal getGoal() {
@@ -138,10 +130,6 @@ public class Project implements Serializable {
 
     public Date getCreationDate() {
         return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     public Date getEndDate() {
@@ -173,34 +161,13 @@ public class Project implements Serializable {
         return memoriseProjectCollection;
     }
 
-    public void setMemoriseProjectCollection(Collection<MemoriseProject> memoriseProjectCollection) {
-        this.memoriseProjectCollection = memoriseProjectCollection;
-    }
-
-    @XmlTransient
-    public Collection<Comment> getCommentCollection() {
-        return commentCollection;
-    }
-
-    public void setCommentCollection(Collection<Comment> commentCollection) {
-        this.commentCollection = commentCollection;
-    }
-
     @XmlTransient
     public Collection<Fund> getFundCollection() {
         return fundCollection;
     }
 
-    public void setFundCollection(Collection<Fund> fundCollection) {
-        this.fundCollection = fundCollection;
-    }
-
     public User getIdOwner() {
         return idOwner;
-    }
-
-    public void setIdOwner(User idOwner) {
-        this.idOwner = idOwner;
     }
     
     public void transferDone() {
@@ -212,21 +179,8 @@ public class Project implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Notification> getNotificationCollection() {
-        return notificationCollection;
-    }
-
-    public void setNotificationCollection(Collection<Notification> notificationCollection) {
-        this.notificationCollection = notificationCollection;
-    }
-
-    @XmlTransient
     public Collection<Bonus> getBonusCollection() {
         return bonusCollection;
-    }
-
-    public void setBonusCollection(Collection<Bonus> bonusCollection) {
-        this.bonusCollection = bonusCollection;
     }
 
     @Override
