@@ -24,7 +24,7 @@ public class ModifyPasswordTest {
         driver.get(baseUrl + "/web/");
         driver.findElement(By.linkText("LOG IN")).click();
         driver.findElement(By.name("mail")).clear();
-        driver.findElement(By.name("mail")).sendKeys("admin@gmail.com");
+        driver.findElement(By.name("mail")).sendKeys("admin@dac.com");
         driver.findElement(By.name("password")).clear();
         driver.findElement(By.name("password")).sendKeys("dac");
         driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
@@ -36,7 +36,7 @@ public class ModifyPasswordTest {
         driver.findElement(By.id("confpass")).sendKeys("dac");
         driver.findElement(By.cssSelector("input.btn.btn-default")).click();
         assertEquals("Password succesfully modified.", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
-        driver.findElement(By.linkText("dac@gmail.com")).click();
+        driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Logout")).click();
     }
 
