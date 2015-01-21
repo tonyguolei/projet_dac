@@ -13,6 +13,8 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!-- <property name="javax.persistence.schema-generation.database.action" value="create"/> -->
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.allow-zero-id" value="true"/>
     </properties>
   </persistence-unit>
 </persistence>
