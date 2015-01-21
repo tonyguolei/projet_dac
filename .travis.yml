@@ -2,7 +2,7 @@ language: java
 jdk:
     - openjdk7
 env:
-    - GLASSFISH_HOME=./glassfish4/
+    - GLASSFISH_HOME=$(PWD)/glassfish4
 before_install:
     - "wget http://dlc.sun.com.edgesuite.net/glassfish/4.1/release/glassfish-4.1.zip"
     - "unzip glassfish-4.1.zip"
