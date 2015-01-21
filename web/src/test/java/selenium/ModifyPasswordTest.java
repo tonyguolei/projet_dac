@@ -24,11 +24,11 @@ public class ModifyPasswordTest {
         driver.get(baseUrl + "/web/");
         driver.findElement(By.linkText("LOG IN")).click();
         driver.findElement(By.name("mail")).clear();
-        driver.findElement(By.name("mail")).sendKeys("dac@gmail.com");
+        driver.findElement(By.name("mail")).sendKeys("admin@gmail.com");
         driver.findElement(By.name("password")).clear();
         driver.findElement(By.name("password")).sendKeys("dac");
         driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
-        driver.findElement(By.linkText("dac@gmail.com")).click();
+        driver.findElement(By.linkText("admin@gmail.com")).click();
         driver.findElement(By.linkText("Settings")).click();
         driver.findElement(By.id("pass")).clear();
         driver.findElement(By.id("pass")).sendKeys("dac");
