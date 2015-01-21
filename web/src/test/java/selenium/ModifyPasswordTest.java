@@ -28,7 +28,7 @@ public class ModifyPasswordTest {
         driver.findElement(By.name("password")).clear();
         driver.findElement(By.name("password")).sendKeys("dac");
         driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
-        driver.findElement(By.linkText("admin@gmail.com")).click();
+        driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Settings")).click();
         driver.findElement(By.id("pass")).clear();
         driver.findElement(By.id("pass")).sendKeys("dac");
