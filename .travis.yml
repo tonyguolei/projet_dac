@@ -4,7 +4,7 @@ jdk:
 env:
     - GLASSFISH_HOME=./glassfish4/
 before_install:
-    - "wget wget http://dlc.sun.com.edgesuite.net/glassfish/4.1/release/glassfish-4.1.zip"
+    - "wget http://dlc.sun.com.edgesuite.net/glassfish/4.1/release/glassfish-4.1.zip"
     - "unzip glassfish-4.1.zip"
     - "rm glassfish-4.1.zip"
     - "cp -f ./domain.xml $GLASSFISH_HOME/glassfish/domains/domain1/config/domain.xml"
