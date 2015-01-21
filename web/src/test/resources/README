@@ -1,0 +1,20 @@
+This is a file to explain how to write selenium test
+
+1. download/install firefox plugin SELENIUM IDE from http://www.seleniumhq.org/download/
+
+2. use SELENIUM IDE to create test case (Firefox!!!)
+
+3. export test case to Java file (File -> Export Test Case As -> Java/Junit4/WebDrive)
+
+4. put java file to web/src/test/java/selenium
+
+5. modify package and class name
+
+6. modify the content of java file
+   Note IMPORTANT: Normally, this file can't be used directly because SELENIUM IDE
+                    is not 100% compatible with Selenium WebDirve, So you need to
+                    modify several methode in this file to make it work.
+
+7. How to run test (you need to run this test when web application is running):
+   mvn test -DskipSeleniumTests=false
+
