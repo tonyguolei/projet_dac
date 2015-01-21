@@ -1,5 +1,7 @@
 # SelfStarter
 
+[![Build Status](https://travis-ci.org/tonyguolei/projet_dac.svg?branch=master)](https://travis-ci.org/tonyguolei/projet_dac)
+
 Another crowdfunding project, by Ensimag's students.
 
 Have a look to our quick reminder at the bottom of this file !
