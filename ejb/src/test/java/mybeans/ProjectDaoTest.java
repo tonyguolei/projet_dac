@@ -112,6 +112,6 @@ public class ProjectDaoTest {
         Assert.assertFalse(p.equals(project));
         Assert.assertFalse(project.equals(p));
         Assert.assertNotNull(project.toString());
-
+        project.getBonusCollection();
     }
 }
