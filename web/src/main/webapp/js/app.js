@@ -128,4 +128,7 @@ $(document).ready(function () {
     } else {
         msgsUnread.each(scrollToMe);
     }
+
+    // sort tables
+    $('.table-sorted').tablesort();
 });

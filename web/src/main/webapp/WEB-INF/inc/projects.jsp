@@ -8,7 +8,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="jumbotron">
     <h1>Projects list</h1>
-    <table class="table table-hover table-striped">
+    <table class="sortable table table-hover table-striped">
         <thead>
             <tr>
                 <th>Project title</th>
@@ -23,7 +23,7 @@
         <tbody>
             <c:forEach items="${projects}" var="project">
                 <tr>
-                    <th scope="row"><a href="index.jsp?nav=project&id=${project.idProject}"><c:out value="${project.title}" /></a></th>
+                    <td scope="row"><strong><a href="index.jsp?nav=project&id=${project.idProject}"><c:out value="${project.title}" /></a></strong></td>
                     <td><a href="index.jsp?nav=user&id=${project.idOwner.idUser}"><c:out value="${project.idOwner.mail}" /></a></td>
                     <td>$ <c:out value="${project.goal}" /></td>
                     <td><span class="time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${project.endDate}" /></span></td>

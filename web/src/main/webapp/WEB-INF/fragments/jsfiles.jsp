@@ -6,4 +6,5 @@
 <script src="${pageContext.servletContext.contextPath}/js/moment-datepicker.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/js/marked.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/js/editor.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/js/bootstrap-sortable.js"></script>
 <script src="${pageContext.servletContext.contextPath}/js/app.js"></script>
