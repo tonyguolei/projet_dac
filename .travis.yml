@@ -18,6 +18,8 @@ before_install:
     - "sudo dpkg -i mysql-apt-config_0.2.1-1debian7_all.deb"
     - "sudo apt-get update"
     - "yes Y | sudo apt-get install mysql-server-5.6"
+    - "export DISPLAY=:99.0"
+    - "sh -e /etc/init.d/xvfb start"
 before_script:
     - mysql -e "CREATE DATABASE IF NOT EXISTS dac;" -uroot
     - mysql -e "CREATE USER 'dac'@'localhost' IDENTIFIED BY 'coucou';" -uroot
@@ -25,4 +27,14 @@ before_script:
     - mysql -e "FLUSH PRIVILEGES;" -uroot
     - mysql -udac -pcoucou -Ddac < ./sql/create.sql
 script:
+    #EJB unit test
     - mvn test -DskipEjbTests=false
+    #Webapp test (selenium)
+    - $GLASSFISH_HOME/bin/asadmin start-domain
+    - cd ./ear
+    - mvn glassfish:deploy
+    - cd ..
+    - mvn test -DskipSeleniumTests=false
+    - cd ./ear
+    - mvn glassfish:undeploy
+    - $GLASSFISH_HOME/bin/asadmin stop-domain
