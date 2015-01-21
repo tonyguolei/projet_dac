@@ -44,9 +44,9 @@ $hpercent: 0.55;
 .discussion {
     .msg {
         border-radius: 2em;
-        padding-left: 1em;
-        padding-right: 1em;
+        padding: 0.7em 1em;
         word-break: break-all;
+        margin: 1em 0px;
     }
 
     .msg-left {
@@ -64,7 +64,7 @@ $hpercent: 0.55;
         content: '✓ Read';
         float: right;
         position: relative;
-        top: -3em;
+        top: -1em;
         color: #B0B0B0;
     }
 }
