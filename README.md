@@ -131,18 +131,6 @@ JNDI Name: jdbc/dac
 Pool Name: dac (your previously set pool)
 ```
 
-#### Set the Glassfish password
-
-Run your Glassfish server, either with Netbeans, or with:
-```
-$GLASSFISH_HOME/glassfish/bin/asadmin start-domain
-```
-
-* Go to [http://localhost:4848](http://localhost:4848)
-* Go to Common Task - Domain - Administrator Password
-* Set the password to `admin`
-
-
 ### Netbeans
 
 #### Environment variables
@@ -154,14 +142,6 @@ You need to set `$GLASSFISH_HOME` for Netbeans.
 ```
 export GLASSFISH_HOME
 ```
-
-#### Glassfish
-
-If you use the embedded Glassfish, you need to set the new password to
-`admin`:
-* Go to Service - Servers - Glassfish
-* Right click - Properties -Common
-* Set the password to `admin`
 
 ## Build and run
 
