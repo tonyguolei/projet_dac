@@ -14,7 +14,7 @@
   <div>
     <a class="tooltip-need badge back-primary" href="ControllerMemorise?action=create&id=${requestScope.project.idProject}" title="Remember"><span class="glyphicon glyphicon-eye-open"></span></a>
     <a class="tooltip-need badge" href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}" title="Forget"><span class="glyphicon glyphicon-eye-close"></span></a>
-    <a class="pull-right tooltip-need badge back-danger" href="ControllerProject?action=report&id=${requestScope.project.idProject}" title="Report this project"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
+    <a class="pull-right tooltip-need badge back-danger are-you-sure" href="ControllerProject?action=report&id=${requestScope.project.idProject}" title="Report this project"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
   </div>
   <hr>
   <div class="row project-stats">
@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="col-sm-7 col-xs-12">
-            <button class="btn btn-success btn-lg btn-block" type="submit">Fund!</button>
+            <button class="btn btn-success btn-lg btn-block" type="submit">Back this Project!</button>
           </div>
         </form>
       </div>
@@ -158,7 +158,7 @@
           <form role="form" method="POST" action="ControllerProject">
             <input type="hidden" name="action" value="delete"/>
             <input type="hidden" name="id" value="${requestScope.project.idProject}">
-            <button class="btn btn-lg btn-danger btn-block" type="submit">Delete project</button>
+            <button class="btn btn-lg btn-danger btn-block are-you-sure" type="submit">Delete project</button>
           </form>
         </div>
         <c:if test="${!userByBonus.isEmpty()}">
@@ -193,7 +193,7 @@
           <form role="form" method="POST" action="ControllerProject">
             <input type="hidden" name="action" value="delete"/>
             <input type="hidden" name="id" value="${requestScope.project.idProject}">
-            <button class="btn btn-lg btn-danger btn-block" type="submit">Delete project</button>
+            <button class="btn btn-lg btn-danger btn-block are-you-sure" type="submit">Delete project</button>
           </form>
         </div>
     </c:if>

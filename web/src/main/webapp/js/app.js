@@ -40,10 +40,10 @@ $(document).ready(function () {
         var format = me.attr('data-format') || 'YYYY-MM-DD';
         //console.log(format);
         me.text(moment(date, format).fromNow())
-                .tooltip({
-                    delay: 300,
-                    title: date
-                });
+          .tooltip({
+              delay: 300,
+              title: date
+          });
     });
 
     $('.tooltip-need').tooltip();
@@ -89,16 +89,13 @@ $(document).ready(function () {
         var goal = me.attr('aria-valuemax');
         var value = me.attr('data-value');
         var perc = Math.min(1, value / goal) * 100 + "%";
-        console.log('go to ' + perc);
         me.animate({
             width: perc
         });
     });
 
     $('.number').each(function () {
-        console.log(this.innerHTML);
         this.innerHTML = new Number(this.innerHTML);
-        console.log(this.innerHTML);
     });
 
     $('.project-tags').each(function () {
@@ -106,7 +103,6 @@ $(document).ready(function () {
         this.innerHTML = '<span class="glyphicon glyphicon-tags"></span>';
         for (var i = 0; i < tags.length; i++) {
             if (tags[i].length > 0) {
-                console.log('tag:' + tags[i] + '.');
                 this.innerHTML += '<span class="label label-default"><a href="ControllerProject?action=search&tag=' + tags[i] + '">' + tags[i] + '</a></span>';
             }
         }
@@ -129,6 +125,21 @@ $(document).ready(function () {
         msgsUnread.each(scrollToMe);
     }
 
-    // sort tables
-    $('.table-sorted').tablesort();
+    $('.are-you-sure').click(function (e, options) {
+        options = options || {};
+        var me = $(e.currentTarget);
+        if (!options.confirmed) {
+            e.preventDefault();
+            if (options.confirmed === undefined) {
+                bootbox.confirm("Are you sure?", function (result) {
+                    me.trigger('click', {confirmed: result});
+                });
+            }
+        } else {
+            var href = me.attr('href');
+            if (href) {
+                window.location.href = href;
+            }
+        }
+    });
 });
