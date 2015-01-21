@@ -4,7 +4,25 @@ jdk:
 env:
     - GLASSFISH_HOME=`pwd`/glassfish4
 before_install:
+    # Glassfish
     - "wget http://dlc.sun.com.edgesuite.net/glassfish/4.1/release/glassfish-4.1.zip"
-    - "unzip glassfish-4.1.zip"
+    - "unzip -qq glassfish-4.1.zip"
     - "rm glassfish-4.1.zip"
     - "cp -f ./domain.xml $GLASSFISH_HOME/glassfish/domains/domain1/config/domain.xml"
+    - "wget http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-3.1.14.zip"
+    - "unzip -qq mysql-connector-java-3.1.14.zip"
+    - "rm mysql-connector-java-3.1.14.zip"
+    - "cp -f ./mysql-connector-java-3.1.14/mysql-connector-java-3.1.14-bin.jar $GLASSFISH_HOME/glassfish/lib"
+    # Update MySQL to 5.6
+    - "wget http://repo.mysql.com/mysql-apt-config_0.2.1-1debian7_all.deb"
+    - "sudo dpkg -i mysql-apt-config_0.2.1-1debian7_all.deb"
+    - "sudo apt-get update"
+    - "yes Y | sudo apt-get install mysql-server-5.6"
+before_script:
+    - mysql -e "CREATE DATABASE IF NOT EXISTS dac;" -uroot
+    - mysql -e "CREATE USER 'dac'@'localhost' IDENTIFIED BY 'coucou';" -uroot
+    - mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'dac'@'localhost';" -uroot
+    - mysql -e "FLUSH PRIVILEGES;" -uroot
+    - mysql -udac -pcoucou -Ddac < ./sql/create.sql
+script:
+    - mvn test -DskipEjbTests=false
