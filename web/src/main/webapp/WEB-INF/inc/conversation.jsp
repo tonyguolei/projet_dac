@@ -29,10 +29,10 @@
       <c:forEach  items="${requestScope.listMessageConversation}" var="pm">
         <c:choose>
           <c:when test="${sessionScope.user.idUser == pm.exp.idUser}">
-            <div class="msg msg-right markdown bg-success<c:if test="${pm.isRead == true}"> msg-read</c:if>">${pm.message}</div>
+            <div class="msg msg-right markdown bg-success enable-video<c:if test="${pm.isRead == true}"> msg-read</c:if>">${pm.message}</div>
           </c:when>
           <c:otherwise>
-            <div class="msg msg-left markdown <c:if test="${pm.isRead == false}"> msg-unread</c:if>">${pm.message}</div>
+            <div class="msg msg-left markdown enable-video<c:if test="${pm.isRead == false}"> msg-unread</c:if>">${pm.message}</div>
           </c:otherwise>
         </c:choose>
       </c:forEach>

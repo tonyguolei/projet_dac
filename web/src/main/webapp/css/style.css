@@ -128,8 +128,8 @@ small.by {
     max-height: 256px;
     max-width: 256px;
     overflow: hidden;
-
 }
+
 .fadeout {
     position: relative;
     margin-bottom: -2em;
@@ -157,4 +157,9 @@ small.by {
         rgba(255, 255, 255, 1) 100%
         );
 
+}
+
+#discussion .panel-body {
+    max-height: 248px;
+    overflow: hidden;
 }
