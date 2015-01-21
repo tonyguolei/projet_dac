@@ -114,7 +114,7 @@ public class TaskSchedulerTest {
         System.out.println("checkDeadline");
         instanceTaskScheduler.checkDeadLine();
         //Check status project and owner
-        project = instanceProjectDao.getByTitleProject(project.getTitle());
+        project = instanceProjectDao.getByIdProject(project.getIdProject());
         assertTrue(project.alreadyTransferred());
         owner = instanceUserDao.getByMail(owner.getMail());
         assertEquals(new BigDecimal(FUND_VALUE), owner.getBalance());
@@ -146,7 +146,7 @@ public class TaskSchedulerTest {
         instanceTaskScheduler.checkDeadLine();
         instanceTaskScheduler.checkDeadLine();
         //Check status project and owner
-        project = instanceProjectDao.getByTitleProject(project.getTitle());
+        project = instanceProjectDao.getByIdProject(project.getIdProject());
         assertTrue(project.alreadyTransferred());
         owner = instanceUserDao.getByMail(owner.getMail());
         assertEquals(new BigDecimal(FUND_VALUE), owner.getBalance());
@@ -182,7 +182,7 @@ public class TaskSchedulerTest {
 
         instanceTaskScheduler.checkDeadLine();
         //Check status project and owner
-        project = instanceProjectDao.getByTitleProject(project.getTitle());
+        project = instanceProjectDao.getByIdProject(project.getIdProject());
         assertTrue(project.alreadyTransferred());
         owner = instanceUserDao.getByMail(owner.getMail());
         assertEquals(new BigDecimal(FUND_VALUE), owner.getBalance());
