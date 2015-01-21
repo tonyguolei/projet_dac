@@ -198,12 +198,13 @@ mvn test -DskipEjbTests=false
 mvn test -DskipSeleniumTests=false
 ```
 
-### Generate coverage report
+### Generate coverage report for ejb
 
 ```
-mvn site -DskipEjbTests=false
+cd ejb
+mvn cobertura:cobertura -DskipEjbTests=false
 ```
-The report website can be found in `coverage-report/`
+The report website index can be found at `ejb/target/site/cobertura/index.html`
 
 
 ## Quick reminder
@@ -216,6 +217,10 @@ If you followed our instructions, these lines should be valid...
 * Glassfish admin:admin
 * VM equipe2:dac root:dac
 * Application admin account admin@dac.com:dac
+
+### Reports
+
+* The ejb's coverage `ejb/target/site/cobertura/index.html`
 
 ### Commands
 
@@ -232,5 +237,6 @@ If you followed our instructions, these lines should be valid...
 * Redeploy from command-line `mvn glassfish:redeploy` (in ear/)
 * Run Ejb tests `mvn test -DskipEjbTests=false`
 * Run Selenium tests `mvn test -DskipSeleniumTests=false`
-* Generate coverage report `mvn site -DskipEjbTests=false`
+* Generate ejb's coverage report `mvn cobertura:cobertura -DskipEjbTests=false`
+    (in ejb/)
 
