@@ -58,7 +58,7 @@
                 <configuration>
                     <glassfishDirectory>${env.GLASSFISH_HOME}</glassfishDirectory>
                     <user>admin</user>
-                    <adminPassword>admin</adminPassword>
+                    <passwordFile>${basedir}/passwordFile</passwordFile>
                     <domain>
                         <name>domain1</name>
                         <httpPort>${gf.port}</httpPort>
