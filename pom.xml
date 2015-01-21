@@ -19,7 +19,7 @@
     <properties>
         <gf.port>8080</gf.port>
         <skipEjbTests>true</skipEjbTests>
-        <skipSeleniumTests>false</skipSeleniumTests>
+        <skipSeleniumTests>true</skipSeleniumTests>
     </properties>
 
     <reporting>

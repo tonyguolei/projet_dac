@@ -19,7 +19,7 @@
 
     <properties>
         <!--Please replace this path by the location of your local glassfish-->
-        <glassfish.embedded-static-shell.jar>/home/guolei/glassfish4/glassfish/lib/embedded/glassfish-embedded-static-shell.jar</glassfish.embedded-static-shell.jar>
+        <glassfish.embedded-static-shell.jar>${env.GLASSFISH_HOME}/glassfish/lib/embedded/glassfish-embedded-static-shell.jar</glassfish.embedded-static-shell.jar>
     </properties>
     
     <dependencies>
