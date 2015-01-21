@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="col-sm-7 col-xs-12">
-            <button class="btn btn-success btn-lg btn-block" type="submit">Back this Project!</button>
+            <button class="btn btn-success btn-lg btn-block" type="submit">Fund!</button>
           </div>
         </form>
       </div>
