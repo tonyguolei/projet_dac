@@ -186,16 +186,22 @@ mvn glassfish:deploy
 
 The web site is available at [http://localhost:8080/web](http://localhost:8080/web)
 
-### Run tests
+### Run Ejb tests
 
 ```
-mvn test -DskipTests=false
+mvn test -DskipEjbTests=false
+```
+
+### Run Selenium tests
+
+```
+mvn test -DskipSeleniumTests=false
 ```
 
 ### Generate coverage report
 
 ```
-mvn site -DskipTests=false
+mvn site -DskipEjbTests=false
 ```
 The report website can be found in `coverage-report/`
 
@@ -224,6 +230,7 @@ If you followed our instructions, these lines should be valid...
 * Deploy from command-line `mvn glassfish:deploy` (in ear/)
 * Undeploy from command-line `mvn glassfish:undeploy` (in ear/)
 * Redeploy from command-line `mvn glassfish:redeploy` (in ear/)
-* Run tests `mvn test -DskipTests=false`
-* Generate coverage report `mvn site -DskipTests=false`
+* Run Ejb tests `mvn test -DskipEjbTests=false`
+* Run Selenium tests `mvn test -DskipSeleniumTests=false`
+* Generate coverage report `mvn site -DskipEjbTests=false`
 
