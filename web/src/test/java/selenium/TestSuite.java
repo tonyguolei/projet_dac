@@ -12,7 +12,7 @@ public class TestSuite {
         suite.addTestSuite(CreateProjectTest.class);
         suite.addTestSuite(ModifyProjectTest.class);
         suite.addTestSuite(ListProjectsTest.class);
-
+        suite.addTestSuite(CreateBonusTest.class);
         return suite;
     }
 
