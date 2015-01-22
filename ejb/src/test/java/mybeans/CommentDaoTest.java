@@ -58,8 +58,8 @@ public class CommentDaoTest {
         comments = new ArrayList<Comment>();
         for (int i=0; i<10; i++) {
             Comment c = new Comment(user, project, "This is a test comment "+Math.random());
-            comments.add(c);
             instanceCommentDao.save(c);
+            comments.add(instanceCommentDao.getByIdComment(c.getIdComment()));
         }
     }
     
@@ -78,8 +78,10 @@ public class CommentDaoTest {
         Comment c = comments.get(0);
         Comment c2 = instanceCommentDao.getByIdComment(c.getIdComment());
         assertNotNull(c2);
+        assertNull(instanceCommentDao.getByIdComment(-1));
     }
     
+    @Test
     public void testGetComments() {
         System.out.println("getComments");
         List<Comment> list = instanceCommentDao.getComments(project);
@@ -102,10 +104,10 @@ public class CommentDaoTest {
         assertEquals(user, c.getIdUser());
         c.toString();
         assertFalse(c.equals(new Integer(0)));
-        assertEquals(c, c2);
-        assertEquals(c, null);
+        assertFalse(c.equals(c2));
+        assertFalse(c.equals(null));
         assertFalse(c3.equals(c));
-        assertEquals(c, c);
+        assertTrue(c.equals(c));
     }
     
 }
