@@ -73,7 +73,7 @@
                 <version>2.5</version>
                 <configuration>
                     <includes>
-                        <include>**/TestSuit.java</include>
+                        <include>**/TestSuite.java</include>
                     </includes>
                     <skip>${skipSeleniumTests}</skip>
                 </configuration>

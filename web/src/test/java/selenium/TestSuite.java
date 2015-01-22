@@ -10,6 +10,7 @@ public class TestSuite {
         suite.addTestSuite(LoginTest.class);
         suite.addTestSuite(ModifyPasswordTest.class);
         suite.addTestSuite(CreateProjectTest.class);
+        suite.addTestSuite(ModifyProjectTest.class);
 
         return suite;
     }
