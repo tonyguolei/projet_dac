@@ -65,6 +65,8 @@ public class ControllerProject extends HttpServlet {
     private BonusDao bonusDao;
     @EJB
     private PrivateMessageDao privateMessageDao;
+    @EJB
+    private MemoriseProjectDao memoriseProjectDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -480,6 +482,17 @@ public class ControllerProject extends HttpServlet {
             if (fund != null) {
                 request.setAttribute("userFundLevel", fund.getValue());
             }
+        }
+
+        // Check if the project has been memorised by the user
+        request.setAttribute("memorised", false);
+        if (user != null) {
+            List<Project> memorisedProjects = memoriseProjectDao.getByUser(user);
+            System.out.println("memorizedProjects = " + memorisedProjects);
+            System.out.println("project = " + project);
+            System.out.println("memorised = " + memorisedProjects.contains(project));
+            if (memorisedProjects.contains(project))
+                request.setAttribute("memorised", true);
         }
 
         // structure giving the list of backers receiving each bonus.

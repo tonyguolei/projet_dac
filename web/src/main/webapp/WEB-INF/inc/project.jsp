@@ -3,7 +3,7 @@
 <%@page import="java.util.Map"%>
 <%@page import="mybeans.User"%>
 <%
-    if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null || request.getAttribute("comments") == null || request.getAttribute("bonus") == null || request.getAttribute("userFundLevel") == null) {
+    if (request.getAttribute("project") == null || request.getAttribute("fundLevel") == null || request.getAttribute("comments") == null || request.getAttribute("bonus") == null || request.getAttribute("userFundLevel") == null || request.getAttribute("memorised") == null) {
         request.getRequestDispatcher("ControllerProject?action=inspect").forward(request, response);
         return;
     }
@@ -13,8 +13,14 @@
   <h1>${requestScope.project.title}<small class="by"> by <a href="index.jsp?nav=user&id=${requestScope.project.idOwner.idUser}">${requestScope.project.idOwner.mail}</a></small></h1>
   <div>
     <c:if test="${sessionScope.user != null}">
-      <a class="tooltip-need badge back-primary" href="ControllerMemorise?action=create&id=${requestScope.project.idProject}" title="Remember"><span class="glyphicon glyphicon-eye-open"></span></a>
-      <a class="tooltip-need badge" href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}" title="Forget"><span class="glyphicon glyphicon-eye-close"></span></a>
+      <c:choose>
+        <c:when test="${!requestScope.memorised}">
+          <a class="tooltip-need badge back-primary" href="ControllerMemorise?action=create&id=${requestScope.project.idProject}" title="Remember"><span class="glyphicon glyphicon-eye-open"></span></a>
+        </c:when>
+        <c:otherwise>
+          <a class="tooltip-need badge" href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}" title="Forget"><span class="glyphicon glyphicon-eye-close"></span></a>
+        </c:otherwise>
+      </c:choose>
       <a class="pull-right tooltip-need badge back-danger are-you-sure" href="ControllerProject?action=report&id=${requestScope.project.idProject}" title="Report this project"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
     </c:if>
   </div>
