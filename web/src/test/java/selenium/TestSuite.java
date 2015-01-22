@@ -1,6 +1,7 @@
 package selenium;
 
 import junit.framework.Test;
+import mybeans.Comment;
 
 public class TestSuite {
 
@@ -13,6 +14,7 @@ public class TestSuite {
         suite.addTestSuite(ModifyProjectTest.class);
         suite.addTestSuite(ListProjectsTest.class);
         suite.addTestSuite(CreateBonusTest.class);
+        suite.addTestSuite(CommentTest.class);
         suite.addTestSuite(FundProjectTest.class);
         suite.addTestSuite(ConsultBonusOwnerTest.class);
         suite.addTestSuite(AugmentContributionTest.class);
