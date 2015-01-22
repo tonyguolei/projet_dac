@@ -15,6 +15,8 @@ public class TestSuite {
         suite.addTestSuite(CreateBonusTest.class);
         suite.addTestSuite(FundProjectTest.class);
         suite.addTestSuite(ConsultBonusOwnerTest.class);
+        suite.addTestSuite(AugmentContributionTest.class);
+        suite.addTestSuite(NotificationTest.class);
 
         return suite;
     }
