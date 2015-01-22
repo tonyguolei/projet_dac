@@ -37,6 +37,7 @@ public class ControllerProject extends HttpServlet {
     private static final String ERROR_LOGIN = "Please log in to create a new project.";
     private static final String ERROR_LOGIN_DELETE = "You must log in to delete a project.";
     private static final String ERROR_LOGIN_EDIT = "You must log in to edit a project.";
+    private static final String ERROR_LOGIN_REPORT = "You must log in to report a project.";
     private static final String ERROR_NOT_ADMIN_DELETE = "You must be an admin to delete a project.";
     private static final String ERROR_EDIT_NOT_ALLOWED = "You must be the owner of the project or an admin to edit a project.";
     private static final String ERROR_FORM = "Please fill the form correctly.";
@@ -509,6 +510,9 @@ public class ControllerProject extends HttpServlet {
 
     private void doReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
+
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_REPORT)) return;
+
         int id;
         try {
             id = Integer.parseInt(request.getParameter("id"));

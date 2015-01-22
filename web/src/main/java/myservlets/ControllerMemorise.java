@@ -34,6 +34,7 @@ public class ControllerMemorise extends HttpServlet {
    
 
     private static final String ERROR_LOGIN = "Please log in to save a project.";
+    private static final String ERROR_LOGIN_FORGET = "Please log in to forget a project.";
     private static final String ERROR_PARAM = "Please specify correct parameters.";
     private static final String ERROR_ID = "Please specify a correct user ID.";
     private static final String SUCCESS_CREATE = "Project remembered!";
@@ -178,7 +179,7 @@ public class ControllerMemorise extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
         
-        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN));
+        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_FORGET)) return;
         
         String idS = request.getParameter("id");
         int id;

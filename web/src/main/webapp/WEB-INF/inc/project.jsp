@@ -12,9 +12,11 @@
 <div class="jumbotron">
   <h1>${requestScope.project.title}<small class="by"> by <a href="index.jsp?nav=user&id=${requestScope.project.idOwner.idUser}">${requestScope.project.idOwner.mail}</a></small></h1>
   <div>
-    <a class="tooltip-need badge back-primary" href="ControllerMemorise?action=create&id=${requestScope.project.idProject}" title="Remember"><span class="glyphicon glyphicon-eye-open"></span></a>
-    <a class="tooltip-need badge" href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}" title="Forget"><span class="glyphicon glyphicon-eye-close"></span></a>
-    <a class="pull-right tooltip-need badge back-danger are-you-sure" href="ControllerProject?action=report&id=${requestScope.project.idProject}" title="Report this project"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
+    <c:if test="${sessionScope.user != null}">
+      <a class="tooltip-need badge back-primary" href="ControllerMemorise?action=create&id=${requestScope.project.idProject}" title="Remember"><span class="glyphicon glyphicon-eye-open"></span></a>
+      <a class="tooltip-need badge" href="ControllerMemorise?action=remove&id=${requestScope.project.idProject}" title="Forget"><span class="glyphicon glyphicon-eye-close"></span></a>
+      <a class="pull-right tooltip-need badge back-danger are-you-sure" href="ControllerProject?action=report&id=${requestScope.project.idProject}" title="Report this project"><span class="glyphicon glyphicon-exclamation-sign"></span></a>
+    </c:if>
   </div>
   <hr>
   <div class="row project-stats">
