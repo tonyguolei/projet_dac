@@ -11,6 +11,7 @@ public class TestSuite {
         suite.addTestSuite(ModifyPasswordTest.class);
         suite.addTestSuite(CreateProjectTest.class);
         suite.addTestSuite(ModifyProjectTest.class);
+        suite.addTestSuite(ListProjectsTest.class);
 
         return suite;
     }
