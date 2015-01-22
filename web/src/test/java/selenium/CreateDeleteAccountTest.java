@@ -1,13 +1,10 @@
 package selenium;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 @Ignore
 public class CreateDeleteAccountTest {
@@ -18,6 +15,7 @@ public class CreateDeleteAccountTest {
 
     @Before
     public void setUp() throws Exception {
+        System.out.println("CreateDeleteAccountTest Start");
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8080/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -53,6 +51,7 @@ public class CreateDeleteAccountTest {
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
+        System.out.println("CreateDeleteAccountTest Stop");
     }
 
     private boolean isElementPresent(By by) {

@@ -1,15 +1,13 @@
 package selenium;
 
-import java.util.regex.Pattern;
+
 import java.util.concurrent.TimeUnit;
+import junit.framework.TestCase;
 import org.junit.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
-public class LoginTest {
+public class LoginTest extends TestCase {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;

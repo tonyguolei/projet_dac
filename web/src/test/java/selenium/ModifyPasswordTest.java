@@ -1,12 +1,12 @@
 package selenium;
 
 import java.util.concurrent.TimeUnit;
+import junit.framework.TestCase;
 import org.junit.*;
-import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class ModifyPasswordTest {
+public class ModifyPasswordTest extends TestCase {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
