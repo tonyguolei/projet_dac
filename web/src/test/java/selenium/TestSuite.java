@@ -13,6 +13,8 @@ public class TestSuite {
         suite.addTestSuite(ModifyProjectTest.class);
         suite.addTestSuite(ListProjectsTest.class);
         suite.addTestSuite(CreateBonusTest.class);
+        suite.addTestSuite(FundProjectTest.class);
+
         return suite;
     }
 
