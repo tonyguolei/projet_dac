@@ -42,16 +42,6 @@ public class CommentDao extends Dao<Comment> {
             return null;
         }
     }
-    
-    /**
-     * Get the list of all comments.
-     * 
-     * @return The list of all comments.
-     */
-    public List<Comment> getAll() {
-        TypedQuery<Comment> query = em.createNamedQuery("Comment.findAll", Comment.class);
-        return query.getResultList();
-    }
 
     public List<Comment> getComments(Project project) {
         TypedQuery<Comment> query = em.createNamedQuery("Comment.findByIdProject", Comment.class);
