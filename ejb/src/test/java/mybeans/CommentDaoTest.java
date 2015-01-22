@@ -88,4 +88,24 @@ public class CommentDaoTest {
         }
     }
     
+    @Test
+    public void testGettersSetters() {
+        System.out.println("getters and setters");
+        //Getters
+        Comment c = comments.get(0);
+        Comment c2 = comments.get(1);
+        Comment c3 = new Comment();
+        assertNotNull(c.getComment());
+        assertNotNull(c.getDate());
+        assertNotNull(c.getIdComment());
+        assertEquals(project, c.getIdProject());
+        assertEquals(user, c.getIdUser());
+        c.toString();
+        assertFalse(c.equals(new Integer(0)));
+        assertEquals(c, c2);
+        assertEquals(c, null);
+        assertFalse(c3.equals(c));
+        assertEquals(c, c);
+    }
+    
 }

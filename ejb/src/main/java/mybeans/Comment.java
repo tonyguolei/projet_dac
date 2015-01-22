@@ -49,10 +49,6 @@ public class Comment implements Serializable {
 
     public Comment() {
     }
-
-    public Comment(Integer idComment) {
-        this.idComment = idComment;
-    }
     
     public Comment(User user, Project project, String comment) {
         this.idUser = user;
@@ -60,50 +56,24 @@ public class Comment implements Serializable {
         this.comment = comment;
     }
 
-    public Comment(Integer idComment, String comment, Date date) {
-        this.idComment = idComment;
-        this.comment = comment;
-        this.date = date;
-    }
-
     public Integer getIdComment() {
         return idComment;
-    }
-
-    public void setIdComment(Integer idComment) {
-        this.idComment = idComment;
     }
 
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
     public Project getIdProject() {
         return idProject;
-    }
-
-    public void setIdProject(Project idProject) {
-        this.idProject = idProject;
     }
 
     @Override
