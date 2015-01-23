@@ -22,7 +22,7 @@ public class SaveProjectTest extends TestCase{
     }
 
     @Test
-    public void testRememberProject() throws Exception {
+    public void testSaveProject() throws Exception {
         driver.get(baseUrl + "/web/");
         driver.findElement(By.linkText("LOG IN")).click();
         driver.findElement(By.name("mail")).clear();
@@ -33,13 +33,12 @@ public class SaveProjectTest extends TestCase{
         driver.findElement(By.linkText("Projects")).click();
         driver.findElement(By.linkText("Browse")).click();
         driver.findElement(By.linkText("testSelenium")).click();
-        driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.cssSelector("a.tooltip-need.badge")).click();
         assertEquals("Project remembered!", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("My Profile")).click();
         driver.findElement(By.linkText("Saved projects1")).click();
-        assertEquals("testSelenium", driver.findElement(By.xpath("(//a[contains(text(),'testSelenium')])[3]")).getText());
+        assertEquals("testSelenium", driver.findElement(By.xpath("(//a[contains(text(),'testSelenium')])[2]")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Logout")).click();
     }

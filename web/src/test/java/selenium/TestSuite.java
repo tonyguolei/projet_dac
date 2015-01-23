@@ -7,7 +7,6 @@ public class TestSuite {
 
     public static Test suite() {
         junit.framework.TestSuite suite = new junit.framework.TestSuite();
-
         suite.addTestSuite(CreateAccountTest.class);
         suite.addTestSuite(LoginTest.class);
         suite.addTestSuite(ModifyPasswordTest.class);
