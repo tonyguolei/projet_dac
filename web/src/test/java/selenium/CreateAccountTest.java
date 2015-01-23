@@ -1,13 +1,15 @@
 package selenium;
 
 import java.util.concurrent.TimeUnit;
+
+import junit.framework.TestCase;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 @Ignore
-public class CreateDeleteAccountTest {
+public class CreateAccountTest extends TestCase {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -15,7 +17,6 @@ public class CreateDeleteAccountTest {
 
     @Before
     public void setUp() throws Exception {
-        System.out.println("CreateDeleteAccountTest Start");
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8080/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -31,17 +32,6 @@ public class CreateDeleteAccountTest {
         driver.findElement(By.name("password")).sendKeys("test");
         driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
         assertEquals("New user created! Please log in.", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
-        driver.findElement(By.name("mail")).clear();
-        driver.findElement(By.name("mail")).sendKeys("testSelenium@dac.com");
-        driver.findElement(By.name("password")).clear();
-        driver.findElement(By.name("password")).sendKeys("test");
-        driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
-        driver.findElement(By.linkText("testSelenium@dac.com")).click();
-        driver.findElement(By.linkText("Settings")).click();
-        driver.findElement(By.xpath("(//input[@id='pass'])[2]")).clear();
-        driver.findElement(By.xpath("(//input[@id='pass'])[2]")).sendKeys("test");
-        driver.findElement(By.cssSelector("input.btn.btn-danger")).click();
-        assertEquals("Your account as been successfully deleted.", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
     }
 
     @After
@@ -51,7 +41,6 @@ public class CreateDeleteAccountTest {
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-        System.out.println("CreateDeleteAccountTest Stop");
     }
 
     private boolean isElementPresent(By by) {
