@@ -20,6 +20,8 @@ before_install:
     - "yes Y | sudo apt-get -qq install mysql-server-5.6"
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
+install:
+    - mvn -q install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 before_script:
     - mysql -e "CREATE DATABASE IF NOT EXISTS dac;" -uroot
     - mysql -e "CREATE USER 'dac'@'localhost' IDENTIFIED BY 'coucou';" -uroot
@@ -28,12 +30,12 @@ before_script:
     - mysql -udac -pcoucou -Ddac < ./sql/create.sql
 script:
     #EJB unit test
-    - mvn test -DskipEjbTests=false
+    - mvn -q test -DskipEjbTests=false
     #Webapp test (selenium)
     - $GLASSFISH_HOME/bin/asadmin start-domain
     - cd ./ear
-    - mvn glassfish:deploy
+    - mvn -q glassfish:deploy
     - cd ..
-    - mvn test -DskipSeleniumTests=false
+    - mvn -q test -DskipSeleniumTests=false
     - $GLASSFISH_HOME/bin/asadmin undeploy ear
     - $GLASSFISH_HOME/bin/asadmin stop-domain
