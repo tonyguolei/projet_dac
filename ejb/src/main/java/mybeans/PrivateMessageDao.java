@@ -116,14 +116,4 @@ public class PrivateMessageDao extends Dao<PrivateMessage> {
         }
         return false;
     }
-    
-    /**
-     * Get the list of all private messages.
-     * 
-     * @return The list of all private messages.
-     */
-    public List<PrivateMessage> getAll() {
-        TypedQuery<PrivateMessage> query = em.createNamedQuery("PrivateMessage.findAll", PrivateMessage.class);
-        return query.getResultList();
-    }
 }
