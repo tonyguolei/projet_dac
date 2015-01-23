@@ -8,7 +8,7 @@ public class TestSuite {
     public static Test suite() {
         junit.framework.TestSuite suite = new junit.framework.TestSuite();
 
-        suite.addTestSuite(CreateAccountTest.class);
+/*        suite.addTestSuite(CreateAccountTest.class);
         suite.addTestSuite(LoginTest.class);
         suite.addTestSuite(ModifyPasswordTest.class);
         suite.addTestSuite(CreateProjectTest.class);
@@ -19,7 +19,8 @@ public class TestSuite {
         suite.addTestSuite(FundProjectTest.class);
         suite.addTestSuite(ConsultBonusOwnerTest.class);
         suite.addTestSuite(AugmentContributionTest.class);
-        suite.addTestSuite(NotificationTest.class);
+        suite.addTestSuite(NotificationTest.class);*/
+        suite.addTestSuite(ReportProjectTest.class);
 
         return suite;
     }
