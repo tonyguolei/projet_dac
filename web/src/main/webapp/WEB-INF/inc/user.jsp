@@ -30,7 +30,7 @@
     </div>
     <div class="tab-content col-xs-12">
       <div role="tabpanel" class="tab-pane active" id="created">
-        <table class="table table-hover table-striped">
+        <table class="sortable table table-hover table-striped">
           <thead>
             <tr>
               <th>Project title</th>
@@ -50,7 +50,7 @@
         </table>
       </div>
       <div role="tabpanel" class="tab-pane" id="funded">
-        <table class="table table-hover table-striped">
+        <table class="sortable table table-hover table-striped">
           <thead>
             <tr>
               <th>Project title</th>
