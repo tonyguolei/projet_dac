@@ -35,7 +35,7 @@ public class BonusDaoTest {
     private Set<Bonus> otherBonus = new HashSet();
     private Bonus bonus;
 
-    private static final String DEFAULT_DESCR = "Bien au dessus du prix d'une patate ordinaire, mais révolutionnaire et compatible Mac.";
+    private static final String DEFAULT_DESCR = "Bien au dessus du prix d'une patate ordinaire, mais rÃ©volutionnaire et compatible Mac.";
     private static final String DEFAULT_TITLE = "Une iPatate";
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(17.5);
 
