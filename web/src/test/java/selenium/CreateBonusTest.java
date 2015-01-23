@@ -32,7 +32,7 @@ public class CreateBonusTest extends TestCase{
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("My Profile")).click();
         driver.findElement(By.linkText("testSelenium")).click();
-        driver.findElement(By.linkText("Bonus")).click();
+        driver.findElement(By.linkText("Bonuses")).click();
         driver.findElement(By.name("title")).clear();
         driver.findElement(By.name("title")).sendKeys("testSeleniumBonus");
         driver.findElement(By.cssSelector("div.form-group.col-sm-6 > input[name=\"value\"]")).clear();

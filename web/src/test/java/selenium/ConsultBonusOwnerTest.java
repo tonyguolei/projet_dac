@@ -31,7 +31,7 @@ public class ConsultBonusOwnerTest extends TestCase{
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("My Profile")).click();
         driver.findElement(By.linkText("testSelenium")).click();
-        driver.findElement(By.linkText("Bonus orders")).click();
+        driver.findElement(By.linkText("Bonuses orders")).click();
         assertEquals("admin@dac.com", driver.findElement(By.cssSelector("ul > ul > li > a")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Logout")).click();
