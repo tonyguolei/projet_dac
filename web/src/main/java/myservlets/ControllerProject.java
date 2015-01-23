@@ -159,9 +159,7 @@ public class ControllerProject extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
 
-        System.err.println("LOL1");
         if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN_EDIT)) return;
-        System.err.println("LOL2");
         
         int id;
         try {
