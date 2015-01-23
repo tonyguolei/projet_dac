@@ -48,15 +48,6 @@ public class Fund implements Serializable {
     public Fund() {
     }
 
-    public Fund(Integer idFund) {
-        this.idFund = idFund;
-    }
-
-    public Fund(Integer idFund, BigDecimal value) {
-        this.idFund = idFund;
-        this.value = value;
-    }
-
     public Fund(User user, Project project, BigDecimal value) {
         this.idProject = project;
         this.idUser = user;
@@ -67,16 +58,8 @@ public class Fund implements Serializable {
         return idFund;
     }
 
-    public void setIdFund(Integer idFund) {
-        this.idFund = idFund;
-    }
-
     public BigDecimal getValue() {
         return value;
-    }
-
-    public void setValue(BigDecimal value) {
-        this.value = value;
     }
 
     public void addValue(BigDecimal value) {
@@ -87,16 +70,8 @@ public class Fund implements Serializable {
         return idUser;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
     public Project getIdProject() {
         return idProject;
-    }
-
-    public void setIdProject(Project idProject) {
-        this.idProject = idProject;
     }
 
     @Override

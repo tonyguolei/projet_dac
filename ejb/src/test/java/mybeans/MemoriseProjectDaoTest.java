@@ -96,4 +96,29 @@ public class MemoriseProjectDaoTest {
         MemoriseProject result = instanceMemoriseProjectDao.getByIdMemoriseProject(memoriseProject.getIdMemoriseProject());
         Assert.assertNull(result);
     }
+
+    @Test
+    public void testGettersSetters() {
+        // getters
+        Assert.assertEquals(user, memoriseProject.getIdUser());
+        Assert.assertEquals(project, memoriseProject.getIdProject());
+
+        // equals
+        User user2 = new User("test"+Math.random()+"@test.com", "test");
+        MemoriseProject mem2 = new MemoriseProject(user2, project);
+        Assert.assertFalse(memoriseProject.equals(mem2));
+        Assert.assertFalse(mem2.equals(memoriseProject));
+        Assert.assertTrue(memoriseProject.equals(memoriseProject));
+        Assert.assertFalse(memoriseProject.equals(1));
+
+        // toString
+        Assert.assertNotNull(memoriseProject.toString());
+
+        // hashcode
+        try {
+            int hash = memoriseProject.hashCode();
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
 }

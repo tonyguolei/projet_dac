@@ -38,10 +38,6 @@ public class MemoriseProject implements Serializable {
     public MemoriseProject() {
     }
 
-    public MemoriseProject(Integer idMemoriseProject) {
-        this.idMemoriseProject = idMemoriseProject;
-    }
-    
     public MemoriseProject(User user, Project project) {
         this.idUser = user;
         this.idProject = project;
@@ -51,24 +47,12 @@ public class MemoriseProject implements Serializable {
         return idMemoriseProject;
     }
 
-    public void setIdMemoriseProject(Integer idMemoriseProject) {
-        this.idMemoriseProject = idMemoriseProject;
-    }
-
     public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
     public Project getIdProject() {
         return idProject;
-    }
-
-    public void setIdProject(Project idProject) {
-        this.idProject = idProject;
     }
 
     @Override

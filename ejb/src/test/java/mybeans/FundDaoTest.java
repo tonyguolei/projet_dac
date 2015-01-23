@@ -71,6 +71,8 @@ public class FundDaoTest {
         int id = fund.getIdFund();
         Fund result = instanceFundDao.getByIdFund(id);
         Assert.assertEquals(fund, result);
+
+        Assert.assertNull(instanceFundDao.getByIdFund(-1));
     }
 
     @Test
@@ -93,5 +95,47 @@ public class FundDaoTest {
         Fund result = instanceFundDao.getFundByUser(user, project);
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.getValue().intValue());
+
+        User u = new User("test"+Math.random()+"@test.com", "test");
+        Assert.assertNull(instanceFundDao.getFundByUser(u, project));
+    }
+
+    @Test
+    public void testAddValue() {
+        fund.addValue(new BigDecimal(4));
+        Assert.assertEquals(new BigDecimal(5), fund.getValue());
+    }
+
+    @Test
+    public void testEquals() {
+        Assert.assertFalse(fund.equals(1));
+        
+        User u = new User("test"+Math.random()+"@test.com", "test");
+        Fund f = new Fund(u, project, new BigDecimal(5));
+        Assert.assertFalse(fund.equals(f));
+        Assert.assertFalse(f.equals(fund));
+
+        Assert.assertTrue(fund.equals(fund));
+        Assert.assertTrue(f.equals(f));
+    }
+
+    @Test
+    public void testToString() {
+        Assert.assertNotNull(fund.toString());
+    }
+
+    @Test
+    public void testHashCode() {
+        try {
+            int hash = fund.hashCode();
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void testGetters() {
+        Assert.assertEquals(user, fund.getIdUser());
+        Assert.assertEquals(project, fund.getIdProject());
     }
 }
