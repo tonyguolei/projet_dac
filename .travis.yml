@@ -37,6 +37,6 @@ script:
     - cd ./ear
     - mvn -q glassfish:deploy
     - cd ..
-    - mvn -q test -DskipSeleniumTests=false
+    #- mvn -q test -DskipSeleniumTests=false
     - $GLASSFISH_HOME/bin/asadmin undeploy ear
     - $GLASSFISH_HOME/bin/asadmin stop-domain
