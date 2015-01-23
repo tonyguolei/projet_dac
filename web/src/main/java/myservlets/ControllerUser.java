@@ -22,6 +22,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import mybeans.Project;
 import mybeans.Fund;
+import mybeans.MemoriseProjectDao;
 import rightsmanager.RightsManager;
 
 /**
@@ -56,6 +57,8 @@ public class ControllerUser extends HttpServlet {
 
     @EJB
     private UserDao userDao;
+    @EJB
+    private MemoriseProjectDao memoriseProjectDao;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -288,8 +291,10 @@ public class ControllerUser extends HttpServlet {
         
         List<Project> userProjects = userDao.getProjects(inspectedUser);
         List<Fund> fundedProjects = userDao.getFunds(inspectedUser);
+        List<Project> savedProjects = memoriseProjectDao.getByUser(inspectedUser);
         request.setAttribute("userProjects", userProjects);
         request.setAttribute("fundedProjects", fundedProjects);
+        request.setAttribute("savedProjects", savedProjects);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp?nav=user&id=" + id);
         requestDispatcher.forward(request, response);
         

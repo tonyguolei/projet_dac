@@ -1,7 +1,8 @@
 <%
     if (request.getAttribute("userProjects") == null
         || request.getAttribute("inspectedUser") == null
-        || request.getAttribute("fundedProjects") == null) {
+        || request.getAttribute("fundedProjects") == null 
+        || request.getAttribute("savedProjects") == null) {
         request.getRequestDispatcher("ControllerUser?action=inspect").forward(request, response);
         return;
     }
@@ -73,7 +74,26 @@
 
       </div>
       <div role="tabpanel" class="tab-pane" id="saved">
-        <p><a href="ControllerMemorise?action=list&id=${requestScope.inspectedUser.idUser}">Here</a></p>
+
+        <table class="sortable table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Project title</th>
+              <th>Goal</th>
+              <th>Deadline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <c:forEach items="${savedProjects}" var="saved">
+                <tr>
+                  <td scope="row"><a href="index.jsp?nav=project&id=${saved.idProject}"><c:out value="${saved.title}" /></a></td>
+                  <td>${saved.goal}</td>
+                  <td><span class="time-relative" data-format="YYYY-MM-DD HH:mm"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${saved.endDate}" /></span></td>
+                </tr>
+            </c:forEach>
+          </tbody>
+        </table>
+
       </div>
       <c:if test="${sessionScope.user.isAdmin && !requestScope.inspectedUser.isAdmin}">
           <div role="tabpanel" class="tab-pane" id="admin">
