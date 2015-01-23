@@ -33,14 +33,14 @@ public class FundDaoTest {
             instanceFundDao = BeanTestUtils.lookup(FundDao.class, "FundDao");
             instanceUserDao = BeanTestUtils.lookup(UserDao.class, "UserDao");
             instanceProjectDao = BeanTestUtils.lookup(ProjectDao.class, "ProjectDao");
+
+            user = new User("test"+Math.random()+"@test.com", "test");
+            instanceUserDao.save(user);
+            project = new Project(user, BigDecimal.TEN, "Projet test"+Math.random(), "Description test", Date.valueOf("2100-01-01"), "test,test1,test2");
+            instanceProjectDao.save(project);
         } catch (NamingException ex) {
             Logger.getLogger(UserDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        user = new User("test"+Math.random()+"@test.com", "test");
-        instanceUserDao.save(user);
-        project = new Project(user, BigDecimal.TEN, "Projet test"+Math.random(), "Description test", Date.valueOf("2100-01-01"), "test,test1,test2");
-        instanceProjectDao.save(project);
     }
 
     @AfterClass
@@ -77,7 +77,6 @@ public class FundDaoTest {
     public void testGetAll() {
         System.out.println("getAll");
         List<Fund> result = instanceFundDao.getAll();
-        System.out.println(result);
         Assert.assertTrue(result.contains(fund));
     }
 
@@ -85,7 +84,6 @@ public class FundDaoTest {
     public void testGetFundLevel() {
         System.out.println("getFundLevel");
         BigDecimal result = instanceFundDao.getFundLevel(project);
-        System.out.println(result);
         Assert.assertEquals(1, result.intValue());
     }
 
@@ -93,7 +91,6 @@ public class FundDaoTest {
     public void testGetFundByUser() {
         System.out.println("getFundByUser");
         Fund result = instanceFundDao.getFundByUser(user, project);
-        System.out.println(result);
         Assert.assertNotNull(result);
         Assert.assertEquals(1, result.getValue().intValue());
     }
