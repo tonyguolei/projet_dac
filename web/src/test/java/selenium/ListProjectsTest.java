@@ -33,12 +33,7 @@ public class ListProjectsTest extends TestCase {
         driver.findElement(By.linkText("Projects")).click();
         driver.findElement(By.linkText("Browse")).click();
         assertEquals("testSelenium", driver.findElement(By.linkText("testSelenium")).getText());
-        assertEquals("admin@dac.com", driver.findElement(By.xpath("(//a[contains(text(),'admin@dac.com')])[2]")).getText());
-        assertEquals("Project title", driver.findElement(By.cssSelector("th.nosort")).getText());
-        assertEquals("Owner", driver.findElement(By.xpath("//th[2]")).getText());
-        assertEquals("Goal", driver.findElement(By.xpath("//th[3]")).getText());
-        assertEquals("Deadline", driver.findElement(By.xpath("//th[4]")).getText());
-        assertEquals("Reported", driver.findElement(By.xpath("//th[5]")).getText());
+        assertEquals("admin@dac.com", driver.findElement(By.linkText("admin@dac.com")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Logout")).click();
     }
