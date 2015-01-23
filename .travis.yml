@@ -29,6 +29,7 @@ before_script:
     - mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'dac'@'localhost';" -uroot
     - mysql -e "FLUSH PRIVILEGES;" -uroot
     - mysql -udac -pcoucou -Ddac < ./sql/create.sql
+    - mysql -udac -pcoucou -Ddac < ./sql/populate.sql
 script:
     #EJB unit test
     - mvn -q test -DskipEjbTests=false
@@ -37,6 +38,6 @@ script:
     - cd ./ear
     - mvn -q glassfish:deploy
     - cd ..
-    #- mvn -q test -DskipSeleniumTests=false
+    - mvn -q test -DskipSeleniumTests=false
     - $GLASSFISH_HOME/bin/asadmin undeploy ear
     - $GLASSFISH_HOME/bin/asadmin stop-domain
