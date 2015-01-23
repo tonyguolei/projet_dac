@@ -79,11 +79,11 @@
   <hr>
   <ul class="nav nav-tabs nav-justified" role="tablist">
     <li role="presentation" class="active"><a href="#story" aria-controls="story" role="tab" data-toggle="tab">Story</a></li>
-    <li role="presentation"><a href="#bonus" aria-controls="bonus" role="tab" data-toggle="tab">Bonus</a></li>
+    <li role="presentation"><a href="#bonus" aria-controls="bonus" role="tab" data-toggle="tab">Bonuses</a></li>
     <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
       <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
       <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-      <li role="presentation"><a href="#bonus_orders" aria-controls="bonus_orders" role="tab" data-toggle="tab">Bonus orders</a></li>
+      <li role="presentation"><a href="#bonus_orders" aria-controls="bonus_orders" role="tab" data-toggle="tab">Bonuses orders</a></li>
       </c:if>
       <c:if test="${sessionScope.user.isAdmin}">
       <li role="presentation"><a href="#admin" aria-controls="admin" role="tab" data-toggle="tab">Admin</a></li>
@@ -92,22 +92,30 @@
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active markdown enable-video" id="story" >${requestScope.project.description}</div>
     <div role="tabpanel" class="tab-pane" id="bonus">
-      <h2>Bonus</h2>
-      <c:forEach items="${bonus}" var="bonus">
-          <p>
-            <c:if test="${sessionScope.user != null}">
-                <c:set value="glyphicon-remove" var="iconName"></c:set>
-                <c:if test="${userFundLevel.compareTo(bonus.value)>=0}">
-                    <c:set value="glyphicon-ok text-success" var="iconName"></c:set>
-                </c:if>
-                <span class="glyphicon ${iconName}" aria-hidden="true"></span>
-            </c:if>
-            Title:&nbsp${bonus.title}
-          </p>
-          <p>Value:&nbsp${bonus.value}</p>
-          <div class="markdown">Description:&nbsp${bonus.description}</div>
-      </c:forEach>
+      <c:choose>
+          <c:when test="${bonus.size() > 0}">
+              <c:forEach items="${bonus}" var="bonus">
+                  <p>
+                    <c:if test="${sessionScope.user != null}">
+                        <c:set value="glyphicon-remove" var="iconName"></c:set>
+                        <c:if test="${userFundLevel.compareTo(bonus.value)>=0}">
+                            <c:set value="glyphicon-ok text-success" var="iconName"></c:set>
+                        </c:if>
+                        <span class="glyphicon ${iconName}" aria-hidden="true"></span>
+                    </c:if>
+                    Title:&nbsp${bonus.title}
+                  </p>
+                  <p>Value:&nbsp${bonus.value}</p>
+                  <div class="markdown">Description:&nbsp${bonus.description}</div>
+              </c:forEach>
+          </c:when>
+          <c:otherwise>
+              <p>There are no bonuses for this project!</p>
+          </c:otherwise>
+      </c:choose>
       <c:if test="${sessionScope.user.idUser == requestScope.project.idOwner.idUser}">
+          <hr>
+          <p>You can create new bonuses here. People are more likely to fund a project with bonuses. Keep that in mind!</p>
           <div role="tabpanel" class="tab-pane" id="create_bonus">
             <br/>
             <form role="form" method="POST" action="ControllerBonus">
