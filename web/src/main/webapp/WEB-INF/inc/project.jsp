@@ -163,6 +163,7 @@
             <input type="hidden" name="id" value="${requestScope.project.idProject}">
             <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
           </form>
+          <br/>
           <form role="form" method="POST" action="ControllerProject">
             <input type="hidden" name="action" value="delete"/>
             <input type="hidden" name="id" value="${requestScope.project.idProject}">
@@ -198,6 +199,7 @@
             <input type="hidden" name="id" value="${requestScope.project.idProject}">
             <button class="btn btn-lg btn-warning btn-block" type="submit">Edit project</button>
           </form>
+          <br/>
           <form role="form" method="POST" action="ControllerProject">
             <input type="hidden" name="action" value="delete"/>
             <input type="hidden" name="id" value="${requestScope.project.idProject}">

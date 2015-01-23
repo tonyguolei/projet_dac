@@ -131,6 +131,7 @@ small.by {
 }
 
 .fadeout {
+    pointer-events: none;
     position: relative;
     margin-bottom: -2em;
     bottom: 2em;
