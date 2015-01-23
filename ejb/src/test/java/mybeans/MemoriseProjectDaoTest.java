@@ -110,6 +110,8 @@ public class MemoriseProjectDaoTest {
         Assert.assertFalse(mem2.equals(memoriseProject));
         Assert.assertTrue(memoriseProject.equals(memoriseProject));
         Assert.assertFalse(memoriseProject.equals(1));
+        Assert.assertFalse(memoriseProject.equals(null));
+        Assert.assertTrue(mem2.equals(mem2));
 
         // toString
         Assert.assertNotNull(memoriseProject.toString());
@@ -117,8 +119,16 @@ public class MemoriseProjectDaoTest {
         // hashcode
         try {
             int hash = memoriseProject.hashCode();
+            int hash2 = mem2.hashCode();
         } catch (Exception e) {
             Assert.fail();
         }
+
+        instanceUserDao.save(user2);
+        instanceMemoriseProjectDao.save(mem2);
+        Assert.assertFalse(memoriseProject.equals(mem2));
+        Assert.assertFalse(mem2.equals(memoriseProject));
+        instanceMemoriseProjectDao.delete(mem2);
+        instanceUserDao.delete(user2);
     }
 }
