@@ -176,10 +176,10 @@ mvn test -DskipEjbTests=false
 
 ```
 mvn test -DskipSeleniumTests=false
-```
+
 Clean database after execution of Selenium tests
-```
 mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql
+```
 
 ### Generate coverage report for ejb
 
