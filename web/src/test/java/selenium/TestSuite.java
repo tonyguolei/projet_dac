@@ -21,6 +21,7 @@ public class TestSuite {
         suite.addTestSuite(AugmentContributionTest.class);
         suite.addTestSuite(NotificationTest.class);
         suite.addTestSuite(ReportProjectTest.class);
+        suite.addTestSuite(ListUsersTest.class);
 
         return suite;
     }
