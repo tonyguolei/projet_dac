@@ -150,6 +150,7 @@ public class PrivateMessageDaoTest {
         List<PrivateMessage> others = new ArrayList(otherMessages);
         assertFalse(privateMessageDao.sameConversationList(others, loopback));
         assertTrue(privateMessageDao.sameConversationList(others, message));
+        assertFalse(message.sameConversation(loopback));
     }
 
     @Test

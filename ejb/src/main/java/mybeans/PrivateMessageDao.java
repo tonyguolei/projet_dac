@@ -51,11 +51,7 @@ public class PrivateMessageDao extends Dao<PrivateMessage> {
     public long getNonReadNumber(User idUser) {
         TypedQuery<Long> query = em.createNamedQuery("PrivateMessage.findNotReadByDest", Long.class);
         query = query.setParameter("dest", idUser);
-        try {
-            return query.getSingleResult();
-        } catch (NoResultException e){
-            return 0;
-        }
+        return query.getSingleResult();
     }
     
     /**
