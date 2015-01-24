@@ -185,7 +185,7 @@ mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql
 
 ```
 cd ejb
-mvn cobertura:cobertura -DskipEjbTests=false
+mvn clean compile exec:exec cobertura:cobertura -DskipEjbTests=false
 ```
 The report website index can be found at `ejb/target/site/cobertura/index.html`
 
@@ -220,6 +220,6 @@ If you followed our instructions, these lines should be valid...
 * Redeploy from command-line `mvn glassfish:redeploy` (in ear/)
 * Run Ejb tests `mvn test -DskipEjbTests=false`
 * Run Selenium tests `mvn test -DskipSeleniumTests=false`
-* Generate ejb's coverage report `mvn cobertura:cobertura -DskipEjbTests=false`
+* Generate ejb's coverage report `mvn clean compile exec:exec cobertura:cobertura -DskipEjbTests=false`
     (in ejb/)
 
