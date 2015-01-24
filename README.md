@@ -1,6 +1,7 @@
 # SelfStarter
 
 [![Build Status](https://travis-ci.org/tonyguolei/projet_dac.svg?branch=master)](https://travis-ci.org/tonyguolei/projet_dac)
+[![Coverage Status](https://coveralls.io/repos/tonyguolei/projet_dac/badge.svg?branch=coveralls)](https://coveralls.io/r/tonyguolei/projet_dac?branch=coveralls)
 
 Another crowdfunding project, by Ensimag's students.
 
