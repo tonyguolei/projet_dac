@@ -111,6 +111,10 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>3.0.1</version>
+                <configuration>
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                    <repoToken>${env.COVERALLS_TOKEN}</repoToken>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -120,6 +124,7 @@
                     <aggregate>true</aggregate>
                     <formats>
                         <format>html</format>
+                        <format>xml</format>
                     </formats>
                 </configuration>
             </plugin>

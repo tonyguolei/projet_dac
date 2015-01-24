@@ -3,6 +3,7 @@ jdk:
     - openjdk7
 env:
     - GLASSFISH_HOME=`pwd`/glassfish4
+    - secure: "VKxO0XXnqGM6DWhDW7E5Bmt/Sz/IpzCY2FFeMQ3zrTlKwrwx2luEtUlGWdcU/0AFopfIwoel6eb0B34kPY4aLB+jW9Iw36NitJn+ND/E5TG+I09yEWw+3qhBjd2i3CyG/mVnIfSxpfBAXb6fMua6+qdJ5SzgrmvqqAaRvSFu4Lw="
 cache:
     directories:
         - $HOME/.m2
@@ -43,8 +44,6 @@ script:
     - mvn -q test -DskipSeleniumTests=false
     - $GLASSFISH_HOME/bin/asadmin undeploy ear
     - $GLASSFISH_HOME/bin/asadmin stop-domain
-after_script:
-    - cd ./ejb
-    - mvn clean cobertura:cobertura coveralls:report
 after_success:
-    coveralls
+    - cd ./ejb
+    - mvn clean compile exec:exec cobertura:cobertura coveralls:report -DskipEjbTests=false
