@@ -1,5 +1,7 @@
 package selenium;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import junit.framework.TestCase;
 import org.junit.*;
@@ -44,7 +46,19 @@ public class ReportProjectTest extends TestCase{
         driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
         driver.findElement(By.linkText("Projects")).click();
         driver.findElement(By.linkText("Browse")).click();
-        assertEquals("Yes", driver.findElement(By.cssSelector("font")).getText());
+        List<WebElement> rows = driver.findElement(By.cssSelector("table[class='sortable table table-hover table-striped']")).findElements(By.tagName("tr"));
+        // filtering the rows of the table
+        Iterator<WebElement> iterator = rows.iterator();
+        WebElement row = null;
+        while (iterator.hasNext()) {
+            row = iterator.next();
+            if (!row.getText().contains("testSelenium")) {
+                iterator.remove();
+            }
+        }
+        // checking remaining row
+        assertEquals(1, rows.size());
+        assertEquals("Yes", row.findElement(By.cssSelector("font")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Logout")).click();
     }
