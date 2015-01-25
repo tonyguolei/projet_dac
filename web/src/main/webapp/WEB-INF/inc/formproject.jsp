@@ -14,7 +14,7 @@
 
 <%
     String ERROR_LOGIN = "Please log in to edit a project.";
-    if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
+    if (RightsManager.logAndForward(session, response, AlertType.DANGER, ERROR_LOGIN, "index.jsp?nav=createproject")) return;
 
     boolean isEdit = request.getParameter("nav").equals("editproject");
 

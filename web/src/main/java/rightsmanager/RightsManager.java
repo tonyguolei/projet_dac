@@ -65,5 +65,21 @@ public class RightsManager extends HttpServlet {
         }
         return isNotLogged;
     }
+    /**
+     * Make the user log in and forward to a given page. 
+     * @param session
+     * @param response
+     * @param alertType the alert type.
+     * @param message the message to display.
+     * @param fwdUrl the forward URL.
+     * @return 
+     */
+    public static boolean logAndForward(HttpSession session, HttpServletResponse response, AlertType alertType, String message, String fwdUrl) {
+        if (isNotLoggedRedirect(session, response, alertType, message)) {
+            session.setAttribute("fwd", fwdUrl);
+            return true;
+        }
+        return false;        
+    }
     
 }

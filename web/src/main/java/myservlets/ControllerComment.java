@@ -107,8 +107,6 @@ public class ControllerComment extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
 
-        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
-
         String idS = request.getParameter("id");
         int id;
         try {
@@ -118,6 +116,8 @@ public class ControllerComment extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
+
+        if (RightsManager.logAndForward(session, response, AlertType.DANGER, ERROR_LOGIN, "index.jsp?nav=project&id="+id)) return;
 
         Project project = projectDao.getByIdProject(id);
         if(project == null){

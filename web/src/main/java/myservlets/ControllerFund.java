@@ -109,8 +109,6 @@ public class ControllerFund extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
 
-        if (RightsManager.isNotLoggedRedirect(session, response, AlertType.DANGER, ERROR_LOGIN)) return;
-
         String idS = request.getParameter("id");
         String valueS = request.getParameter("value");
         int id;
@@ -123,6 +121,8 @@ public class ControllerFund extends HttpServlet {
             response.sendRedirect("index.jsp?nav=projects");
             return;
         }
+
+        if (RightsManager.logAndForward(session, response, AlertType.DANGER, ERROR_LOGIN, "index.jsp?nav=project&id="+id)) return;
         
         if (value.compareTo(BigDecimal.ZERO) <= 0 ||
                 (valueS.contains(".") && (valueS.length() - valueS.lastIndexOf(".")) > 3)) {

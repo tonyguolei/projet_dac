@@ -257,6 +257,12 @@ public class ControllerUser extends HttpServlet {
 
         session.setAttribute("user", user);
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_LOGIN);
+        String fwd = (String) session.getAttribute("fwd");
+        if (fwd != null) {
+            session.removeAttribute("fwd");
+            response.sendRedirect(fwd);
+            return;
+        }
         response.sendRedirect("index.jsp");
         return;
     }
