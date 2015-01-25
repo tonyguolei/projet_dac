@@ -47,4 +47,4 @@ script:
     - $GLASSFISH_HOME/bin/asadmin stop-domain
 after_success:
     - cd ./ejb
-    - mvn clean compile exec:exec cobertura:cobertura coveralls:report -DskipEjbTests=false
+    - mvn -q clean compile exec:exec cobertura:cobertura coveralls:report -DskipEjbTests=false
