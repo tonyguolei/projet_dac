@@ -51,9 +51,11 @@ public class ReportProjectTest extends TestCase{
         Iterator<WebElement> iterator = rows.iterator();
         WebElement row = null;
         while (iterator.hasNext()) {
-            row = iterator.next();
-            if (!row.getText().contains("testSelenium")) {
+            WebElement currentRow = iterator.next();
+            if (!currentRow.getText().contains("testSelenium")) {
                 iterator.remove();
+            } else {
+                row = currentRow;
             }
         }
         // checking remaining row
