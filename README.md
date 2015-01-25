@@ -66,6 +66,13 @@ To create the tables, do:
 mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql
 ```
 
+#### Populate the database
+
+To populate the database, do:
+```
+mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/populate.sql
+```
+
 ### Glassfish
 
 Download and unpack Glassfish, or use Netbeans to install it.
@@ -211,14 +218,14 @@ If you followed our instructions, these lines should be valid...
 * Start MySQL `sudo docker start mysql-dac`
 * Stop MySQL `sudo docker stop mysql-dac`
 * Create tables `mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql`
+* Poulate tables `mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/populate.sql`
 * Log into MySQL `mysql -udac -pcoucou -h127.0.0.1 -Ddac`
 * Start Glassfish `$GLASSFISH_HOME/glassfish/bin/asadmin start-domain`
 * Stop Glassfish `$GLASSFISH_HOME/glassfish/bin/asadmin stop-domain`
 * Clean `mvn clean`
 * Build `mvn install`
 * Deploy from command-line `mvn glassfish:deploy` (in ear/)
-* Undeploy from command-line `mvn glassfish:undeploy` (in ear/)
-* Redeploy from command-line `mvn glassfish:redeploy` (in ear/)
+* Undeploy `$GLASSFISH_HOME/glassfish/bin/asadmin undeploy ear`
 * Run Ejb tests `mvn test -DskipEjbTests=false`
 * Run Selenium tests `mvn test -DskipSeleniumTests=false`
 * Generate ejb's coverage report `mvn clean compile exec:exec cobertura:cobertura -DskipEjbTests=false`
