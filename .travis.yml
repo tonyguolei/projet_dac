@@ -33,7 +33,9 @@ before_script:
     - mysql -udac -pcoucou -Ddac < ./sql/populate.sql
 script:
     #EJB unit test
-    - mvn -q test -DskipEjbTests=false
+    - cd ./ejb
+    - mvn -q exec:exec cobertura:cobertura -DskipEjbTests=false
+    - cd ..
     #Webapp test (selenium)
     - $GLASSFISH_HOME/bin/asadmin start-domain
     - cd ./ear
@@ -44,4 +46,4 @@ script:
     - $GLASSFISH_HOME/bin/asadmin stop-domain
 after_success:
     - cd ./ejb
-    - mvn -q clean compile exec:exec cobertura:cobertura coveralls:report -DskipEjbTests=false
+    - mvn -q coveralls:report
