@@ -94,50 +94,9 @@ Extract it and put the `mysql-connector-java-3.1.14-bin.jar` in
 
 #### Connect Glassfish to MySQL
 
-To setup the ressource `jdbc/dac` and the connection pool `dac`, insert the
-following lines into `$GLASSFISH_HOME/glassfish/domains/domain1/config/domain.xml`
-between `<resources>` and `</resources>` :
-```
-<jdbc-connection-pool datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource" res-type="javax.sql.ConnectionPoolDataSource" name="dac">
-  <property name="password" value="coucou"></property>
-  <property name="URL" value="jdbc:mysql://localhost:3306/dac"></property>
-  <property name="DatabaseName" value="dac"></property>
-  <property name="ServerName" value="localhost"></property>
-  <property name="username" value="dac"></property>
-  <property name="Url" value="jdbc:mysql://localhost:3306/dac"></property>
-</jdbc-connection-pool>
-<jdbc-resource pool-name="dac" jndi-name="jdbc/dac"></jdbc-resource>
-```
-
-##### Troubleshooting
-
-If the copy/paste above did not worked, you can try this:
-
-* Launch your GlassFish server.
-* Go to GlassFish admin page (usually [http://localhost:4848](http://localhost:4848), modify the port as
-needed).
-* Go to Resources - JDBC - Connection Pools - New
-```
-Pool name: dac
-Resource: javax.sql.ConnectionPoolDataSource
-Database driver: MySQL
-```
-* You need to change some properties as below:
-```
-URL and url: jdbc:mysql://localhost:3306/dac
-ServerName: localhost
-DatabaseName: dac
-Password and password: coucou
-User and username: dac
-```
-* Try to ping it in the console to see if it worked. (Start your mySQL server
-    first !).
-* Then create a new JDBC Resource: Go to Resources - JDBC - Connection
-    Resources - New
-```
-JNDI Name: jdbc/dac
-Pool Name: dac (your previously set pool)
-```
+To setup the ressource `jdbc/dac` and the connection pool `dac`, copy
+`domain.xml`, which can be found at the root of the project, to
+`$GLASSFISH_HOME/glassfish/domains/domain1/config`
 
 ### Netbeans
 
