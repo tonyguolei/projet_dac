@@ -12,7 +12,7 @@ INSERT INTO User VALUES(6,'mugnier.benjamin@gmail.com','mugnier',55,0,0,0);
 INSERT INTO User VALUES(7,'guillaume28.perrin@gmail.com','guillaume28',28,0,0,0);
 INSERT INTO User VALUES(8,'gnuforfreedom@gmail.com','/dev/random',852,0,0,0);
 
--- Projects
+-- Projects, Bonus, Comments, FUnds
 INSERT INTO Project VALUES (1, 2, 850.00, 'User-friendly Git interface', 'As you know, git is a powerful merging tool. However it is a huge pain if you''re not an expert user (meaning you must know 785 commands, do the good one at the right time with the correct arguments). For all the other normal humans, attempts to use it easily ends in catastrophic local/remote repository destruction.
 
 I believe that in 2015, we are perfectly able to make a powerful merging tool that doesn''t require users to spend dozens hours of learning. This is why I intend to release a new software, that will wrap Git into a more user friendly graphical interface.
@@ -43,11 +43,14 @@ INSERT INTO Bonus VALUES (1,2,5.00,'Your name in the copyright','I will put your
 INSERT INTO Bonus VALUES (2,2,50.00,'Receive a cake at home (France only)','I will bake you a cake of your choice and send it to you with Chronopost ! I can write special text on it for you.');
 INSERT INTO Bonus VALUES (3,2,2000.00,'Cook of the day (France only)','I will go to your home, or anywhere you want me to go, and I will bake potato cakes for your party all the day !');
 
+INSERT INTO Fund VALUES (2,8,2,50.00);
+INSERT INTO Fund VALUES (3,5,2,100.00);
+
 INSERT INTO Comment VALUES (3,2,2,'The cake is a lie !','2015-01-13 17:21:18.0');
 INSERT INTO Comment VALUES (2,3,2,'The cake is a lie !','2015-01-09 05:15:00.0');
 INSERT INTO Comment VALUES (6,4,2,'The cake is a lie !','2015-01-24 00:56:14.0');
 INSERT INTO Comment VALUES (1,5,2,'The cake is a lie !','2015-01-08 12:24:59.0');
-INSERT INTO Comment VALUES (4,6,2,'The cake is a lie !','2015-01-17 15:47:47.0');
+INSERT INTO Comment VALUES (4,7,2,'The cake is a lie !','2015-01-17 15:47:47.0');
 INSERT INTO Comment VALUES (5,8,2,'The cake is a lie !','2015-01-21 19:32:16.0');
 
 INSERT INTO Project VALUES (3, 8, 500.00, 'Improving my DAC team', 'I have been managing a team of 3rd year students for a project at Ensimag, and I can now tell that they aren''t ready at all for the professionnal work. It is not only for themselves that I''m asking your help : they might destroy the reputation of our school...
@@ -64,8 +67,24 @@ What will I do with your money ?
 INSERT INTO Project VALUES (4, 3, 1000000.00, 'New iPhone/MacBook', 'I have been waiting for years to replace my old devices. I need your help to get the new revolutionnary versions !',
     '2014-12-23 17:21:18.0', '2015-02-26 00:00:00.0', 'iphone,macbook,apple,addict', false, false);
 
+INSERT INTO Comment VALUES (12,7,4,'Good luck bro ! Apple rocks !','2015-01-25 15:47:47.0');
+
 INSERT INTO Bonus VALUES (6,4,100.00,'I will iFriend you on iFacebook','Sorry I can''t do better, there''s nothing in an Apple Store under this price.');
 
 INSERT INTO Bonus VALUES (7,4,1000.00,'I will send you nice photos of them !','I would be so proud to get them ! The bare minimum for me is to show them to people who helped me to get it.');
 
-INSERT INTO Bonus VALUES (8,4,100000.00,'Right to pet them (see conditions).','I will be allowed to touch them. Traveling cost aren''t included, and you must present an ICertificate that you are Mac-compatible (I can''t risk that you damage the screen).')
+INSERT INTO Bonus VALUES (8,4,100000.00,'Right to pet them (see conditions).','I will be allowed to touch them. Traveling cost aren''t included, and you must present an ICertificate that you are Mac-compatible (I can''t risk that you damage the screen).');
+
+INSERT INTO Fund VALUES (1,7,4,28.00);
+
+-- Notifications
+INSERT INTO Notification VALUES (1,2,1,'Your windows VM has just made a blue screen of death ! (IRQL_NOT_LESS_OR_EQUAL)','2015-01-26 11:22:33.0',false);
+
+-- Memorise Project
+INSERT INTO MemoriseProject VALUES (1,7,4);
+INSERT INTO MemoriseProject VALUES (2,7,2);
+
+INSERT INTO MemoriseProject VALUES (3,2,2);
+
+INSERT INTO MemoriseProject VALUES (4,4,2);
+INSERT INTO MemoriseProject VALUES (5,5,2)
