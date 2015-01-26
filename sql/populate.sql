@@ -21,6 +21,10 @@ How will your money be used ?
 - 10% of the pledges will go in the first prototyping of the software.
 - 90% of the pledges will be used to cover productivity issues due to the current merging tool that is impossible to use.', '2015-01-23 17:21:18.0', '2015-02-26 00:00:00.0', 'git,repository,merge,branch', false, false);
 
+INSERT INTO Bonus VALUES (4,1,10.00,'A free license once it is completed.','You will receive a license of the software once it is completed.');
+
+INSERT INTO Bonus VALUES (5,1,25.00,'Early access','You will be able to test the software during conception. We''ll listen to the feedback of the alpha-tester in order to make the best merging tool ever.');
+
 INSERT INTO Comment VALUES (10,3,1,'You don''t need so many commands ... Are you posting that because of what we discussed last time ? It was very simple stuff, though. To upload your code, just do branch->fetch->rebase->checkout->fetch->merge->commit->pull->push->pull request. If it has failed at any step, you irreversibly destroyed your local repository. Simply clone a new repository elsewhere, merge by hand, and restart the process until nobody else push something at the same time.
 
 I can''t see how it could easier.','2015-01-24 08:17:53.0');
@@ -34,6 +38,10 @@ What will I do with your money ?
 - 50€ : organic version of the potato cake.
 - 100€ : trying several potato cake recipes. Each one will of course be released under GNU GPLv3.
 - 5000€ : I will rent a party hall, and people who gave 10€ or more will be invited !', '2015-01-07 17:21:18.0', '2015-03-05 23:59:59.0', 'potato,cake,swag', false, false);
+
+INSERT INTO Bonus VALUES (1,2,5.00,'Your name in the copyright','I will put your name as a co-author on all the GNU GPL licences of the recipes.');
+INSERT INTO Bonus VALUES (2,2,50.00,'Receive a cake at home (France only)','I will bake you a cake of your choice and send it to you with Chronopost ! I can write special text on it for you.');
+INSERT INTO Bonus VALUES (3,2,2000.00,'Cook of the day (France only)','I will go to your home, or anywhere you want me to go, and I will bake potato cakes for your party all the day !');
 
 INSERT INTO Comment VALUES (3,2,2,'The cake is a lie !','2015-01-13 17:21:18.0');
 INSERT INTO Comment VALUES (2,3,2,'The cake is a lie !','2015-01-09 05:15:00.0');
@@ -54,4 +62,10 @@ What will I do with your money ?
 - 5000€ : yoga courses for the project manager.', '2014-12-23 17:21:18.0', '2015-02-26 00:00:00.0', 'formation,teach', false, false);
 
 INSERT INTO Project VALUES (4, 3, 1000000.00, 'New iPhone/MacBook', 'I have been waiting for years to replace my old devices. I need your help to get the new revolutionnary versions !',
-    '2014-12-23 17:21:18.0', '2015-02-26 00:00:00.0', 'iphone,macbook,apple,addict', false, false)
+    '2014-12-23 17:21:18.0', '2015-02-26 00:00:00.0', 'iphone,macbook,apple,addict', false, false);
+
+INSERT INTO Bonus VALUES (6,4,100.00,'I will iFriend you on iFacebook','Sorry I can''t do better, there''s nothing in an Apple Store under this price.');
+
+INSERT INTO Bonus VALUES (7,4,1000.00,'I will send you nice photos of them !','I would be so proud to get them ! The bare minimum for me is to show them to people who helped me to get it.');
+
+INSERT INTO Bonus VALUES (8,4,100000.00,'Right to pet them (see conditions).','I will be allowed to touch them. Traveling cost aren''t included, and you must present an ICertificate that you are Mac-compatible (I can''t risk that you damage the screen).')
