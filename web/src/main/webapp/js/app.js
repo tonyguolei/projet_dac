@@ -142,4 +142,21 @@ $(document).ready(function () {
             }
         }
     });
+
+    var backSlides = $('.welcome-jumbotron');
+    if (backSlides.length > 0) {
+        var photos = ["img/photo-1.jpeg",
+            "img/photo-2.jpeg",
+            "img/photo-3.jpeg",
+            "img/photo-4.jpeg",
+            "img/photo-5.jpeg",
+            "img/photo-6.jpeg",
+            "img/photo-7.jpeg",
+            "img/photo-8.jpeg"
+        ];
+        for (var j, x, i = photos.length; i; j = Math.floor(Math.random() * i), x = photos[--i], photos[i] = photos[j], photos[j] = x)
+            ;
+        $.backstretch(photos, {duration: 10000, fade: 1500});
+    }
+
 });

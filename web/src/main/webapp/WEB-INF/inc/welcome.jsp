@@ -7,7 +7,7 @@
 <%/* NOTE: This is an included page from index.jsp (just as the others in this 
    folder, DO NOT use <html> tags or stuff as they're already in */ %>
 
-<div class="jumbotron">
+<div class="jumbotron welcome-jumbotron">
   <h1>Welcome to SelfStarter!</h1>
   <h3>Feed developers</h3>
   <h2>Help others</h2>
