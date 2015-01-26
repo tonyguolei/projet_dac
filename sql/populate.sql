@@ -35,12 +35,12 @@ What will I do with your money ?
 - 100€ : trying several potato cake recipes. Each one will of course be released under GNU GPLv3.
 - 5000€ : I will rent a party hall, and people who gave 10€ or more will be invited !', '2015-01-07 17:21:18.0', '2015-03-05 23:59:59.0', 'potato,cake,swag', false, false);
 
-INSERT INTO Comment VALUES (1,2,2,'The cake is a lie !','2015-01-13 17:21:18.0');
+INSERT INTO Comment VALUES (3,2,2,'The cake is a lie !','2015-01-13 17:21:18.0');
 INSERT INTO Comment VALUES (2,3,2,'The cake is a lie !','2015-01-09 05:15:00.0');
-INSERT INTO Comment VALUES (3,4,2,'The cake is a lie !','2015-01-24 00:56:14.0');
-INSERT INTO Comment VALUES (4,5,2,'The cake is a lie !','2015-01-08 12:24:59.0');
-INSERT INTO Comment VALUES (5,6,2,'The cake is a lie !','2015-01-17 15:47:47.0');
-INSERT INTO Comment VALUES (7,8,2,'The cake is a lie !','2015-01-21 19:32:16.0');
+INSERT INTO Comment VALUES (6,4,2,'The cake is a lie !','2015-01-24 00:56:14.0');
+INSERT INTO Comment VALUES (1,5,2,'The cake is a lie !','2015-01-08 12:24:59.0');
+INSERT INTO Comment VALUES (4,6,2,'The cake is a lie !','2015-01-17 15:47:47.0');
+INSERT INTO Comment VALUES (5,8,2,'The cake is a lie !','2015-01-21 19:32:16.0');
 
 INSERT INTO Project VALUES (3, 8, 500.00, 'Improving my DAC team', 'I have been managing a team of 3rd year students for a project at Ensimag, and I can now tell that they aren''t ready at all for the professionnal work. It is not only for themselves that I''m asking your help : they might destroy the reputation of our school...
 
