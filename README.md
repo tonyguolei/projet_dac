@@ -146,6 +146,7 @@ mvn test -DskipSeleniumTests=false
 
 Clean database after execution of Selenium tests
 mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql
+mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/populate.sql
 ```
 
 ### Generate coverage report for ejb
@@ -186,7 +187,7 @@ If you followed our instructions, these lines should be valid...
 * Deploy from command-line `mvn glassfish:deploy` (in ear/)
 * Undeploy `$GLASSFISH_HOME/glassfish/bin/asadmin undeploy ear`
 * Run Ejb tests `mvn test -DskipEjbTests=false`
-* Run Selenium tests `mvn test -DskipSeleniumTests=false`
+* Run Selenium tests `mvn test -DskipSeleniumTests=false` (clean the database before running database. See above)
 * Generate ejb's coverage report `mvn clean compile exec:exec cobertura:cobertura -DskipEjbTests=false`
     (in ejb/)
 
