@@ -21,20 +21,33 @@
   <div id="discussion">
     <div class="panel panel-default">
       <c:forEach  items="${requestScope.listAllPrivateMessage}" var="pm">
-          <div class="panel-heading"><h3>
-              <c:choose>
+          <div class="panel-heading">
+            <c:choose>
                 <c:when test="${sessionScope.user.idUser == pm.dest.idUser}">
-                    <a href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
-                      </c:when>
-                    <c:otherwise>
+                    <a class="media-left" href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
+                      <img data-src="img/profile-placeholder.jpg" src="img/profile-placeholder.jpg" class="profile-img" alt="${pm.exp.mail}">
+                    </a>
+                    <div class="media-body">
+                      <a href="index.jsp?nav=conversation&dest=${pm.exp.mail}">
+                        <h6 class="media-heading">${pm.exp.mail}</h6>
+                      </a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
+                      <a class="media-left" href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
+                        <img data-src="img/profile-placeholder.jpg" src="img/profile-placeholder.jpg" class="profile-img" alt="${pm.dest.mail}">
+                      </a>
+                      <div class="media-body">
                         <a href="index.jsp?nav=conversation&dest=${pm.dest.mail}">
-                        </c:otherwise>
-                    </c:choose>
-                          Messages with ${pm.dest.mail}
-                          </h3></a>
+                          <h6 class="media-heading">${pm.dest.mail}</h6>
+                        </a>
+                      </div>
+                    </c:otherwise>
+                </c:choose>
           </div>
-                    <div class="panel-body markdown">${pm.message}</div>
-                    <div class="fadeout"></div>
+          <div class="panel-body markdown">${pm.message}</div>
+          <div class="fadeout"></div>
       </c:forEach>
     </div>
   </div>
