@@ -25,6 +25,7 @@ public class TestSuite {
         suite.addTestSuite(SendMessageTest.class);
         suite.addTestSuite(DeleteProjectTest.class);
         suite.addTestSuite(BanUserTest.class);
+        suite.addTestSuite(DeleteUserTest.class);
         return suite;
     }
 
