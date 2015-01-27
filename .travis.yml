@@ -23,7 +23,7 @@ before_install:
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
 install:
-    - mvn -q install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+    - mvn -q install
 before_script:
     - mysql -e "CREATE DATABASE IF NOT EXISTS dac;" -uroot
     - mysql -e "CREATE USER 'dac'@'localhost' IDENTIFIED BY 'coucou';" -uroot
