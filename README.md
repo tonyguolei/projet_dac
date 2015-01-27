@@ -96,8 +96,7 @@ Extract it and put the `mysql-connector-java-3.1.14-bin.jar` in
 
 To setup the ressource `jdbc/dac` and the connection pool `dac`, copy
 `domain.xml`, which can be found at the root of the project, to
-`$GLASSFISH_HOME/glassfish/domains/domain1/config` this also sets the admin
-password (to empty).
+`$GLASSFISH_HOME/glassfish/domains/domain1/config`
 
 ### Netbeans
 
