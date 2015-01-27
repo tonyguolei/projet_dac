@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
+import mybeans.Project;
 
 /**
  * This module manage rights across webpages or controllers
@@ -80,6 +81,57 @@ public class RightsManager extends HttpServlet {
             return true;
         }
         return false;        
+    }
+    
+    /**
+     * Check if the user is the owner or not
+     * @param session
+     * @param project
+     * @return  true if not owner
+     */
+    public static boolean isNotOwner(HttpSession session, Project project) {
+        if (!isNotLogged(session)) {
+            return session.getAttribute("user") == project.getIdOwner();
+        }
+        return false;
+    }
+    
+    /**
+     * 
+     * @param session
+     * @param project
+     * @param response
+     * @param alertType
+     * @param message
+     * @return 
+     */
+    public static boolean isNotOwnerRedirect(HttpSession session, Project project, HttpServletResponse response, AlertType alertType, String message) { 
+        return isNotOwnerRedirectTo(session, project, response, alertType, message, "index.jsp?nav=login");
+    }
+    
+    /**
+     * 
+     * @param session
+     * @param project
+     * @param response
+     * @param alertType
+     * @param message
+     * @param url
+     * @return 
+     */
+    public static boolean isNotOwnerRedirectTo(HttpSession session, Project project, HttpServletResponse response, AlertType alertType, String message, String url) {
+        boolean isNotOwner = isNotOwner(session, project);
+        if (isNotOwner) {
+            if (alertType != null && (message != null || !message.equals(""))) {
+                Alert.addAlert(session, alertType, message);
+            }
+            try {
+                response.sendRedirect(url);
+            } catch (IOException ex) {
+                Logger.getLogger(RightsManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return isNotOwner;
     }
     
 }
