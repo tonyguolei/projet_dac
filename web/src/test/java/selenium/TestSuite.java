@@ -21,8 +21,8 @@ public class TestSuite {
         suite.addTestSuite(AugmentContributionTest.class);
         suite.addTestSuite(NotificationTest.class);
         suite.addTestSuite(ReportProjectTest.class);
-        suite.addTestSuite(DeleteProjectTest.class);
         suite.addTestSuite(ListUsersTest.class);
+        suite.addTestSuite(SendMessageTest.class);
         suite.addTestSuite(DeleteProjectTest.class);
         suite.addTestSuite(BanUserTest.class);
         return suite;
