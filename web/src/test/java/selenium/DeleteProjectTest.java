@@ -34,7 +34,7 @@ public class DeleteProjectTest extends TestCase{
         driver.findElement(By.linkText("Browse")).click();
         driver.findElement(By.linkText("testSelenium")).click();
         driver.findElement(By.linkText("Admin")).click();
-        driver.findElement(By.xpath("(//button[@type='submit'])[8]")).click();
+        driver.findElement(By.xpath("(//button[@type='submit'])[7]")).click();
         driver.findElement(By.cssSelector("div.modal-footer > button.btn.btn-primary")).click();
         assertEquals("Project deleted succefully!", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
