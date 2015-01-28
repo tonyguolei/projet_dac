@@ -45,6 +45,7 @@ public class TaskSchedulerTest {
     private Project projectNotFund = null;
     private Project projectFuture = null;
     private Fund fund = null;
+    private Fund badFund = null;
     private MemoriseProject mp = null;
     private static String FUND_VALUE = "15.00";
 
@@ -97,6 +98,7 @@ public class TaskSchedulerTest {
         tokenParams.put("card", cardParams);
         Token token = Token.create(tokenParams);
         fund = new Fund(funder, project, new BigDecimal(FUND_VALUE), token.getId());
+        badFund = new Fund(funder, project, new BigDecimal(FUND_VALUE), "");
         mp = new MemoriseProject(memoriser, project);
 
         //Inserting
@@ -107,6 +109,7 @@ public class TaskSchedulerTest {
         instanceProjectDao.save(projectNotFund);
         instanceProjectDao.save(projectFuture);
         instanceFundDao.save(fund);
+        instanceFundDao.save(badFund);
         instanceMemoriseProject.save(mp);
     }
 
@@ -115,6 +118,7 @@ public class TaskSchedulerTest {
         //Deleting
         instanceMemoriseProject.delete(mp);
         instanceFundDao.delete(fund);
+        instanceFundDao.delete(badFund);
         instanceProjectDao.delete(project);
         instanceProjectDao.delete(projectNotFund);
         instanceProjectDao.delete(projectFuture);
