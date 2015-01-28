@@ -38,6 +38,8 @@ public class Fund implements Serializable {
     @Basic(optional = false)
     @NotNull
     private BigDecimal value;
+    @NotNull
+    private String token;
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User idUser;
@@ -48,10 +50,15 @@ public class Fund implements Serializable {
     public Fund() {
     }
 
-    public Fund(User user, Project project, BigDecimal value) {
+    public Fund(User user, Project project, BigDecimal value, String token) {
         this.idProject = project;
         this.idUser = user;
         this.value = value;
+        this.token = token;
+    }
+    
+    public String getToken() {
+        return token;
     }
 
     public Integer getIdFund() {

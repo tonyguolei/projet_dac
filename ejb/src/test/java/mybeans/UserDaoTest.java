@@ -152,7 +152,7 @@ public class UserDaoTest {
         instanceUserDao.save(u);
         Project p = new Project(u, BigDecimal.TEN, "Title test", "Project description", Date.valueOf("2015-10-01"), "testtag1,testtag2");
         instanceProjectDao.save(p);
-        Fund f = new Fund(u, p, BigDecimal.ONE);
+        Fund f = new Fund(u, p, BigDecimal.ONE, "");
         instanceFundDao.save(f);
         assertEquals(f, instanceUserDao.getFunds(u).get(0));
         instanceFundDao.delete(f);

@@ -33,7 +33,7 @@ public class ModifyProjectTest extends TestCase {
         driver.findElement(By.linkText("My Profile")).click();
         driver.findElement(By.linkText("testSelenium")).click();
         driver.findElement(By.xpath("(//a[contains(text(),'Settings')])[2]")).click();
-        driver.findElement(By.xpath("(//button[@type='submit'])[5]")).click();
+        driver.findElement(By.xpath("(//button[@type='submit'])[4]")).click();
         driver.findElement(By.name("tags")).clear();
         driver.findElement(By.name("tags")).sendKeys("testSelenium1");
         driver.findElement(By.name("endDate")).clear();

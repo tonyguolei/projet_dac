@@ -43,8 +43,8 @@ INSERT INTO Bonus VALUES (1,2,5.00,'Your name in the copyright','I will put your
 INSERT INTO Bonus VALUES (2,2,50.00,'Receive a cake at home (France only)','I will bake you a cake of your choice and send it to you with Chronopost ! I can write special text on it for you.');
 INSERT INTO Bonus VALUES (3,2,2000.00,'Cook of the day (France only)','I will go to your home, or anywhere you want me to go, and I will bake potato cakes for your party all the day !');
 
-INSERT INTO Fund VALUES (2,8,2,50.00);
-INSERT INTO Fund VALUES (3,5,2,100.00);
+INSERT INTO Fund VALUES (2,8,2,50.00, "");
+INSERT INTO Fund VALUES (3,5,2,100.00, "");
 
 INSERT INTO Comment VALUES (3,2,2,'The cake is a lie !','2015-01-13 17:21:18.0');
 INSERT INTO Comment VALUES (2,3,2,'The cake is a lie !','2015-01-09 05:15:00.0');
@@ -75,7 +75,7 @@ INSERT INTO Bonus VALUES (7,4,1000.00,'I will send you nice photos of them !','I
 
 INSERT INTO Bonus VALUES (8,4,100000.00,'Right to pet them (see conditions).','You will be allowed to touch them. Traveling cost aren''t included, and you must present an ICertificate that you are Mac-compatible (I can''t risk that you damage the screen).');
 
-INSERT INTO Fund VALUES (1,7,4,28.00);
+INSERT INTO Fund VALUES (1,7,4,28.00, "");
 
 -- Notifications
 INSERT INTO Notification VALUES (1,2,1,'Your windows VM has just made a blue screen of death ! (IRQL_NOT_LESS_OR_EQUAL)','2015-01-26 11:22:33.0',false);
@@ -104,40 +104,4 @@ INSERT INTO Bonus VALUES (9, 5, 5.00, 'A thank you e-mail', 'A customized mail w
 INSERT INTO Bonus VALUES (10, 5, 50.00, 'A t-shirt', 'A cat-car t-shirt!');
 INSERT INTO Bonus VALUES (11, 5, 100.00, 'A thank you e-mail and a t-shirt', 'Why choose when you can get both?');
 
-INSERT INTO Fund VALUES (4, 4, 5, 1500.00);
-
-INSERT INTO PrivateMessage VALUES (1, 1, 2, '#### Welcome to SelfStarter!
-
-Thank you for creating your account! What to do now? Well you could start by [checking the projects list](index.jsp?nav=projects) to see if you find anything likeable and start funding it!
-
-If you want to get into the real thing, you can also [create a new project](index.jsp?nav=createproject): if it looks good enough, people will send you the money you need to realize it!', false);
-INSERT INTO PrivateMessage VALUES (2, 1, 3, '#### Welcome to SelfStarter!
-
-Thank you for creating your account! What to do now? Well you could start by [checking the projects list](index.jsp?nav=projects) to see if you find anything likeable and start funding it!
-
-If you want to get into the real thing, you can also [create a new project](index.jsp?nav=createproject): if it looks good enough, people will send you the money you need to realize it!', false);
-INSERT INTO PrivateMessage VALUES (3, 1, 4, '#### Welcome to SelfStarter!
-
-Thank you for creating your account! What to do now? Well you could start by [checking the projects list](index.jsp?nav=projects) to see if you find anything likeable and start funding it!
-
-If you want to get into the real thing, you can also [create a new project](index.jsp?nav=createproject): if it looks good enough, people will send you the money you need to realize it!', false);
-INSERT INTO PrivateMessage VALUES (4, 1, 5, '#### Welcome to SelfStarter!
-
-Thank you for creating your account! What to do now? Well you could start by [checking the projects list](index.jsp?nav=projects) to see if you find anything likeable and start funding it!
-
-If you want to get into the real thing, you can also [create a new project](index.jsp?nav=createproject): if it looks good enough, people will send you the money you need to realize it!', false);
-INSERT INTO PrivateMessage VALUES (5, 1, 6, '#### Welcome to SelfStarter!
-
-Thank you for creating your account! What to do now? Well you could start by [checking the projects list](index.jsp?nav=projects) to see if you find anything likeable and start funding it!
-
-If you want to get into the real thing, you can also [create a new project](index.jsp?nav=createproject): if it looks good enough, people will send you the money you need to realize it!', false);
-INSERT INTO PrivateMessage VALUES (6, 1, 7, '#### Welcome to SelfStarter!
-
-Thank you for creating your account! What to do now? Well you could start by [checking the projects list](index.jsp?nav=projects) to see if you find anything likeable and start funding it!
-
-If you want to get into the real thing, you can also [create a new project](index.jsp?nav=createproject): if it looks good enough, people will send you the money you need to realize it!', false);
-INSERT INTO PrivateMessage VALUES (7, 1, 8, '#### Welcome to SelfStarter!
-
-Thank you for creating your account! What to do now? Well you could start by [checking the projects list](index.jsp?nav=projects) to see if you find anything likeable and start funding it!
-
-If you want to get into the real thing, you can also [create a new project](index.jsp?nav=createproject): if it looks good enough, people will send you the money you need to realize it!', false);
+INSERT INTO Fund VALUES (4, 4, 5, 1500.00, "");

@@ -35,7 +35,7 @@ public class CommentTest extends TestCase{
         driver.findElement(By.linkText("testSelenium")).click();
         driver.findElement(By.linkText("Comments")).click();
         driver.findElement(By.linkText("Comments")).sendKeys(Keys.TAB, Keys.TAB,Keys.TAB, Keys.TAB, Keys.TAB, "TestSeleniumComment",Keys.ENTER);
-        driver.findElement(By.xpath("(//button[@type='submit'])[4]")).click();
+        driver.findElement(By.xpath("(//button[@type='submit'])[3]")).click();
         assertEquals("Commented!", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
         driver.findElement(By.linkText("Comments")).click();
         assertEquals("TestSeleniumComment", driver.findElement(By.cssSelector("div.markdown.smaller > p")).getText());

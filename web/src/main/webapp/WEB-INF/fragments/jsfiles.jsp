@@ -10,3 +10,4 @@
 <script src="${pageContext.servletContext.contextPath}/js/bootbox.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/js/jquery.backstretch.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/js/app.js"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>

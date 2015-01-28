@@ -7,6 +7,10 @@ package myservlets;
 
 import alerts.Alert;
 import alerts.AlertType;
+import com.stripe.Stripe;
+import com.stripe.exception.*;
+import com.stripe.model.Charge;
+import com.stripe.model.Token;
 import mybeans.*;
 
 import javax.ejb.EJB;
@@ -18,7 +22,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rightsmanager.RightsManager;
 
 /**
@@ -33,6 +40,7 @@ public class ControllerFund extends HttpServlet {
     private static final String SUCCESS_CREATE = "Project funded!";
     private static final String NOTIFICATION_FUNDED = "It's a win, a project you have funded has reached its goal !";
     private static final String NOTIFICATION_FUNDED_OWNER = "It's a win, your project has been funded !";
+    private static final String ERROR_INVALID_TOKEN = "Bad credit card.";
 
     @EJB
     private ProjectDao projectDao;
@@ -109,6 +117,7 @@ public class ControllerFund extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
 
+        String token = request.getParameter("stripeToken");
         String idS = request.getParameter("id");
         String valueS = request.getParameter("value");
         int id;
@@ -144,10 +153,19 @@ public class ControllerFund extends HttpServlet {
             return;
         }
         
+        Stripe.apiKey = "sk_test_GIZv9WnqWKyYNYzsBpDhx0GI";
+        try {
+            Token.retrieve(token);
+        } catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException | APIException ex) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INVALID_TOKEN);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+            return;
+        }
+        
         BigDecimal oldFundLevel = fundDao.getFundLevel(project);
         Fund fund = fundDao.getFundByUser(user, project);
         if (fund == null) {
-            fund = new Fund(user, project, value);
+            fund = new Fund(user, project, value, token);
             fundDao.save(fund);
         } else {
             fund.addValue(value);
@@ -181,6 +199,8 @@ public class ControllerFund extends HttpServlet {
                 notificationDao.save(notif);
             }
         }
+        
+       
         
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
         response.sendRedirect("index.jsp?nav=project&id=" + id);

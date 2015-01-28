@@ -38,7 +38,7 @@ public class CreateBonusTest extends TestCase{
         driver.findElement(By.cssSelector("div.form-group.col-sm-6 > input[name=\"value\"]")).clear();
         driver.findElement(By.cssSelector("div.form-group.col-sm-6 > input[name=\"value\"]")).sendKeys("50");
         driver.findElement(By.cssSelector("div.form-group.col-sm-6 > input[name=\"value\"]")).sendKeys(Keys.TAB, Keys.TAB, "testSeleniumBonusDescription", Keys.ENTER);
-        driver.findElement(By.xpath("(//button[@type='submit'])[3]")).click();
+        driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
         assertEquals("Create successfully a bonus!", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Logout")).click();
