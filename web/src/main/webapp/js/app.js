@@ -175,7 +175,8 @@ $('#btnFund').click(function () {
         currency: 'usd',
         name: 'SelfStarter',
         description: 'Fund a project!',
-        panelLabel: 'Fund!',
+        panelLabel: 'Fund {{amount}} !',
+        email: $('#email').val(),
         token: token
     });
 

@@ -118,7 +118,6 @@ public class ControllerFund extends HttpServlet {
         User user = (User)session.getAttribute("user");
 
         String token = request.getParameter("stripeToken");
-        System.out.println("token: "+token);
         String idS = request.getParameter("id");
         String valueS = request.getParameter("value");
         int id;
@@ -154,6 +153,7 @@ public class ControllerFund extends HttpServlet {
             return;
         }
         
+        Stripe.apiKey = "sk_test_GIZv9WnqWKyYNYzsBpDhx0GI";
         try {
             Token.retrieve(token);
         } catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException | APIException ex) {

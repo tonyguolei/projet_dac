@@ -62,6 +62,7 @@
     <div class="col-sm-8 col-xs-12">
       <div class="row">
           <form class="form-inline" role="form" id="fundForm" name="fundForm" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
+              <input type="hidden" value="${sessionScope.user.mail}" id="email" name="email"/>
           <div class="form-group col-sm-5 col-xs-12">
             <label class="sr-only" for="value">Amount (in dollars)</label>
             <div class="input-group input-group-lg">
