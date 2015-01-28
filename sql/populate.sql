@@ -103,6 +103,4 @@ INSERT INTO Bonus VALUES (9, 5, 5.00, 'A thank you e-mail', 'A customized mail w
 INSERT INTO Bonus VALUES (10, 5, 50.00, 'A t-shirt', 'A cat-car t-shirt!');
 INSERT INTO Bonus VALUES (11, 5, 100.00, 'A thank you e-mail and a t-shirt', 'Why choose when you can get both?');
 
-INSERT INTO Fund VALUES (4, 4, 5, 50.00);
-INSERT INTO Fund VALUES (5, 4, 5, 500.00);
-INSERT INTO Fund VALUES (6, 4, 5, 1000.00);
+INSERT INTO Fund VALUES (4, 4, 5, 1500.00);
