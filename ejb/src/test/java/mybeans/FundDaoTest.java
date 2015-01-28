@@ -56,7 +56,7 @@ public class FundDaoTest {
 
     @Before
     public void setUp() {
-        fund = new Fund(user, project, BigDecimal.ONE);
+        fund = new Fund(user, project, BigDecimal.ONE, "");
         instanceFundDao.save(fund);
     }
 
@@ -111,7 +111,7 @@ public class FundDaoTest {
         Assert.assertFalse(fund.equals(1));
         
         User u = new User("test"+Math.random()+"@test.com", "test");
-        Fund f = new Fund(u, project, new BigDecimal(5));
+        Fund f = new Fund(u, project, new BigDecimal(5), "");
         Assert.assertFalse(fund.equals(f));
         Assert.assertFalse(f.equals(fund));
 
@@ -137,5 +137,6 @@ public class FundDaoTest {
     public void testGetters() {
         Assert.assertEquals(user, fund.getIdUser());
         Assert.assertEquals(project, fund.getIdProject());
+        Assert.assertNotNull(fund.getToken());
     }
 }

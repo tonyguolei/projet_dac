@@ -5,12 +5,20 @@
  */
 package mybeans;
 
+import com.stripe.Stripe;
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
+import com.stripe.model.Token;
 import org.junit.*;
 
 import javax.naming.NamingException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,7 +72,7 @@ public class TaskSchedulerTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
         //Create users
         owner = new User("owner@test.com", "test");
         funder = new User("funder@test.com", "test");
@@ -79,7 +87,16 @@ public class TaskSchedulerTest {
         projectFuture = new Project(owner, new BigDecimal(10), "Test taskscheduler future", "desc", endDate, "test");
 
         //Link
-        fund = new Fund(funder, project, new BigDecimal(FUND_VALUE));
+        Stripe.apiKey = "sk_test_GIZv9WnqWKyYNYzsBpDhx0GI";
+        HashMap<String, Object> tokenParams = new HashMap<String, Object>();
+        HashMap<String, Object> cardParams = new HashMap<String, Object>();
+        cardParams.put("number", "4242424242424242");
+        cardParams.put("exp_month", 1);
+        cardParams.put("exp_year", 2017);
+        cardParams.put("cvc", "314");
+        tokenParams.put("card", cardParams);
+        Token token = Token.create(tokenParams);
+        fund = new Fund(funder, project, new BigDecimal(FUND_VALUE), token.getId());
         mp = new MemoriseProject(memoriser, project);
 
         //Inserting

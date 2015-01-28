@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `dac`.`Fund` (
   `idUser` INT NOT NULL,
   `idProject` INT NOT NULL,
   `value` DECIMAL(65,2) NOT NULL,
+  `token` VARCHAR(64) NOT NULL,
   INDEX `idProject_idx` (`idProject` ASC),
   PRIMARY KEY (`idFund`),
   CONSTRAINT `idUser_fund_fk`

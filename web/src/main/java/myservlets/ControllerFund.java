@@ -40,6 +40,7 @@ public class ControllerFund extends HttpServlet {
     private static final String SUCCESS_CREATE = "Project funded!";
     private static final String NOTIFICATION_FUNDED = "It's a win, a project you have funded has reached its goal !";
     private static final String NOTIFICATION_FUNDED_OWNER = "It's a win, your project has been funded !";
+    private static final String ERROR_INVALID_TOKEN = "Bad credit card.";
 
     @EJB
     private ProjectDao projectDao;
@@ -153,10 +154,18 @@ public class ControllerFund extends HttpServlet {
             return;
         }
         
+        try {
+            Token.retrieve(token);
+        } catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException | APIException ex) {
+            Alert.addAlert(session, AlertType.DANGER, ERROR_INVALID_TOKEN);
+            response.sendRedirect("index.jsp?nav=project&id=" + id);
+            return;
+        }
+        
         BigDecimal oldFundLevel = fundDao.getFundLevel(project);
         Fund fund = fundDao.getFundByUser(user, project);
         if (fund == null) {
-            fund = new Fund(user, project, value);
+            fund = new Fund(user, project, value, token);
             fundDao.save(fund);
         } else {
             fund.addValue(value);
@@ -191,16 +200,7 @@ public class ControllerFund extends HttpServlet {
             }
         }
         
-        try {
-            Stripe.apiKey = "sk_test_GIZv9WnqWKyYNYzsBpDhx0GI";
-            HashMap<String, Object> chargeMap = new HashMap<String, Object>();
-            chargeMap.put("amount", value.multiply(new BigDecimal(100)).intValue());
-            chargeMap.put("currency", "usd");
-            chargeMap.put("card", token);
-            Charge.create(chargeMap);
-        } catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException | APIException ex) {
-            Logger.getLogger(ControllerFund.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
         
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);
         response.sendRedirect("index.jsp?nav=project&id=" + id);
