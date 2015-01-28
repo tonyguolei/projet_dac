@@ -73,7 +73,7 @@ INSERT INTO Bonus VALUES (6,4,100.00,'I will iFriend you on iFacebook','Sorry I 
 
 INSERT INTO Bonus VALUES (7,4,1000.00,'I will send you nice photos of them !','I would be so proud to get them ! The bare minimum for me is to show them to people who helped me to get it.');
 
-INSERT INTO Bonus VALUES (8,4,100000.00,'Right to pet them (see conditions).','I will be allowed to touch them. Traveling cost aren''t included, and you must present an ICertificate that you are Mac-compatible (I can''t risk that you damage the screen).');
+INSERT INTO Bonus VALUES (8,4,100000.00,'Right to pet them (see conditions).','You will be allowed to touch them. Traveling cost aren''t included, and you must present an ICertificate that you are Mac-compatible (I can''t risk that you damage the screen).');
 
 INSERT INTO Fund VALUES (1,7,4,28.00);
 
@@ -87,4 +87,22 @@ INSERT INTO MemoriseProject VALUES (2,7,2);
 INSERT INTO MemoriseProject VALUES (3,2,2);
 
 INSERT INTO MemoriseProject VALUES (4,4,2);
-INSERT INTO MemoriseProject VALUES (5,5,2)
+INSERT INTO MemoriseProject VALUES (5,5,2);
+
+INSERT INTO Project VALUES (5, 4, 15000.00, 'The cat car', 'Climate change is threatening our world. But there is a solution: *the cat car*. The world’s first animal-powered vehicle!
+
+My original prototype was hunger based. But sometimes, cats aren’t hungry! My new model uses a rear-fixed dog system. But dogs cost money. Your money. By donating to this project, you’ll be like an investor, except without taking all my property!
+
+All aboard the cat car! And all aboard helping our nation’s global warming.
+
+See my promotional video:
+[](https://www.youtube.com/watch?v=4MhBJ0APIC0)
+', '2015-01-28 11:46:00', '2015-03-01 00:00:00.0', 'cat,car', true, false);
+
+INSERT INTO Bonus VALUES (9, 5, 5.00, 'A thank you e-mail', 'A customized mail with your name in it which says thank you!');
+INSERT INTO Bonus VALUES (10, 5, 50.00, 'A t-shirt', 'A cat-car t-shirt!');
+INSERT INTO Bonus VALUES (11, 5, 100.00, 'A thank you e-mail and a t-shirt', 'Why choose when you can get both?');
+
+INSERT INTO Fund VALUES (4, 4, 5, 50.00);
+INSERT INTO Fund VALUES (5, 4, 5, 500.00);
+INSERT INTO Fund VALUES (6, 4, 5, 1000.00);
