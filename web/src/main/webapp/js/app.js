@@ -160,3 +160,24 @@ $(document).ready(function () {
     }
 
 });
+
+
+$('#btnFund').click(function () {
+
+    var token = function (res) {
+        var $input = $('<input type=hidden name=stripeToken />').val(res.id);
+        $('#fundForm').append($input).submit();
+    };
+          
+    StripeCheckout.open({
+        key: 'pk_test_Pdhlox3UaiYLtTAmCrQ64m5G',
+        amount: $('#value').val()*100,
+        currency: 'usd',
+        name: 'SelfStarter',
+        description: 'Fund a project!',
+        panelLabel: 'Fund!',
+        token: token
+    });
+
+    return false;
+});

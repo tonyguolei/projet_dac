@@ -7,6 +7,10 @@ package myservlets;
 
 import alerts.Alert;
 import alerts.AlertType;
+import com.stripe.Stripe;
+import com.stripe.exception.*;
+import com.stripe.model.Charge;
+import com.stripe.model.Token;
 import mybeans.*;
 
 import javax.ejb.EJB;
@@ -18,7 +22,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rightsmanager.RightsManager;
 
 /**
@@ -109,6 +116,8 @@ public class ControllerFund extends HttpServlet {
         HttpSession session = request.getSession(true);
         User user = (User)session.getAttribute("user");
 
+        String token = request.getParameter("stripeToken");
+        System.out.println("token: "+token);
         String idS = request.getParameter("id");
         String valueS = request.getParameter("value");
         int id;
@@ -180,6 +189,17 @@ public class ControllerFund extends HttpServlet {
                 );
                 notificationDao.save(notif);
             }
+        }
+        
+        try {
+            Stripe.apiKey = "sk_test_GIZv9WnqWKyYNYzsBpDhx0GI";
+            HashMap<String, Object> chargeMap = new HashMap<String, Object>();
+            chargeMap.put("amount", value.multiply(new BigDecimal(100)).intValue());
+            chargeMap.put("currency", "usd");
+            chargeMap.put("card", token);
+            Charge.create(chargeMap);
+        } catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException | APIException ex) {
+            Logger.getLogger(ControllerFund.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         Alert.addAlert(session, AlertType.SUCCESS, SUCCESS_CREATE);

@@ -61,16 +61,16 @@
     </div>
     <div class="col-sm-8 col-xs-12">
       <div class="row">
-        <form class="form-inline" role="form" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
+          <form class="form-inline" role="form" id="fundForm" name="fundForm" method="POST" action="ControllerFund?action=create&id=${requestScope.project.idProject}">
           <div class="form-group col-sm-5 col-xs-12">
             <label class="sr-only" for="value">Amount (in dollars)</label>
             <div class="input-group input-group-lg">
               <div class="input-group-addon">$</div>
-              <input type="number" min="0" step="any" class="form-control" name="value" placeholder="Amount"/>
+              <input type="number" min="0" step="any" class="form-control" name="value" id="value" placeholder="Amount"/>
             </div>
           </div>
           <div class="col-sm-7 col-xs-12">
-            <button class="btn btn-success btn-lg btn-block" type="submit">Fund!</button>
+            <button class="btn btn-success btn-lg btn-block" id="btnFund" name="btnFund" type="button">Fund!</button>
           </div>
         </form>
       </div>
