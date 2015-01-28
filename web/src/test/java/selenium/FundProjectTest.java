@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-@Ignore
 public class FundProjectTest extends TestCase{
     private WebDriver driver;
     private String baseUrl;
@@ -36,7 +35,16 @@ public class FundProjectTest extends TestCase{
         driver.findElement(By.linkText("testSelenium")).click();
         driver.findElement(By.name("value")).clear();
         driver.findElement(By.name("value")).sendKeys("50");
-        driver.findElement(By.xpath("(//button[@type='submit'])[2]")).click();
+        driver.switchTo().frame("stripe_checkout_app");
+        driver.findElement(By.id("btnFund")).click();
+        driver.findElement(By.id("card_number")).clear();
+        driver.findElement(By.id("card_number")).sendKeys("4242 4242 4242 4242");
+        driver.findElement(By.id("cc-exp")).clear();
+        driver.findElement(By.id("cc-exp")).sendKeys("12 / 17");
+        driver.findElement(By.id("cc-csc")).clear();
+        driver.findElement(By.id("cc-csc")).sendKeys("123");
+        driver.findElement(By.id("submitButton")).click();
+        driver.switchTo().defaultContent();
         assertEquals("Project funded!", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("Logout")).click();
