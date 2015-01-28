@@ -83,7 +83,6 @@ public class ControllerProject extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action").trim();
-        System.out.println("Action: " + action);
         switch (action) {
             case "create":
                 System.out.println("Create");
@@ -486,9 +485,6 @@ public class ControllerProject extends HttpServlet {
         request.setAttribute("memorised", false);
         if (user != null) {
             List<Project> memorisedProjects = memoriseProjectDao.getByUser(user);
-            System.out.println("memorizedProjects = " + memorisedProjects);
-            System.out.println("project = " + project);
-            System.out.println("memorised = " + memorisedProjects.contains(project));
             if (memorisedProjects.contains(project))
                 request.setAttribute("memorised", true);
         }
