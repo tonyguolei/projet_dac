@@ -17,7 +17,6 @@ public class CreateProjectTest extends TestCase {
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8080/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
     }
 
     @Test

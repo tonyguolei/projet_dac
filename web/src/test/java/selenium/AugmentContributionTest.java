@@ -49,6 +49,7 @@ public class AugmentContributionTest extends TestCase{
         driver.findElement(By.id("cc-csc")).sendKeys("123");
         driver.findElement(By.id("submitButton")).click();
         driver.switchTo().defaultContent();
+        assertEquals("Project funded!", driver.findElement(By.cssSelector("div.alert.alert-success")).getText());
         driver.findElement(By.linkText("admin@dac.com")).click();
         driver.findElement(By.linkText("My Profile")).click();
         driver.findElement(By.linkText("Funded projects1")).click();
