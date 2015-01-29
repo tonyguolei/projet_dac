@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/tonyguolei/projet_dac/badge.svg?branch=master)](https://coveralls.io/r/tonyguolei/projet_dac?branch=master)
 
 Another crowdfunding project, by Ensimag's students.
-The code is available [here](https://github.com/tonyguolai/projet_dac).
+The code is available [here](https://github.com/tonyguolei/projet_dac).
 
 Have a look to our quick reminder at the bottom of this file!
 
