@@ -4,8 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/tonyguolei/projet_dac/badge.svg?branch=master)](https://coveralls.io/r/tonyguolei/projet_dac?branch=master)
 
 Another crowdfunding project, by Ensimag's students.
+The code is available [here](https://github.com/tonyguolai/projet_dac).
 
-Have a look to our quick reminder at the bottom of this file !
+Have a look to our quick reminder at the bottom of this file!
 
 ![Selfstarter logo](https://raw.githubusercontent.com/tonyguolei/projet_dac/master/web/src/main/webapp/img/logo.png)
 
@@ -178,7 +179,7 @@ If you followed our instructions, these lines should be valid...
 * Start MySQL `sudo docker start mysql-dac`
 * Stop MySQL `sudo docker stop mysql-dac`
 * Create tables `mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/create.sql`
-* Poulate tables `mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/populate.sql`
+* Populate tables `mysql -udac -pcoucou -h127.0.0.1 -Ddac < sql/populate.sql`
 * Log into MySQL `mysql -udac -pcoucou -h127.0.0.1 -Ddac`
 * Start Glassfish `$GLASSFISH_HOME/glassfish/bin/asadmin start-domain`
 * Stop Glassfish `$GLASSFISH_HOME/glassfish/bin/asadmin stop-domain`
