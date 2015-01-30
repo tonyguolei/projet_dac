@@ -6,7 +6,7 @@
 Another crowdfunding project, by Ensimag's students.
 The code is available [here](https://github.com/tonyguolei/projet_dac).
 
-Have a look to our quick reminder at the bottom of this file!
+Have a look to our [quick reminder](#quick-reminder)!
 
 ![Selfstarter logo](https://raw.githubusercontent.com/tonyguolei/projet_dac/master/web/src/main/webapp/img/logo.png)
 
